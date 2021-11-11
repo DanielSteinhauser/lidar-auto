@@ -4,6 +4,7 @@ int check;
 int i;
 int uart[9];
 const int HEADER=0x59;
+boolean kurz;
 
 void setup() {
   Serial.begin(115200);
@@ -14,6 +15,28 @@ void loop() {
   distanzMessen();
   Serial.print("Distanz: ");
   Serial.println(dist);
+  if(dist <= 10){
+    kurz = true;
+    int n = 0;
+    while(kurz){
+      // Stepper
+      Serial.println("Kurz");
+      distanzMessen();
+      
+      if (dist > 10){
+        ++n;
+        Serial.println("Nicht kurz");
+      }
+      else{
+        n = 0;
+      }
+      if(n == 100){
+        kurz = false;
+      }
+    }   
+       
+  }
+
 }
 
 void distanzMessen(){
