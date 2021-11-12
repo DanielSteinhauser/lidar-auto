@@ -1,14 +1,18 @@
-
+#include <Stepper.h>
+int SPU = 2048;
 int dist;
 int check;
 int i;
 int uart[9];
 const int HEADER=0x59;
 boolean kurz;
+Stepper Motor(SPU, 36,37,38,39);
 
 void setup() {
   Serial.begin(115200);
   Serial2.begin(115200,SERIAL_8N1,22,23);
+  Motor.setSpeed(5); // Angabe der Geschwindigkeit in Umdrehungen pro Minute.
+  
 }
 
 void loop() {
@@ -60,4 +64,7 @@ void distanzMessen(){
     } 
   }
   return;
+}
+void stepperBewegen(){
+
 }
