@@ -93,20 +93,23 @@ void dauerscannStepper(){
   }
   for(int i = 0; i <= 30; ++i){
       stepperBewegen(false);
+      distanzMessen();
+      if(dist <= 10){
+        kurz = true;  
+      }
       if(i>=15){
-        distanzMessen();
-        if(dist <= 10){
-          kurz = true;  
-        }
         Serial.print("Stepp: ");
         Serial.print(i-15);
         Serial.print(" Distanz: ");
-        Serial.println(dist);
-        
+        Serial.println(dist); 
       }
    }
    for(int i = 0; i <= 14; ++i){
-      stepperBewegen(true); 
+      stepperBewegen(true);
+      distanzMessen();
+      if(dist <= 10){
+        kurz = true;  
+      }
    } 
    return;
 }
