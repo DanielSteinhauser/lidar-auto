@@ -11,19 +11,17 @@ const int HEADER=0x59;
 boolean kurz;
 
 void setup() {
+  kurz = false;
   Serial.begin(115200);
   Serial2.begin(115200,SERIAL_8N1,22,23);
   stepper.setSpeed(5);
 }
 
 void loop() {
-  distanzMessen();
-  Serial.print("Distanz: ");
-  Serial.println(dist);
-  if(dist <= 10){
-    kurz = true;
+  dauerscannStepper();
+  if(kurz){
     int n = 0;
-    for(int i = 0; i <= 30; ++i){
+    for(int i = 0; i <= 45; ++i){
       stepperBewegen(true);
       distanzMessen();
       Serial.print("Stepp: ");
@@ -31,19 +29,20 @@ void loop() {
       Serial.print(" Distanz: ");
       Serial.println(dist); 
     }
-    for(int i = 0; i <= 60; ++i){
+    for(int i = 0; i <= 90; ++i){
       stepperBewegen(false);
-      if(i>=30){
+      if(i>=45){
         distanzMessen();
         Serial.print("Stepp: ");
-        Serial.print(i-30);
+        Serial.print(i-45);
         Serial.print(" Distanz: ");
         Serial.println(dist);
       }
     }
-    for(int i = 0; i <= 30; ++i){
+    for(int i = 0; i <= 44; ++i){
       stepperBewegen(true); 
-    }      
+    }
+    kurz = false;      
   }
 }
 
@@ -78,4 +77,36 @@ void stepperBewegen(boolean uhrzeigersinn){
   }
   
   return;
+}
+void dauerscannStepper(){ 
+  for(int i = 0; i <= 15; ++i){
+      stepperBewegen(true);
+      distanzMessen();
+      if(dist <= 10){
+        kurz = true;
+      } 
+      Serial.print("Stepp: ");
+      Serial.print(i);
+      Serial.print(" Distanz: ");
+      Serial.println(dist);
+      
+  }
+  for(int i = 0; i <= 30; ++i){
+      stepperBewegen(false);
+      if(i>=15){
+        distanzMessen();
+        if(dist <= 10){
+          kurz = true;  
+        }
+        Serial.print("Stepp: ");
+        Serial.print(i-15);
+        Serial.print(" Distanz: ");
+        Serial.println(dist);
+        
+      }
+   }
+   for(int i = 0; i <= 14; ++i){
+      stepperBewegen(true); 
+   } 
+   return;
 }
