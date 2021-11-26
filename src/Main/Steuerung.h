@@ -22,9 +22,13 @@ void scanStepper(int grad){
   for(int i = 0; i <= grad; ++i){
       stepperBewegen(true);
       distanzMessen();
-      if(dist <= 10){
+      
+      if(dist <= 10 && dist > 0){
         kurz = true;
       }
+     
+      displayDatenSchreiben();
+      
       Serial.print("Stepp: ");
       Serial.print(i);
       Serial.print(" Distanz: ");
@@ -34,20 +38,32 @@ void scanStepper(int grad){
   for(int i = 0; i <= grad*2; ++i){
       stepperBewegen(false);
       distanzMessen();
-      if(dist <= 10){
+      
+      if(dist <= 10 && dist > 0){
         kurz = true;
       }
-      if(i>=grad){
-        Serial.print("Stepp: ");
-        Serial.print(i-grad);
-        Serial.print(" Distanz: ");
-        Serial.println(dist);
-      }
+      
+      displayDatenSchreiben();
+      
+      Serial.print("Stepp: ");
+      Serial.print(i-grad);
+      Serial.print(" Distanz: ");
+      Serial.println(dist);
+      
    }
    for(int i = 0; i <= grad-1; ++i){
       stepperBewegen(true);
+      
       distanzMessen();
-      if(dist <= 10){
+      
+      displayDatenSchreiben();
+      Serial.print("Stepp: ");
+      Serial.print(i-grad);
+      Serial.print(" Distanz: ");
+      Serial.println(dist);
+      
+      
+      if(dist <= 10 && dist > 0){
         kurz = true;
       }
    }
