@@ -14,34 +14,12 @@ void setup() {
 
 void loop() {
   
-  dauerscannStepper();
+  scannStepper(15);
   
  if(kurz){
     int n = 0;
     
-    for(int i = 0; i <= 45; ++i){
-      stepperBewegen(true);
-      distanzMessen();
-      Serial.print("Stepp: ");
-      Serial.print(i);
-      Serial.print(" Distanz: ");
-      Serial.println(dist);
-    }
-    
-    for(int i = 0; i <= 90; ++i){
-      stepperBewegen(false);
-      if(i>=45){
-          distanzMessen();
-          Serial.print("Stepp: ");
-          Serial.print(i-45);
-          Serial.print(" Distanz: ");
-          Serial.println(dist);
-      }
-     }
-    
-    for(int i = 0; i <= 44; ++i){
-        stepperBewegen(true);
-    }
+    scannStepper(45);
     
     kurz = false;
  }
