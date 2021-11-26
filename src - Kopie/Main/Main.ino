@@ -14,14 +14,13 @@ void setup() {
 
 void loop() {
   
-  scannStepper(15);
+  scanStepper(15);
   
- if(kurz){
+  if(kurz){
     int n = 0;
     
-    scannStepper(45);
-    
+    scanStepper(45);
     kurz = false;
- }
+  }
  
 }
