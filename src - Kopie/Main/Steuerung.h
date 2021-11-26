@@ -18,7 +18,7 @@ void stepperBewegen(boolean uhrzeigersinn){
 }
 
 
-void scannStepper(int grad){
+void scanStepper(int grad){
   for(int i = 0; i <= grad; ++i){
       stepperBewegen(true);
       distanzMessen();
