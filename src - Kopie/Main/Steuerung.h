@@ -18,8 +18,8 @@ void stepperBewegen(boolean uhrzeigersinn){
 }
 
 
-void dauerscannStepper(){
-  for(int i = 0; i <= 15; ++i){
+void scannStepper(int grad){
+  for(int i = 0; i <= grad; ++i){
       stepperBewegen(true);
       distanzMessen();
       if(dist <= 10){
@@ -31,20 +31,20 @@ void dauerscannStepper(){
       Serial.println(dist);
 
   }
-  for(int i = 0; i <= 30; ++i){
+  for(int i = 0; i <= grad*2; ++i){
       stepperBewegen(false);
       distanzMessen();
       if(dist <= 10){
         kurz = true;
       }
-      if(i>=15){
+      if(i>=grad){
         Serial.print("Stepp: ");
-        Serial.print(i-15);
+        Serial.print(i-grad);
         Serial.print(" Distanz: ");
         Serial.println(dist);
       }
    }
-   for(int i = 0; i <= 14; ++i){
+   for(int i = 0; i <= grad-1; ++i){
       stepperBewegen(true);
       distanzMessen();
       if(dist <= 10){
