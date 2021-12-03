@@ -69,3 +69,14 @@ void scanStepper(int grad){
    }
    return;
 }
+
+void fahren(int richtung, int grad){
+  
+}
+
+void motorInit(){
+  pinMode(12,OUTPUT);
+  pinMode(14,OUTPUT);
+  pinMode(27,OUTPUT);
+  pinMode(26,OUTPUT);  
+}
