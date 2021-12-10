@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+<title>Nr. 34 - Motoren mit H-Brücke L298N ansteuern &#124; Funduino - Kits und Anleitungen für Arduino</title>
+
+
+<!-- SEO by Squirrly SEO 11.1.10 - https://plugin.squirrly.co/ -->
+
+<meta name="robots" content="index,follow">
+<meta name="googlebot" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+<meta name="bingbot" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+
+<meta name="description" content="In dieser Anleitung möchten wir zwei Gleichstrommotoren über die L298N H-Brücke ansteuern. Material : Mikrocontroller, 2 Krokodilklemmen, 2 Gleichstrommotoren, Breadboardkabel W/M, Breadboardkabel M/M, 9V Netzteil (Materialbeschaffung: www.funduinoshop.com) Eine H-Brücke besteht aus vier Schaltern (oft" />
+<link rel="canonical" href="https://funduino.de/nr-34-motoren-mit-h-bruecke-l298n-ansteuern" />
+<link rel="alternate" type="application/rss+xml" href="https://funduino.de/sitemap.xml" />
+
+<link rel="shortcut icon" href="https://funduino.de/favicon.icon" />
+<link rel="apple-touch-icon" sizes="32x32" href="https://funduino.de/touch-icon.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="https://funduino.de/touch-icon76.png" />
+<link rel="apple-touch-icon" sizes="120x120" href="https://funduino.de/touch-icon120.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="https://funduino.de/touch-icon152.png" />
+
+<meta name="dc.language" content="de-DE" />
+<meta name="dc.language.iso" content="de_DE" />
+<meta name="dc.publisher" content="Funduino" />
+<meta name="dc.title" content="Nr. 34 - Motoren mit H-Brücke L298N ansteuern &#124; Funduino - Kits und Anleitungen für Arduino" />
+<meta name="dc.description" content="In dieser Anleitung möchten wir zwei Gleichstrommotoren über die L298N H-Brücke ansteuern. Material : Mikrocontroller, 2 Krokodilklemmen, 2 Gleichstrommotoren, Breadboardkabel W/M, Breadboardkabel M/M, 9V Netzteil (Materialbeschaffung: www.funduinoshop.com) Eine H-Brücke besteht aus vier Schaltern (oft" />
+<meta name="dc.date.issued" content="2018-08-01" />
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://funduino.de/nr-34-motoren-mit-h-bruecke-l298n-ansteuern#website","url":"https://funduino.de/nr-34-motoren-mit-h-bruecke-l298n-ansteuern","name":"Funduino GmbH","headline":"In dieser Anleitung m\u00f6chten wir zwei Gleichstrommotoren \u00fcber die L298N H-Br\u00fccke ansteuern. Material : Mi","mainEntityOfPage":{"@type":"WebPage","url":"https://funduino.de/nr-34-motoren-mit-h-bruecke-l298n-ansteuern"},"datePublished":"2018-08-01T11:10:55+00:00","dateModified":"2021-05-05T06:31:52+00:00","image":{"@type":"ImageObject","url":"https://funduino.de/wp-content/uploads/2018/08/l298_Nummern.jpg","height":"500","width":"500"},"potentialAction":{"@type":"SearchAction","target":"https://funduino.de/?s={search_term_string}","query-input":"required name=search_term_string"},"author":{"@type":"Person","@id":"http://www.funduino.de#person","url":"http://www.funduino.de","name":"Funduino"},"publisher":{"@type":"Organization","@id":"https://funduino.de/nr-34-motoren-mit-h-bruecke-l298n-ansteuern#Organization","url":"https://funduino.de/nr-34-motoren-mit-h-bruecke-l298n-ansteuern","name":"Funduino GmbH","logo":{"@type":"ImageObject","url":"http://www.funduinoshop.com/WebRoot/Store14/Shops/78096195/Styles/Linea/logo.jpg","@id":"https://funduino.de/nr-34-motoren-mit-h-bruecke-l298n-ansteuern#logo","caption":"Funduino GmbH"},"contactPoint":{"@type":"ContactPoint","telephone":"+05921 879199","contactType":"technical support","@id":"https://funduino.de/nr-34-motoren-mit-h-bruecke-l298n-ansteuern#contactpoint"},"description":"Die Funduino GmbH ist eine deutsche Firma die Produkte und Anleitungen rund um das Thema Arduino und Robotik anbietet."}}]}</script>
+<!-- /SEO by Squirrly SEO - WordPress SEO Plugin -->
+
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://funduino.de/xmlrpc.php">
+
+
+<link rel='dns-prefetch' href='//secure.gravatar.com' />
+<link rel='dns-prefetch' href='//www.googletagmanager.com' />
+<link rel='dns-prefetch' href='//site-production.herokuapp.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel='dns-prefetch' href='//v0.wordpress.com' />
+<link rel='dns-prefetch' href='//i0.wp.com' />
+<link rel='dns-prefetch' href='//i1.wp.com' />
+<link rel='dns-prefetch' href='//i2.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="Funduino - Kits und Anleitungen für Arduino &raquo; Feed" href="https://funduino.de/feed" />
+<link rel="alternate" type="application/rss+xml" title="Funduino - Kits und Anleitungen für Arduino &raquo; Kommentar-Feed" href="https://funduino.de/comments/feed" />
+		<!-- This site uses the Google Analytics by ExactMetrics plugin v7.2.1 - Using Analytics tracking - https://www.exactmetrics.com/ -->
+							<script src="//www.googletagmanager.com/gtag/js?id=UA-72497114-1"  type="text/javascript" data-cfasync="false" async></script>
+			<script type="text/javascript" data-cfasync="false">
+				var em_version = '7.2.1';
+				var em_track_user = true;
+				var em_no_track_reason = '';
+				
+								var disableStrs = [
+															'ga-disable-UA-72497114-1',
+									];
+
+				/* Function to detect opted out users */
+				function __gtagTrackerIsOptedOut() {
+					for ( var index = 0; index < disableStrs.length; index++ ) {
+						if ( document.cookie.indexOf( disableStrs[ index ] + '=true' ) > -1 ) {
+							return true;
+						}
+					}
+
+					return false;
+				}
+
+				/* Disable tracking if the opt-out cookie exists. */
+				if ( __gtagTrackerIsOptedOut() ) {
+					for ( var index = 0; index < disableStrs.length; index++ ) {
+						window[ disableStrs[ index ] ] = true;
+					}
+				}
+
+				/* Opt-out function */
+				function __gtagTrackerOptout() {
+					for ( var index = 0; index < disableStrs.length; index++ ) {
+						document.cookie = disableStrs[ index ] + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+						window[ disableStrs[ index ] ] = true;
+					}
+				}
+
+				if ( 'undefined' === typeof gaOptout ) {
+					function gaOptout() {
+						__gtagTrackerOptout();
+					}
+				}
+								window.dataLayer = window.dataLayer || [];
+
+				window.ExactMetricsDualTracker = {
+					helpers: {},
+					trackers: {},
+				};
+				if ( em_track_user ) {
+					function __gtagDataLayer() {
+						dataLayer.push( arguments );
+					}
+
+					function __gtagTracker( type, name, parameters ) {
+						if (!parameters) {
+							parameters = {};
+						}
+
+						if (parameters.send_to) {
+							__gtagDataLayer.apply( null, arguments );
+							return;
+						}
+
+						if ( type === 'event' ) {
+							
+															parameters.send_to = exactmetrics_frontend.ua;
+								__gtagDataLayer( type, name, parameters );
+													} else {
+							__gtagDataLayer.apply( null, arguments );
+						}
+					}
+					__gtagTracker( 'js', new Date() );
+					__gtagTracker( 'set', {
+						'developer_id.dNDMyYj' : true,
+											} );
+															__gtagTracker( 'config', 'UA-72497114-1', {"forceSSL":"true"} );
+										window.gtag = __gtagTracker;										(
+						function () {
+							/* https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
+							/* ga and __gaTracker compatibility shim. */
+							var noopfn = function () {
+								return null;
+							};
+							var newtracker = function () {
+								return new Tracker();
+							};
+							var Tracker = function () {
+								return null;
+							};
+							var p = Tracker.prototype;
+							p.get = noopfn;
+							p.set = noopfn;
+							p.send = function (){
+								var args = Array.prototype.slice.call(arguments);
+								args.unshift( 'send' );
+								__gaTracker.apply(null, args);
+							};
+							var __gaTracker = function () {
+								var len = arguments.length;
+								if ( len === 0 ) {
+									return;
+								}
+								var f = arguments[len - 1];
+								if ( typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function' ) {
+									if ( 'send' === arguments[0] ) {
+										var hitConverted, hitObject = false, action;
+										if ( 'event' === arguments[1] ) {
+											if ( 'undefined' !== typeof arguments[3] ) {
+												hitObject = {
+													'eventAction': arguments[3],
+													'eventCategory': arguments[2],
+													'eventLabel': arguments[4],
+													'value': arguments[5] ? arguments[5] : 1,
+												}
+											}
+										}
+										if ( 'pageview' === arguments[1] ) {
+											if ( 'undefined' !== typeof arguments[2] ) {
+												hitObject = {
+													'eventAction': 'page_view',
+													'page_path' : arguments[2],
+												}
+											}
+										}
+										if ( typeof arguments[2] === 'object' ) {
+											hitObject = arguments[2];
+										}
+										if ( typeof arguments[5] === 'object' ) {
+											Object.assign( hitObject, arguments[5] );
+										}
+										if ( 'undefined' !== typeof arguments[1].hitType ) {
+											hitObject = arguments[1];
+											if ( 'pageview' === hitObject.hitType ) {
+												hitObject.eventAction = 'page_view';
+											}
+										}
+										if ( hitObject ) {
+											action = 'timing' === arguments[1].hitType ? 'timing_complete' : hitObject.eventAction;
+											hitConverted = mapArgs( hitObject );
+											__gtagTracker( 'event', action, hitConverted );
+										}
+									}
+									return;
+								}
+
+								function mapArgs( args ) {
+									var arg, hit = {};
+									var gaMap = {
+										'eventCategory': 'event_category',
+										'eventAction': 'event_action',
+										'eventLabel': 'event_label',
+										'eventValue': 'event_value',
+										'nonInteraction': 'non_interaction',
+										'timingCategory': 'event_category',
+										'timingVar': 'name',
+										'timingValue': 'value',
+										'timingLabel': 'event_label',
+										'page' : 'page_path',
+										'location' : 'page_location',
+										'title' : 'page_title',
+									};
+									for ( arg in args ) {
+																				if ( ! ( ! args.hasOwnProperty(arg) || ! gaMap.hasOwnProperty(arg) ) ) {
+											hit[gaMap[arg]] = args[arg];
+										} else {
+											hit[arg] = args[arg];
+										}
+									}
+									return hit;
+								}
+
+								try {
+									f.hitCallback();
+								} catch ( ex ) {
+								}
+							};
+							__gaTracker.create = newtracker;
+							__gaTracker.getByName = newtracker;
+							__gaTracker.getAll = function () {
+								return [];
+							};
+							__gaTracker.remove = noopfn;
+							__gaTracker.loaded = true;
+							window['__gaTracker'] = __gaTracker;
+						}
+					)();
+									} else {
+										console.log( "" );
+					( function () {
+							function __gtagTracker() {
+								return null;
+							}
+							window['__gtagTracker'] = __gtagTracker;
+							window['gtag'] = __gtagTracker;
+					} )();
+									}
+			</script>
+				<!-- / Google Analytics by ExactMetrics -->
+				<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/funduino.de\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8.2"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='sydney-bootstrap-css'  href='https://funduino.de/wp-content/themes/sydney/css/bootstrap/bootstrap.min.css?ver=1' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css'  href='https://funduino.de/wp-includes/css/dist/block-library/style.min.css?ver=5.8.2' type='text/css' media='all' />
+<style id='wp-block-library-inline-css' type='text/css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<link rel='stylesheet' id='mediaelement-css'  href='https://funduino.de/wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css?ver=4.2.16' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css'  href='https://funduino.de/wp-includes/js/mediaelement/wp-mediaelement.min.css?ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='epages-site-css-css'  href='https://site-production.herokuapp.com/style/site-base.css?ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='epages-font-awesome-css-css'  href='https://funduino.de/wp-content/plugins/epages-online-shop/assets/css/font-awesome.min.css?ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='epages-front-css-css'  href='https://funduino.de/wp-content/plugins/epages-online-shop/assets/css/front.css?ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='toc-screen-css'  href='https://funduino.de/wp-content/plugins/table-of-contents-plus/screen.min.css?ver=2106' type='text/css' media='all' />
+<link rel='stylesheet' id='uaf_client_css-css'  href='https://funduino.de/wp-content/uploads/useanyfont/uaf.css?ver=1634884781' type='text/css' media='all' />
+<link rel='stylesheet' id='912528473-css'  href='https://funduino.de/wp-content/uploads/essential-addons-elementor/734e5f942.min.css?ver=1639143604' type='text/css' media='all' />
+<link rel='stylesheet' id='sydney-style-css'  href='https://funduino.de/wp-content/themes/sydney/style.css?ver=20211026' type='text/css' media='all' />
+<style id='sydney-style-inline-css' type='text/css'>
+.site-header{background-color:rgba(38,50,70,0.9);}.woocommerce ul.products li.product{text-align:center;}html{scroll-behavior:smooth;}.header-image{background-size:cover;}.header-image{height:300px;}.site-header.fixed{position:absolute;}.header-wrap .col-md-4,.header-wrap .col-md-8{width:100%;text-align:center;}#mainnav{float:none;}#mainnav li{float:none;display:inline-block;}#mainnav ul ul li{display:block;text-align:left;float:left;}.site-logo,.header-wrap .col-md-4{margin-bottom:15px;}.btn-menu{margin:0 auto;float:none;}.header-wrap .container > .row{display:block;}.sydney_contact_info_widget span{fill:#d65050;}.go-top:hover svg{stroke:#d65050;}.site-header.float-header{background-color:rgba(0,0,0,0.9);}@media only screen and (max-width:1024px){.site-header{background-color:#000000;}}#mainnav ul li a,#mainnav ul li::before{color:#ffffff}#mainnav .sub-menu li a{color:#ffffff}#mainnav .sub-menu li a{background:#1c1c1c}.text-slider .maintitle,.text-slider .subtitle{color:#ffffff}body{color:}#secondary{background-color:#ffffff}#secondary,#secondary a{color:#767676}.btn-menu .sydney-svg-icon{fill:#ffffff}#mainnav ul li a:hover,.main-header #mainnav .menu > li > a:hover{color:#d65050}.overlay{background-color:#000000}.page-wrap{padding-top:83px;}.page-wrap{padding-bottom:100px;}@media only screen and (max-width:1025px){.mobile-slide{display:block;}.slide-item{background-image:none !important;}.header-slider{}.slide-item{height:auto !important;}.slide-inner{min-height:initial;}}.go-top.show{border-radius:2px;bottom:10px;}.go-top.position-right{right:20px;}.go-top.position-left{left:20px;}.go-top{background-color:;}.go-top:hover{background-color:;}.go-top{color:;}.go-top svg{stroke:;}.go-top:hover{color:;}.go-top:hover svg{stroke:;}.go-top .sydney-svg-icon,.go-top .sydney-svg-icon svg{width:16px;height:16px;}.go-top{padding:15px;}.site-info{border-top:0;}.footer-widgets-grid{gap:30px;}@media (min-width:992px){.footer-widgets-grid{padding-top:95px;padding-bottom:95px;}}@media (min-width:576px) and (max-width:991px){.footer-widgets-grid{padding-top:60px;padding-bottom:60px;}}@media (max-width:575px){.footer-widgets-grid{padding-top:60px;padding-bottom:60px;}}@media (min-width:992px){.sidebar-column .widget .widget-title{font-size:22px;}}@media (min-width:576px) and (max-width:991px){.sidebar-column .widget .widget-title{font-size:22px;}}@media (max-width:575px){.sidebar-column .widget .widget-title{font-size:22px;}}.footer-widgets{background-color:;}.sidebar-column .widget .widget-title{color:;}.sidebar-column .widget{color:;}.sidebar-column .widget a{color:;}.sidebar-column .widget a:hover{color:;}.site-footer{background-color:;}.site-info,.site-info a{color:;}.site-info .sydney-svg-icon svg{fill:;}.site-info{padding-top:20px;padding-bottom:20px;}@media (min-width:992px){button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{padding-top:12px;padding-bottom:12px;}}@media (min-width:576px) and (max-width:991px){button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{padding-top:12px;padding-bottom:12px;}}@media (max-width:575px){button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{padding-top:12px;padding-bottom:12px;}}@media (min-width:992px){button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{padding-left:35px;padding-right:35px;}}@media (min-width:576px) and (max-width:991px){button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{padding-left:35px;padding-right:35px;}}@media (max-width:575px){button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{padding-left:35px;padding-right:35px;}}button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{border-radius:0;}@media (min-width:992px){button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{font-size:14px;}}@media (min-width:576px) and (max-width:991px){button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{font-size:14px;}}@media (max-width:575px){button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{font-size:14px;}}button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{text-transform:uppercase;}button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{background-color:;}button:hover,.roll-button:hover,a.button:hover,.wp-block-button__link:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover{background-color:;}button,.checkout-button.button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{color:;}button:hover,.roll-button:hover,a.button:hover,.wp-block-button__link:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover{color:;}.is-style-outline .wp-block-button__link,.roll-button,.wp-block-button__link.is-style-outline,button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]{border-color:;}button:hover,.roll-button:hover,a.button:hover,.wp-block-button__link:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover{border-color:;}.posts-layout .list-image{width:30%;}.posts-layout .list-content{width:70%;}.content-area:not(.layout4):not(.layout6) .posts-layout .entry-thumb{margin:0 0 24px 0;}.layout4 .entry-thumb,.layout6 .entry-thumb{margin:0 24px 0 0;}.layout6 article:nth-of-type(even) .list-image .entry-thumb{margin:0 0 0 24px;}.posts-layout .entry-header{margin-bottom:24px;}.posts-layout .entry-meta.below-excerpt{margin:15px 0 0;}.posts-layout .entry-meta.above-title{margin:0 0 15px;}.single .entry-header .entry-title{color:;}.single .entry-header .entry-meta,.single .entry-header .entry-meta a{color:;}@media (min-width:992px){.single .entry-meta{font-size:12px;}}@media (min-width:576px) and (max-width:991px){.single .entry-meta{font-size:12px;}}@media (max-width:575px){.single .entry-meta{font-size:12px;}}@media (min-width:992px){.single .entry-header .entry-title{font-size:48px;}}@media (min-width:576px) and (max-width:991px){.single .entry-header .entry-title{font-size:32px;}}@media (max-width:575px){.single .entry-header .entry-title{font-size:32px;}}.posts-layout .entry-post{color:#233452;}.posts-layout .entry-title a{color:#00102E;}.posts-layout .author,.posts-layout .entry-meta a{color:#737C8C;}@media (min-width:992px){.posts-layout .entry-post{font-size:16px;}}@media (min-width:576px) and (max-width:991px){.posts-layout .entry-post{font-size:16px;}}@media (max-width:575px){.posts-layout .entry-post{font-size:16px;}}@media (min-width:992px){.posts-layout .entry-meta{font-size:12px;}}@media (min-width:576px) and (max-width:991px){.posts-layout .entry-meta{font-size:12px;}}@media (max-width:575px){.posts-layout .entry-meta{font-size:12px;}}@media (min-width:992px){.posts-layout .entry-title{font-size:32px;}}@media (min-width:576px) and (max-width:991px){.posts-layout .entry-title{font-size:32px;}}@media (max-width:575px){.posts-layout .entry-title{font-size:32px;}}.single .entry-header{margin-bottom:40px;}.single .entry-thumb{margin-bottom:40px;}.single .entry-meta-above{margin-bottom:24px;}.single .entry-meta-below{margin-top:24px;}@media (min-width:992px){.custom-logo-link img{max-width:180px;}}@media (min-width:576px) and (max-width:991px){.custom-logo-link img{max-width:100px;}}@media (max-width:575px){.custom-logo-link img{max-width:100px;}}.main-header,.bottom-header-row{border-bottom:0 solid rgba(255,255,255,0.1);}.header_layout_3,.header_layout_4,.header_layout_5{border-bottom:1px solid rgba(255,255,255,0.1);}.main-header,.header-search-form{background-color:;}.main-header .site-title a,.main-header .site-description,.main-header #mainnav .menu > li > a,.main-header .header-contact a{color:;}.main-header .sydney-svg-icon svg,.main-header .dropdown-symbol .sydney-svg-icon svg{fill:;}.bottom-header-row{background-color:;}.bottom-header-row,.bottom-header-row .header-contact a,.bottom-header-row #mainnav .menu > li > a{color:;}.bottom-header-row #mainnav .menu > li > a:hover{color:;}.bottom-header-row .header-item svg,.dropdown-symbol .sydney-svg-icon svg{fill:;}.main-header .main-header-inner,.main-header .top-header-row{padding-top:15px;padding-bottom:15px;}.bottom-header-inner{padding-top:15px;padding-bottom:15px;}.bottom-header-row #mainnav ul ul li,.main-header #mainnav ul ul li{background-color:;}.bottom-header-row #mainnav ul ul li a,.bottom-header-row #mainnav ul ul li:hover a,.main-header #mainnav ul ul li:hover a,.main-header #mainnav ul ul li a{color:;}.bottom-header-row #mainnav ul ul li svg,.main-header #mainnav ul ul li svg{fill:;}.main-header-cart .count-number{color:;}.main-header-cart .widget_shopping_cart .widgettitle:after,.main-header-cart .widget_shopping_cart .woocommerce-mini-cart__buttons:before{background-color:rgba(33,33,33,0.9);}.sydney-offcanvas-menu .mainnav ul li{text-align:left;}.sydney-offcanvas-menu .mainnav a{padding:10px 0;}#masthead-mobile{background-color:;}#masthead-mobile .site-description,#masthead-mobile a:not(.button){color:;}#masthead-mobile svg{fill:;}.mobile-header{padding-top:15px;padding-bottom:15px;}.sydney-offcanvas-menu{background-color:;}.sydney-offcanvas-menu,.sydney-offcanvas-menu #mainnav a:not(.button),.sydney-offcanvas-menu a:not(.button){color:;}.sydney-offcanvas-menu svg,.sydney-offcanvas-menu .dropdown-symbol .sydney-svg-icon svg{fill:;}@media (min-width:992px){.site-logo{max-height:100px;}}@media (min-width:576px) and (max-width:991px){.site-logo{max-height:100px;}}@media (max-width:575px){.site-logo{max-height:100px;}}.site-title a,.site-title a:visited,.main-header .site-title a,.main-header .site-title a:visited{color:}.site-description,.main-header .site-description{color:}@media (min-width:992px){.site-title{font-size:32px;}}@media (min-width:576px) and (max-width:991px){.site-title{font-size:24px;}}@media (max-width:575px){.site-title{font-size:20px;}}@media (min-width:992px){.site-description{font-size:16px;}}@media (min-width:576px) and (max-width:991px){.site-description{font-size:16px;}}@media (max-width:575px){.site-description{font-size:16px;}}h1,h2,h3,h4,h5,h6,.site-title{text-decoration:;text-transform:;font-style:;line-height:1.2;letter-spacing:px;}@media (min-width:992px){h1:not(.site-title){font-size:52px;}}@media (min-width:576px) and (max-width:991px){h1:not(.site-title){font-size:42px;}}@media (max-width:575px){h1:not(.site-title){font-size:32px;}}@media (min-width:992px){h2{font-size:42px;}}@media (min-width:576px) and (max-width:991px){h2{font-size:32px;}}@media (max-width:575px){h2{font-size:24px;}}@media (min-width:992px){h3{font-size:32px;}}@media (min-width:576px) and (max-width:991px){h3{font-size:24px;}}@media (max-width:575px){h3{font-size:20px;}}@media (min-width:992px){h4{font-size:24px;}}@media (min-width:576px) and (max-width:991px){h4{font-size:18px;}}@media (max-width:575px){h4{font-size:16px;}}@media (min-width:992px){h5{font-size:20px;}}@media (min-width:576px) and (max-width:991px){h5{font-size:16px;}}@media (max-width:575px){h5{font-size:16px;}}@media (min-width:992px){h6{font-size:18px;}}@media (min-width:576px) and (max-width:991px){h6{font-size:16px;}}@media (max-width:575px){h6{font-size:16px;}}p,.posts-layout .entry-post{text-decoration:}body,.posts-layout .entry-post{text-transform:;font-style:;line-height:1.68;letter-spacing:px;}@media (min-width:992px){body,.posts-layout .entry-post{font-size:16px;}}@media (min-width:576px) and (max-width:991px){body,.posts-layout .entry-post{font-size:16px;}}@media (max-width:575px){body,.posts-layout .entry-post{font-size:16px;}}@media (min-width:992px){.woocommerce div.product .product-gallery-summary .entry-title{font-size:32px;}}@media (min-width:576px) and (max-width:991px){.woocommerce div.product .product-gallery-summary .entry-title{font-size:32px;}}@media (max-width:575px){.woocommerce div.product .product-gallery-summary .entry-title{font-size:32px;}}@media (min-width:992px){.woocommerce div.product .product-gallery-summary .price .amount{font-size:24px;}}@media (min-width:576px) and (max-width:991px){.woocommerce div.product .product-gallery-summary .price .amount{font-size:24px;}}@media (max-width:575px){.woocommerce div.product .product-gallery-summary .price .amount{font-size:24px;}}.woocommerce ul.products li.product .col-md-7 > *,.woocommerce ul.products li.product .col-md-8 > *,.woocommerce ul.products li.product > *{margin-bottom:12px;}.wc-block-grid__product-onsale,span.onsale{border-radius:0;top:20px!important;left:20px!important;}.wc-block-grid__product-onsale,.products span.onsale{left:auto!important;right:20px;}.wc-block-grid__product-onsale,span.onsale{color:;}.wc-block-grid__product-onsale,span.onsale{background-color:;}ul.wc-block-grid__products li.wc-block-grid__product .wc-block-grid__product-title,ul.wc-block-grid__products li.wc-block-grid__product .woocommerce-loop-product__title,ul.wc-block-grid__products li.product .wc-block-grid__product-title,ul.wc-block-grid__products li.product .woocommerce-loop-product__title,ul.products li.wc-block-grid__product .wc-block-grid__product-title,ul.products li.wc-block-grid__product .woocommerce-loop-product__title,ul.products li.product .wc-block-grid__product-title,ul.products li.product .woocommerce-loop-product__title,ul.products li.product .woocommerce-loop-category__title,.woocommerce-loop-product__title .botiga-wc-loop-product__title{color:;}a.wc-forward:not(.checkout-button){color:;}a.wc-forward:not(.checkout-button):hover{color:;}.woocommerce-pagination li .page-numbers:hover{color:;}.woocommerce-sorting-wrapper{border-color:rgba(33,33,33,0.9);}ul.products li.product-category .woocommerce-loop-category__title{text-align:center;}ul.products li.product-category > a,ul.products li.product-category > a > img{border-radius:0;}.entry-content a:not(.button){color:;}.entry-content a:not(.button):hover{color:;}h1{color:;}h2{color:;}h3{color:;}h4{color:;}h5{color:;}h6{color:;}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="number"],input[type="tel"],input[type="range"],input[type="date"],input[type="month"],input[type="week"],input[type="time"],input[type="datetime"],input[type="datetime-local"],input[type="color"],textarea,select,.woocommerce .select2-container .select2-selection--single,.woocommerce-page .select2-container .select2-selection--single,input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="search"]:focus,input[type="number"]:focus,input[type="tel"]:focus,input[type="range"]:focus,input[type="date"]:focus,input[type="month"]:focus,input[type="week"]:focus,input[type="time"]:focus,input[type="datetime"]:focus,input[type="datetime-local"]:focus,input[type="color"]:focus,textarea:focus,select:focus,.woocommerce .select2-container .select2-selection--single:focus,.woocommerce-page .select2-container .select2-selection--single:focus,.select2-container--default .select2-selection--single .select2-selection__rendered,.wp-block-search .wp-block-search__input,.wp-block-search .wp-block-search__input:focus{color:;}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="number"],input[type="tel"],input[type="range"],input[type="date"],input[type="month"],input[type="week"],input[type="time"],input[type="datetime"],input[type="datetime-local"],input[type="color"],textarea,select,.woocommerce .select2-container .select2-selection--single,.woocommerce-page .select2-container .select2-selection--single,.woocommerce-cart .woocommerce-cart-form .actions .coupon input[type="text"]{background-color:;}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="number"],input[type="tel"],input[type="range"],input[type="date"],input[type="month"],input[type="week"],input[type="time"],input[type="datetime"],input[type="datetime-local"],input[type="color"],textarea,select,.woocommerce .select2-container .select2-selection--single,.woocommerce-page .select2-container .select2-selection--single,.woocommerce-account fieldset,.woocommerce-account .woocommerce-form-login,.woocommerce-account .woocommerce-form-register,.woocommerce-cart .woocommerce-cart-form .actions .coupon input[type="text"],.wp-block-search .wp-block-search__input{border-color:;}input::placeholder{color:;opacity:1;}input:-ms-input-placeholder{color:;}input::-ms-input-placeholder{color:;}
+</style>
+<!--[if lte IE 9]>
+<link rel='stylesheet' id='sydney-ie9-css'  href='https://funduino.de/wp-content/themes/sydney/css/ie9.css?ver=5.8.2' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='sydney-font-awesome-css'  href='https://funduino.de/wp-content/themes/sydney/fonts/font-awesome.min.css?ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='tablepress-default-css'  href='https://funduino.de/wp-content/plugins/tablepress/css/default.min.css?ver=1.14' type='text/css' media='all' />
+<link rel='stylesheet' id='enlighterjs-css'  href='https://funduino.de/wp-content/plugins/enlighter/cache/enlighterjs.min.css?ver=y+WoSXfZvI6Kwpi' type='text/css' media='all' />
+<link rel='stylesheet' id='aca33b9c04-css'  href='https://funduino.de/wp-content/plugins/squirrly-seo/view/assets/css/frontend.min.css?ver=11.1.10' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='https://funduino.de/wp-content/plugins/jetpack/css/jetpack.css?ver=10.4' type='text/css' media='all' />
+<script type='text/javascript' src='https://funduino.de/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://funduino.de/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<script type='text/javascript' id='exactmetrics-frontend-script-js-extra'>
+/* <![CDATA[ */
+var exactmetrics_frontend = {"js_events_tracking":"true","download_extensions":"zip,mp3,mpeg,pdf,docx,pptx,xlsx,rar","inbound_paths":"[{\"path\":\"\\\/go\\\/\",\"label\":\"affiliate\"},{\"path\":\"\\\/recommend\\\/\",\"label\":\"affiliate\"}]","home_url":"https:\/\/funduino.de","hash_tracking":"false","ua":"UA-72497114-1","v4_id":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://funduino.de/wp-content/plugins/google-analytics-dashboard-for-wp/assets/js/frontend-gtag.min.js?ver=7.2.1' id='exactmetrics-frontend-script-js'></script>
+
+<!-- Google Analytics snippet added by Site Kit -->
+<script type='text/javascript' src='https://www.googletagmanager.com/gtag/js?id=UA-82463029-3' id='google_gtagjs-js' async></script>
+<script type='text/javascript' id='google_gtagjs-js-after'>
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+gtag('set', 'linker', {"domains":["funduino.de"]} );
+gtag("js", new Date());
+gtag("set", "developer_id.dZTNiMT", true);
+gtag("config", "UA-82463029-3", {"anonymize_ip":true});
+</script>
+
+<!-- End Google Analytics snippet added by Site Kit -->
+<link rel="https://api.w.org/" href="https://funduino.de/wp-json/" /><link rel="alternate" type="application/json" href="https://funduino.de/wp-json/wp/v2/pages/2124" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://funduino.de/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://funduino.de/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.8.2" />
+<link rel='shortlink' href='https://wp.me/P8v3ec-yg' />
+<link rel="alternate" type="application/json+oembed" href="https://funduino.de/wp-json/oembed/1.0/embed?url=https%3A%2F%2Ffunduino.de%2Fnr-34-motoren-mit-h-bruecke-l298n-ansteuern" />
+<link rel="alternate" type="text/xml+oembed" href="https://funduino.de/wp-json/oembed/1.0/embed?url=https%3A%2F%2Ffunduino.de%2Fnr-34-motoren-mit-h-bruecke-l298n-ansteuern&#038;format=xml" />
+<meta name="generator" content="Site Kit by Google 1.47.0" />			<style>
+				.sydney-svg-icon {
+					display: inline-block;
+					width: 16px;
+					height: 16px;
+					vertical-align: middle;
+					line-height: 1;
+				}
+				.team-item .team-social li .sydney-svg-icon {
+					width: 14px;
+				}
+				.roll-team:not(.style1) .team-item .team-social li .sydney-svg-icon {
+					fill: #fff;
+				}
+				.team-item .team-social li:hover .sydney-svg-icon {
+					fill: #000;
+				}
+				.team_hover_edits .team-social li a .sydney-svg-icon {
+					fill: #000;
+				}
+				.team_hover_edits .team-social li:hover a .sydney-svg-icon {
+					fill: #fff;
+				}				
+			</style>
+		<style type='text/css'>img#wpstats{display:none}</style>
+		<link rel="apple-touch-icon" href="https://i1.wp.com/funduino.de/wp-content/uploads/2016/05/cropped-faviconfunduino.png?fit=180%2C180&#038;ssl=1" />
+<meta name="msapplication-TileImage" content="https://i1.wp.com/funduino.de/wp-content/uploads/2016/05/cropped-faviconfunduino.png?fit=270%2C270&#038;ssl=1" />
+</head>
+
+<body class="page-template-default page page-id-2124 group-blog menu-centered elementor-default elementor-kit-5109" >
+
+<span id="toptarget"></span>
+
+	<div class="preloader">
+	    <div class="spinner">
+	        <div class="pre-bounce1"></div>
+	        <div class="pre-bounce2"></div>
+	    </div>
+	</div>
+	
+
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Zum Inhalt springen</a>
+
+	<div class="header-clone"></div>	
+
+	
+							<header id="masthead" class="main-header header_layout_2 sticky-header sticky-always">
+					<div class="container">
+						<div class="site-header-inner">
+							<div class="row valign">
+								<div class="header-col">
+												<div class="site-branding">
+
+															<p class="site-title"><a href="https://funduino.de/" rel="home">Funduino &#8211; Kits und Anleitungen für Arduino</a></p>
+												<p class="site-description">Arduino lernen leicht gemacht</p>
+										
+			</div><!-- .site-branding -->
+											</div>
+								<div class="header-col menu-col menu-right">
+										
+			<nav id="mainnav" class="mainnav">
+				<div class="menu-arduino-menue-container"><ul id="primary-menu" class="menu"><li id="menu-item-465" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-has-children menu-item-465"><a href="https://funduino.de/">Über Funduino</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li id="menu-item-1266" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1266"><a href="https://funduino.de/">Über Funduino</a></li>
+</ul>
+</li>
+<li id="menu-item-570" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-570"><a href="https://funduino.de/arduino-und-schule">Arduino und Bildung</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li id="menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-608"><a href="https://funduino.de/arduino-in-der-schule">Arduino in der Schule</a></li>
+	<li id="menu-item-1163" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1163"><a href="https://funduino.de/arduino-lehrmittel-fuer-schulen">Unterrichtsmaterial</a></li>
+	<li id="menu-item-1307" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1307"><a href="https://funduino.de/arduino-lehrerfortbildung">Arduino Lehrerfortbildung</a></li>
+	<li id="menu-item-593" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-593"><a href="https://funduino.de/maker-space">Maker Space</a></li>
+	<li id="menu-item-594" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-594"><a href="https://funduino.de/arduino-und-schule">Arduino und Bildung</a></li>
+	<li id="menu-item-598" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-598"><a href="https://funduino.de/universitaeten">Universitäten</a></li>
+	<li id="menu-item-557" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-557"><a href="https://funduino.de/videoanleitungen">Videoanleitungen</a></li>
+</ul>
+</li>
+<li id="menu-item-3599" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3599"><a href="https://funduino.de/anleitungen-fuer-fortgeschrittene">Anleitungen Fortgeschrittene</a></li>
+<li id="menu-item-3036" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3036"><a href="https://funduino.de/funduino-cube">Learning Cube für Arduino</a></li>
+<li id="menu-item-466" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-466"><a href="https://funduino.de/anleitungen">Anleitungen für Arduino</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li id="menu-item-1372" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1372"><a href="https://funduino.de/anleitung">Arduino Anleitung Gesamtdokument</a></li>
+	<li id="menu-item-500" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-500"><a href="https://funduino.de/vorwort">1. Vorwort</a></li>
+	<li id="menu-item-501" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-501"><a href="https://funduino.de/hardware-software">2. Hardware und Software</a></li>
+	<li id="menu-item-502" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-502"><a href="https://funduino.de/programmieren">3. Programmieren</a></li>
+	<li id="menu-item-503" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-503"><a href="https://funduino.de/nr-1-blinkende-led">Nr.01 Blinkende LED</a></li>
+	<li id="menu-item-504" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-504"><a href="https://funduino.de/nr-2-wechselblinker">Nr.02 Wechselblinker</a></li>
+	<li id="menu-item-505" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-505"><a href="https://funduino.de/nr-3-licht-und-ton">Nr.03 Licht und Ton</a></li>
+	<li id="menu-item-506" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-506"><a href="https://funduino.de/nr-4-pulsierende-led">Nr.04 Pulsierende LED</a></li>
+	<li id="menu-item-507" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-507"><a href="https://funduino.de/nr-20-rgb-led">Nr.05 RGB LED</a></li>
+	<li id="menu-item-508" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-508"><a href="https://funduino.de/nr-5-taster-am-arduino">Nr.06 Taster am Arduino</a></li>
+	<li id="menu-item-509" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-509"><a href="https://funduino.de/nr-8-bewegungsmelder">Nr.07 Bewegungsmelder HC-SR501</a></li>
+	<li id="menu-item-510" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-510"><a href="https://funduino.de/nr-6-fotowiderstand">Nr.08 Fotowiderstand</a></li>
+	<li id="menu-item-511" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-511"><a href="https://funduino.de/nr-7-potentiometer">Nr.09 Potentiometer</a></li>
+	<li id="menu-item-512" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-512"><a href="https://funduino.de/nr-9-temperatur-messen">Nr.10 Temperatur messen</a></li>
+	<li id="menu-item-513" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-513"><a href="https://funduino.de/nr-10-entfernung-messen">Nr.11 Entfernung messen</a></li>
+	<li id="menu-item-514" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-514"><a href="https://funduino.de/nr-11-fernbedienung">Nr.12 Fernbedienung</a></li>
+	<li id="menu-item-515" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-515"><a href="https://funduino.de/nr-12-servo-ansteuern">Nr.13 Servo ansteuern</a></li>
+	<li id="menu-item-516" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-516"><a href="https://funduino.de/nr-13-lcd-display">Nr.14 LCD Display</a></li>
+	<li id="menu-item-517" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-517"><a href="https://funduino.de/nr-15-relaisshield">Nr.15 Relais</a></li>
+	<li id="menu-item-518" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-518"><a href="https://funduino.de/nr-15-schrittmotor">Nr.16 Schrittmotor</a></li>
+	<li id="menu-item-519" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-519"><a href="https://funduino.de/nr-16-feuchtigkeitssensor">Nr.17 Feuchtigkeitssensor</a></li>
+	<li id="menu-item-520" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-520"><a href="https://funduino.de/nr-17-tropfensensor">Nr.18 Tropfensensor</a></li>
+	<li id="menu-item-521" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-521"><a href="https://funduino.de/nr-18-rfid-kit">Nr.19 RFID Kit</a></li>
+	<li id="menu-item-553" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-553"><a href="https://funduino.de/zubehoer-fuer-arduino">Zubehör für Arduino</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+	<ul class="sub-menu">
+		<li id="menu-item-549" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-549"><a href="https://funduino.de/zb-01-keypad-shield">Nr.01 – Keypad Shield</a></li>
+		<li id="menu-item-550" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-550"><a href="https://funduino.de/nr-19-i%c2%b2c-display">Nr.02 – I²C Display</a></li>
+		<li id="menu-item-551" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-551"><a href="https://funduino.de/nr-03-433mhz-funkverbindung">Nr.03 – 433mhz Funkverbindung</a></li>
+		<li id="menu-item-552" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-552"><a href="https://funduino.de/nr-04-tastenfeld">Nr.04 – Tastenfeld</a></li>
+		<li id="menu-item-630" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-630"><a href="https://funduino.de/tastenfeld-schloss">Nr.04b – Tastenfeld – Schloss</a></li>
+		<li id="menu-item-578" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-578"><a href="https://funduino.de/arduino-rtc">Nr.05 – Arduino-RTC</a></li>
+		<li id="menu-item-648" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-648"><a href="https://funduino.de/nr-06-zwei-i%c2%b2c-displays-gleichzeitig">Nr.06 – Zwei I²C Displays</a></li>
+		<li id="menu-item-681" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-681"><a href="https://funduino.de/nr-07-farbsensor-am-arduino">Nr.07 – Farbsensor</a></li>
+		<li id="menu-item-691" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-691"><a href="https://funduino.de/nr-08-toene-erzeugen">Nr.08 – Töne erzeugen</a></li>
+		<li id="menu-item-717" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-717"><a href="https://funduino.de/nr-09-arduino-neigungssensor">Nr.09 – Arduino Neigungssensor SW-520D</a></li>
+		<li id="menu-item-727" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-727"><a href="https://funduino.de/anleitung-temperatur-messen-lm35">Nr.10 – Temperatur messen mit dem LM35</a></li>
+		<li id="menu-item-753" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-753"><a href="https://funduino.de/nr-11-spannung-messen">Nr.11 – Spannung messen</a></li>
+		<li id="menu-item-767" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-767"><a href="https://funduino.de/nr-12-7-segment-anzeige">Nr.12 – 7 Segment Anzeige</a></li>
+		<li id="menu-item-852" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-852"><a href="https://funduino.de/anleitung-4x20-i%c2%b2c-lcd-modul">Nr.13 – Vierzeiliges I²C LCD Modul</a></li>
+		<li id="menu-item-851" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-851"><a href="https://funduino.de/nr-14-lagesensor">Nr.14 – Lagesensor</a></li>
+		<li id="menu-item-860" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-860"><a href="https://funduino.de/nr-15-schieberegler">Nr.15 – Schieberegler</a></li>
+		<li id="menu-item-918" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-918"><a href="https://funduino.de/anleitung-dht11-dht22">Nr.16 – DHT11 und DHT22</a></li>
+		<li id="menu-item-917" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-917"><a href="https://funduino.de/nr-17-ws2812-neopixel">Nr.17 – WS2812 – NeoPixel</a></li>
+		<li id="menu-item-1323" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1323"><a href="https://funduino.de/tutorial-hc-05-und-hc-06-bluetooth">Nr.18 – HC-05 und HC-06 Bluetooth Modul</a></li>
+		<li id="menu-item-1322" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1322"><a href="https://funduino.de/nr-19-daten-mit-einem-ethernet-shield-auf-einer-sd-karte-speichern">Nr.19 – Daten mit einem Ethernet Shield auf einer SD Karte speichern</a></li>
+		<li id="menu-item-1321" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1321"><a href="https://funduino.de/mp3-shield-tutorial">Nr.20 – MP3 Shield</a></li>
+		<li id="menu-item-1320" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1320"><a href="https://funduino.de/nr-21-herzfrequenzmessung">Nr.21 – Herzfrequenzmessung</a></li>
+		<li id="menu-item-1391" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1391"><a href="https://funduino.de/nr-22-joystick-modul">Nr.22 – Joystick Modul</a></li>
+		<li id="menu-item-1450" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1450"><a href="https://funduino.de/nr-23-bme280-luftdruck-luftfeuchtigkeits-und-temperatursensor">Nr. 23 – BME280  Luftdruck-, Luftfeuchtigkeits- und Temperatursensor</a></li>
+		<li id="menu-item-1483" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1483"><a href="https://funduino.de/nr-24-joystick-modul-v1-a">Nr. 24 – Joystick Modul V1.A</a></li>
+		<li id="menu-item-1499" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1499"><a href="https://funduino.de/25-der-interrupt-befehl-attachinterrupt">Nr. 25 – Der Interrupt-Befehl attachInterrupt()</a></li>
+		<li id="menu-item-1704" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1704"><a href="https://funduino.de/nr-25-das-nodemcu-mit-integriertem-esp8266-modul">Nr. 26 – NodeMCU mit integriertem ESP8266-Modul Anleitung</a></li>
+		<li id="menu-item-1727" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1727"><a href="https://funduino.de/nr-27-mq-135-sensor-fuer-luftqualitaet">Nr. 27 – MQ-135 Sensor für Luftqualität</a></li>
+		<li id="menu-item-2026" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2026"><a href="https://funduino.de/nr-28-das-sd-karten-modul">Nr. 28 – Das SD-Karten Modul</a></li>
+		<li id="menu-item-2025" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2025"><a href="https://funduino.de/nr-29-analog-tastenfeld">Nr. 29 – Analog Tastenfeld</a></li>
+		<li id="menu-item-2037" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2037"><a href="https://funduino.de/arduino-infrarot-abstandssensor">Nr. 30 – Abstandssensor (IR)</a></li>
+		<li id="menu-item-2061" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2061"><a href="https://funduino.de/arduino-lichtschranke">Nr. 31 – Lichtschranke</a></li>
+		<li id="menu-item-2344" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2344"><a href="https://funduino.de/nr-40-cap1188-kapazitiver-beruehrungssensor">Nr. 40 – CAP1188 Kapazitiver Berührungssensor</a></li>
+		<li id="menu-item-2508" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2508"><a href="https://funduino.de/nr-41-stromstaerkesensor-arduino">Nr. 41 – Stromstärkesensor (ACS712)</a></li>
+		<li id="menu-item-3137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3137"><a href="https://funduino.de/nr-42-oled-display-ssd1306-128x64-128x32">Nr. 42 – OLED Display SSD1306 128×64 / 128×32</a></li>
+		<li id="menu-item-3156" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3156"><a href="https://funduino.de/nr-43-dfplayer-mini-mp3-player">Nr.43 – DFPlayer Mini MP3 Player</a></li>
+		<li id="menu-item-3190" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3190"><a href="https://funduino.de/nr-43-entfernungsmessung-mit-vl6180x">Nr.44 – Entfernungsmessung mit VL6180X</a></li>
+		<li id="menu-item-3216" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3216"><a href="https://funduino.de/nr-45-arduino-ampel">Nr. 45 – Arduino Ampel</a></li>
+		<li id="menu-item-3244" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3244"><a href="https://funduino.de/nr-46-brushlessmotor-mit-esc-ansteuern">Nr. 46 – Brushlessmotor mit ESC ansteuern</a></li>
+		<li id="menu-item-4111" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4111"><a href="https://funduino.de/nr-47-dc-motor-ansteuern">Nr. 47 – DC-Motor mit Propeller ansteuern</a></li>
+		<li id="menu-item-4152" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4152"><a href="https://funduino.de/nr-48-isd1820-sprachrekorder-und-sprachwiedergabe-mit-arduino">Nr. 48 – ISD1820 Sprachrekorder und Sprachwiedergabe mit Arduino</a></li>
+		<li id="menu-item-4511" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4511"><a href="https://funduino.de/nr-48-schrittmotor-nema17-mit-easydriver-und-arduino">Nr. 49 Schrittmotor NEMA17 mit EasyDriver und Arduino</a></li>
+		<li id="menu-item-4333" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4333"><a href="https://funduino.de/nr-50-windstaerke-messen">Nr. 50 Windstärke messen</a></li>
+		<li id="menu-item-4388" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4388"><a href="https://funduino.de/nr-51-co2-messung-mit-arduino-co2-ampel">Nr. 51 CO2 Messung mit Arduino „CO2 Ampel“</a></li>
+		<li id="menu-item-4503" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4503"><a href="https://funduino.de/nr-51-4002a-lcd-mit-arduino-programmieren">Nr. 52 – 4002A LCD mit Arduino programmieren</a></li>
+		<li id="menu-item-5492" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5492"><a href="https://funduino.de/nr-53-drucksensor-rfp602-fuer-den-arduino">Nr. 53 – Drucksensor RFP602 den Arduino</a></li>
+		<li id="menu-item-5491" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5491"><a href="https://funduino.de/nr-54-rundumleuchte-am-arduino">Nr. 54 – Rundumleuchte am Arduino</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-3059" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3059"><a href="https://funduino.de/raspberry-pi">Raspberry Pi</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li id="menu-item-3056" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3056"><a href="https://funduino.de/nr-02-der-wechselblinker-2">Nr. 02 – Der Wechselblinker</a></li>
+	<li id="menu-item-3077" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3077"><a href="https://funduino.de/nr-03-licht-und-ton-2">Nr. 03 – Licht und Ton</a></li>
+	<li id="menu-item-3076" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3076"><a href="https://funduino.de/nr-04-pulsierende-led-2">Nr. 04 – Pulsierende LED</a></li>
+</ul>
+</li>
+<li id="menu-item-1836" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-has-children menu-item-1836"><a href="https://funduino.de/">NodeMCU</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li id="menu-item-1840" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1840"><a href="https://funduino.de/nr-01-blinkende-led">Nr. 01 – Blinkende LED</a></li>
+	<li id="menu-item-1841" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1841"><a href="https://funduino.de/nr-02-der-wechselblinker">Nr. 02 – Der Wechselblinker</a></li>
+	<li id="menu-item-1842" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1842"><a href="https://funduino.de/nr-03-licht-und-ton">Nr. 03 – Licht und Ton</a></li>
+	<li id="menu-item-1839" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1839"><a href="https://funduino.de/nr-04-pulsierende-led">Nr. 04 – Pulsierende LED</a></li>
+	<li id="menu-item-1838" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1838"><a href="https://funduino.de/nr-05-eine-rgb-led-ansteuern">Nr. 05 – Eine RGB-LED ansteuern</a></li>
+	<li id="menu-item-1837" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1837"><a href="https://funduino.de/nr-06-taster-am-arduino">Nr. 06 – Taster am Arduino</a></li>
+	<li id="menu-item-1835" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1835"><a href="https://funduino.de/nr-07-bewegungsmelder-hc-sr501">Nr. 07 – Bewegungsmelder HC-SR501</a></li>
+	<li id="menu-item-1834" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1834"><a href="https://funduino.de/nr-08-fotowiderstand">Nr. 08 – Fotowiderstand</a></li>
+	<li id="menu-item-1833" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1833"><a href="https://funduino.de/nr-09-potentiometer">Nr. 09 – Potentiometer</a></li>
+	<li id="menu-item-1832" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1832"><a href="https://funduino.de/nr-10-temperatur-messen">Nr. 10 – Temperatur messen</a></li>
+	<li id="menu-item-1831" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1831"><a href="https://funduino.de/nr-11-entfernungen-messen">Nr. 11 – Entfernungen messen</a></li>
+	<li id="menu-item-1830" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1830"><a href="https://funduino.de/nr-12-fernbedienung">Nr. 12 – Fernbedienung</a></li>
+	<li id="menu-item-1829" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1829"><a href="https://funduino.de/nr-13-servo-ansteuern">Nr. 13 – Servo ansteuern</a></li>
+	<li id="menu-item-1828" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1828"><a href="https://funduino.de/nr-14-lcd-display">Nr. 14 – LCD Display</a></li>
+	<li id="menu-item-1827" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1827"><a href="https://funduino.de/nr-15-relais">Nr. 15 – Relais</a></li>
+	<li id="menu-item-1826" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1826"><a href="https://funduino.de/nr-16-schrittmotor">Nr. 16 – Schrittmotor</a></li>
+	<li id="menu-item-1825" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1825"><a href="https://funduino.de/nr-17-feuchtigkeitssensor">Nr. 17 – Feuchtigkeitssensor</a></li>
+	<li id="menu-item-1824" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1824"><a href="https://funduino.de/nr-18-tropfensensor">Nr. 18 – Tropfensensor</a></li>
+</ul>
+</li>
+<li id="menu-item-467" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-467"><a href="https://funduino.de/lernsets">Lernsets für Arduino</a></li>
+<li id="menu-item-3499" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3499"><a href="https://funduino.de/roboter">Roboter</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li id="menu-item-4539" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4539"><a href="https://funduino.de/otto-diy-roboter-mit-arduino">OTTO DIY Roboter mit Arduino</a></li>
+	<li id="menu-item-3515" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3515"><a href="https://funduino.de/experimentalrover">Experimentalrover</a></li>
+	<li id="menu-item-3517" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3517"><a href="https://funduino.de/nr-36-chassis-fuer-arduino">Nr. 36a – Chassis für Arduino</a></li>
+	<li id="menu-item-3518" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3518"><a href="https://funduino.de/nr-36b-chassis-mit-line-tracking">Nr. 36b – Chassis mit Line Tracking</a></li>
+	<li id="menu-item-3516" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3516"><a href="https://funduino.de/3d-projekt-chassis-und-line-tracking-mit-arduino">3D-Projekt Chassis und Line-Tracking mit Arduino</a></li>
+</ul>
+</li>
+<li id="menu-item-1215" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1215"><a href="https://funduino.de/arduino-und-3d-druck">Arduino und 3D-Druck</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li id="menu-item-2490" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2490"><a href="https://funduino.de/funduino-pro-3d-drucker">Funduino Pro 3D-Drucker</a></li>
+	<li id="menu-item-4176" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4176"><a href="https://funduino.de/anet-et5-pro-3d-drucker-anleitung-by-funduino">ANET ET5 Pro 3D-Drucker Anleitung</a></li>
+	<li id="menu-item-5093" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5093"><a href="https://funduino.de/installation-marlin-auf-anet-et5-pro-et4-et5-serie">Installation Marlin auf Anet ET5 Pro (ET4/ET5 Serie)</a></li>
+	<li id="menu-item-2802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2802"><a href="https://funduino.de/funduino-basic-3d-drucker">Funduino Basic – 3D-Drucker</a></li>
+	<li id="menu-item-2556" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2556"><a href="https://funduino.de/3d-design-mit-tinkercad">3D-Design mit Tinkercad</a></li>
+	<li id="menu-item-2452" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2452"><a href="https://funduino.de/3d-druck-anleitung-schule-cura">3D-Druck-Anleitung</a></li>
+	<li id="menu-item-1246" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1246"><a href="https://funduino.de/arduino-3d-druck-projekte">Arduino 3D-Druck Projekte</a></li>
+	<li id="menu-item-2661" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2661"><a href="https://funduino.de/3d-projekt-schmuck-herstellung">3D-Projekt Schmuck-Herstellung</a></li>
+	<li id="menu-item-2559" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2559"><a href="https://funduino.de/3d-projekt-windkraftanlage">3D-Projekt Windkraftanlage</a></li>
+	<li id="menu-item-2565" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2565"><a href="https://funduino.de/3d-projekt-plaetzchenstempel">3D-Projekt Plätzchenstempel</a></li>
+	<li id="menu-item-3086" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3086"><a href="https://funduino.de/3d-projekt-chassis-und-line-tracking-mit-arduino">3D-Projekt Chassis und Line-Tracking mit Arduino</a></li>
+	<li id="menu-item-4297" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4297"><a href="https://funduino.de/3d-druck-fuer-betonformen">3D-Projekt Formen aus Beton erzeugen</a></li>
+	<li id="menu-item-4538" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4538"><a href="https://funduino.de/otto-diy-roboter-mit-arduino">OTTO DIY Roboter mit Arduino</a></li>
+	<li id="menu-item-3208" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3208"><a href="https://funduino.de/aufzugprojekt">Arduino Aufzugprojekt</a></li>
+	<li id="menu-item-5510" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5510"><a href="https://funduino.de/3d-druck-im-puppenhaus">3D-Druck Schulprojekt „Puppenhaus“</a></li>
+</ul>
+</li>
+<li id="menu-item-1198" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1198"><a href="http://www.funduinoshop.com/">Shop</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li id="menu-item-2009" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2009"><a href="https://www.funduinoshop.com">Externer Shop</a></li>
+</ul>
+</li>
+<li id="menu-item-617" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-617"><a href="https://funduino.de/downloads">Downloads</a></li>
+<li id="menu-item-797" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-797"><a href="https://funduino.de/links">Links</a></li>
+<li id="menu-item-554" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-554"><a href="https://funduino.de/kontakt">Kontakt</a></li>
+<li id="menu-item-1556" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1556"><a href="https://funduino.de/uebersicht">Übersicht</a></li>
+</ul></div>			</nav>
+											</div>							
+								<div class="header-col header-elements">
+													<a href="#" class="header-search header-item">
+					<i class="sydney-svg-icon icon-search active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z" /></svg></i>
+					<i class="sydney-svg-icon icon-cancel"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41L12.59 0Z" /></svg></i>
+				</a>
+											</div>							
+							</div>
+						</div>
+					</div>
+								<div class="header-search-form">
+			<form role="search" method="get" class="search-form" action="https://funduino.de/">
+				<label>
+					<span class="screen-reader-text">Suche nach:</span>
+					<input type="search" class="search-field" placeholder="Suche&#160;&hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Suche" />
+			</form>			</div>
+							</header>
+						
+			<div class="sydney-offcanvas-menu">
+				<div class="mobile-header-item">
+					<div class="row valign">
+						<div class="col-xs-8">
+										<div class="site-branding">
+
+															<p class="site-title"><a href="https://funduino.de/" rel="home">Funduino &#8211; Kits und Anleitungen für Arduino</a></p>
+												<p class="site-description">Arduino lernen leicht gemacht</p>
+										
+			</div><!-- .site-branding -->
+									</div>
+						<div class="col-xs-4 align-right">
+							<a class="mobile-menu-close" href="#"><i class="sydney-svg-icon icon-cancel"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41L12.59 0Z" /></svg></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="mobile-header-item">
+						
+			<nav id="mainnav" class="mainnav">
+				<div class="menu-arduino-menue-container"><ul id="primary-menu" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-has-children menu-item-465"><a href="https://funduino.de/">Über Funduino</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1266"><a href="https://funduino.de/">Über Funduino</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-570"><a href="https://funduino.de/arduino-und-schule">Arduino und Bildung</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-608"><a href="https://funduino.de/arduino-in-der-schule">Arduino in der Schule</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1163"><a href="https://funduino.de/arduino-lehrmittel-fuer-schulen">Unterrichtsmaterial</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1307"><a href="https://funduino.de/arduino-lehrerfortbildung">Arduino Lehrerfortbildung</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-593"><a href="https://funduino.de/maker-space">Maker Space</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-594"><a href="https://funduino.de/arduino-und-schule">Arduino und Bildung</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-598"><a href="https://funduino.de/universitaeten">Universitäten</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-557"><a href="https://funduino.de/videoanleitungen">Videoanleitungen</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3599"><a href="https://funduino.de/anleitungen-fuer-fortgeschrittene">Anleitungen Fortgeschrittene</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3036"><a href="https://funduino.de/funduino-cube">Learning Cube für Arduino</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-466"><a href="https://funduino.de/anleitungen">Anleitungen für Arduino</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1372"><a href="https://funduino.de/anleitung">Arduino Anleitung Gesamtdokument</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-500"><a href="https://funduino.de/vorwort">1. Vorwort</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-501"><a href="https://funduino.de/hardware-software">2. Hardware und Software</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-502"><a href="https://funduino.de/programmieren">3. Programmieren</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-503"><a href="https://funduino.de/nr-1-blinkende-led">Nr.01 Blinkende LED</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-504"><a href="https://funduino.de/nr-2-wechselblinker">Nr.02 Wechselblinker</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-505"><a href="https://funduino.de/nr-3-licht-und-ton">Nr.03 Licht und Ton</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-506"><a href="https://funduino.de/nr-4-pulsierende-led">Nr.04 Pulsierende LED</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-507"><a href="https://funduino.de/nr-20-rgb-led">Nr.05 RGB LED</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-508"><a href="https://funduino.de/nr-5-taster-am-arduino">Nr.06 Taster am Arduino</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-509"><a href="https://funduino.de/nr-8-bewegungsmelder">Nr.07 Bewegungsmelder HC-SR501</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-510"><a href="https://funduino.de/nr-6-fotowiderstand">Nr.08 Fotowiderstand</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-511"><a href="https://funduino.de/nr-7-potentiometer">Nr.09 Potentiometer</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-512"><a href="https://funduino.de/nr-9-temperatur-messen">Nr.10 Temperatur messen</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-513"><a href="https://funduino.de/nr-10-entfernung-messen">Nr.11 Entfernung messen</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-514"><a href="https://funduino.de/nr-11-fernbedienung">Nr.12 Fernbedienung</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-515"><a href="https://funduino.de/nr-12-servo-ansteuern">Nr.13 Servo ansteuern</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-516"><a href="https://funduino.de/nr-13-lcd-display">Nr.14 LCD Display</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-517"><a href="https://funduino.de/nr-15-relaisshield">Nr.15 Relais</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-518"><a href="https://funduino.de/nr-15-schrittmotor">Nr.16 Schrittmotor</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-519"><a href="https://funduino.de/nr-16-feuchtigkeitssensor">Nr.17 Feuchtigkeitssensor</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-520"><a href="https://funduino.de/nr-17-tropfensensor">Nr.18 Tropfensensor</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-521"><a href="https://funduino.de/nr-18-rfid-kit">Nr.19 RFID Kit</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-553"><a href="https://funduino.de/zubehoer-fuer-arduino">Zubehör für Arduino</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-549"><a href="https://funduino.de/zb-01-keypad-shield">Nr.01 – Keypad Shield</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-550"><a href="https://funduino.de/nr-19-i%c2%b2c-display">Nr.02 – I²C Display</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-551"><a href="https://funduino.de/nr-03-433mhz-funkverbindung">Nr.03 – 433mhz Funkverbindung</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-552"><a href="https://funduino.de/nr-04-tastenfeld">Nr.04 – Tastenfeld</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-630"><a href="https://funduino.de/tastenfeld-schloss">Nr.04b – Tastenfeld – Schloss</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-578"><a href="https://funduino.de/arduino-rtc">Nr.05 – Arduino-RTC</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-648"><a href="https://funduino.de/nr-06-zwei-i%c2%b2c-displays-gleichzeitig">Nr.06 – Zwei I²C Displays</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-681"><a href="https://funduino.de/nr-07-farbsensor-am-arduino">Nr.07 – Farbsensor</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-691"><a href="https://funduino.de/nr-08-toene-erzeugen">Nr.08 – Töne erzeugen</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-717"><a href="https://funduino.de/nr-09-arduino-neigungssensor">Nr.09 – Arduino Neigungssensor SW-520D</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-727"><a href="https://funduino.de/anleitung-temperatur-messen-lm35">Nr.10 – Temperatur messen mit dem LM35</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-753"><a href="https://funduino.de/nr-11-spannung-messen">Nr.11 – Spannung messen</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-767"><a href="https://funduino.de/nr-12-7-segment-anzeige">Nr.12 – 7 Segment Anzeige</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-852"><a href="https://funduino.de/anleitung-4x20-i%c2%b2c-lcd-modul">Nr.13 – Vierzeiliges I²C LCD Modul</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-851"><a href="https://funduino.de/nr-14-lagesensor">Nr.14 – Lagesensor</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-860"><a href="https://funduino.de/nr-15-schieberegler">Nr.15 – Schieberegler</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-918"><a href="https://funduino.de/anleitung-dht11-dht22">Nr.16 – DHT11 und DHT22</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-917"><a href="https://funduino.de/nr-17-ws2812-neopixel">Nr.17 – WS2812 – NeoPixel</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1323"><a href="https://funduino.de/tutorial-hc-05-und-hc-06-bluetooth">Nr.18 – HC-05 und HC-06 Bluetooth Modul</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1322"><a href="https://funduino.de/nr-19-daten-mit-einem-ethernet-shield-auf-einer-sd-karte-speichern">Nr.19 – Daten mit einem Ethernet Shield auf einer SD Karte speichern</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1321"><a href="https://funduino.de/mp3-shield-tutorial">Nr.20 – MP3 Shield</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1320"><a href="https://funduino.de/nr-21-herzfrequenzmessung">Nr.21 – Herzfrequenzmessung</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1391"><a href="https://funduino.de/nr-22-joystick-modul">Nr.22 – Joystick Modul</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1450"><a href="https://funduino.de/nr-23-bme280-luftdruck-luftfeuchtigkeits-und-temperatursensor">Nr. 23 – BME280  Luftdruck-, Luftfeuchtigkeits- und Temperatursensor</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1483"><a href="https://funduino.de/nr-24-joystick-modul-v1-a">Nr. 24 – Joystick Modul V1.A</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1499"><a href="https://funduino.de/25-der-interrupt-befehl-attachinterrupt">Nr. 25 – Der Interrupt-Befehl attachInterrupt()</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1704"><a href="https://funduino.de/nr-25-das-nodemcu-mit-integriertem-esp8266-modul">Nr. 26 – NodeMCU mit integriertem ESP8266-Modul Anleitung</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1727"><a href="https://funduino.de/nr-27-mq-135-sensor-fuer-luftqualitaet">Nr. 27 – MQ-135 Sensor für Luftqualität</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2026"><a href="https://funduino.de/nr-28-das-sd-karten-modul">Nr. 28 – Das SD-Karten Modul</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2025"><a href="https://funduino.de/nr-29-analog-tastenfeld">Nr. 29 – Analog Tastenfeld</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2037"><a href="https://funduino.de/arduino-infrarot-abstandssensor">Nr. 30 – Abstandssensor (IR)</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2061"><a href="https://funduino.de/arduino-lichtschranke">Nr. 31 – Lichtschranke</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2344"><a href="https://funduino.de/nr-40-cap1188-kapazitiver-beruehrungssensor">Nr. 40 – CAP1188 Kapazitiver Berührungssensor</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2508"><a href="https://funduino.de/nr-41-stromstaerkesensor-arduino">Nr. 41 – Stromstärkesensor (ACS712)</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3137"><a href="https://funduino.de/nr-42-oled-display-ssd1306-128x64-128x32">Nr. 42 – OLED Display SSD1306 128×64 / 128×32</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3156"><a href="https://funduino.de/nr-43-dfplayer-mini-mp3-player">Nr.43 – DFPlayer Mini MP3 Player</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3190"><a href="https://funduino.de/nr-43-entfernungsmessung-mit-vl6180x">Nr.44 – Entfernungsmessung mit VL6180X</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3216"><a href="https://funduino.de/nr-45-arduino-ampel">Nr. 45 – Arduino Ampel</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3244"><a href="https://funduino.de/nr-46-brushlessmotor-mit-esc-ansteuern">Nr. 46 – Brushlessmotor mit ESC ansteuern</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4111"><a href="https://funduino.de/nr-47-dc-motor-ansteuern">Nr. 47 – DC-Motor mit Propeller ansteuern</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4152"><a href="https://funduino.de/nr-48-isd1820-sprachrekorder-und-sprachwiedergabe-mit-arduino">Nr. 48 – ISD1820 Sprachrekorder und Sprachwiedergabe mit Arduino</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4511"><a href="https://funduino.de/nr-48-schrittmotor-nema17-mit-easydriver-und-arduino">Nr. 49 Schrittmotor NEMA17 mit EasyDriver und Arduino</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4333"><a href="https://funduino.de/nr-50-windstaerke-messen">Nr. 50 Windstärke messen</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4388"><a href="https://funduino.de/nr-51-co2-messung-mit-arduino-co2-ampel">Nr. 51 CO2 Messung mit Arduino „CO2 Ampel“</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4503"><a href="https://funduino.de/nr-51-4002a-lcd-mit-arduino-programmieren">Nr. 52 – 4002A LCD mit Arduino programmieren</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5492"><a href="https://funduino.de/nr-53-drucksensor-rfp602-fuer-den-arduino">Nr. 53 – Drucksensor RFP602 den Arduino</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5491"><a href="https://funduino.de/nr-54-rundumleuchte-am-arduino">Nr. 54 – Rundumleuchte am Arduino</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3059"><a href="https://funduino.de/raspberry-pi">Raspberry Pi</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3056"><a href="https://funduino.de/nr-02-der-wechselblinker-2">Nr. 02 – Der Wechselblinker</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3077"><a href="https://funduino.de/nr-03-licht-und-ton-2">Nr. 03 – Licht und Ton</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3076"><a href="https://funduino.de/nr-04-pulsierende-led-2">Nr. 04 – Pulsierende LED</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-has-children menu-item-1836"><a href="https://funduino.de/">NodeMCU</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1840"><a href="https://funduino.de/nr-01-blinkende-led">Nr. 01 – Blinkende LED</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1841"><a href="https://funduino.de/nr-02-der-wechselblinker">Nr. 02 – Der Wechselblinker</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1842"><a href="https://funduino.de/nr-03-licht-und-ton">Nr. 03 – Licht und Ton</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1839"><a href="https://funduino.de/nr-04-pulsierende-led">Nr. 04 – Pulsierende LED</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1838"><a href="https://funduino.de/nr-05-eine-rgb-led-ansteuern">Nr. 05 – Eine RGB-LED ansteuern</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1837"><a href="https://funduino.de/nr-06-taster-am-arduino">Nr. 06 – Taster am Arduino</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1835"><a href="https://funduino.de/nr-07-bewegungsmelder-hc-sr501">Nr. 07 – Bewegungsmelder HC-SR501</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1834"><a href="https://funduino.de/nr-08-fotowiderstand">Nr. 08 – Fotowiderstand</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1833"><a href="https://funduino.de/nr-09-potentiometer">Nr. 09 – Potentiometer</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1832"><a href="https://funduino.de/nr-10-temperatur-messen">Nr. 10 – Temperatur messen</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1831"><a href="https://funduino.de/nr-11-entfernungen-messen">Nr. 11 – Entfernungen messen</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1830"><a href="https://funduino.de/nr-12-fernbedienung">Nr. 12 – Fernbedienung</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1829"><a href="https://funduino.de/nr-13-servo-ansteuern">Nr. 13 – Servo ansteuern</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1828"><a href="https://funduino.de/nr-14-lcd-display">Nr. 14 – LCD Display</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1827"><a href="https://funduino.de/nr-15-relais">Nr. 15 – Relais</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1826"><a href="https://funduino.de/nr-16-schrittmotor">Nr. 16 – Schrittmotor</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1825"><a href="https://funduino.de/nr-17-feuchtigkeitssensor">Nr. 17 – Feuchtigkeitssensor</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1824"><a href="https://funduino.de/nr-18-tropfensensor">Nr. 18 – Tropfensensor</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-467"><a href="https://funduino.de/lernsets">Lernsets für Arduino</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3499"><a href="https://funduino.de/roboter">Roboter</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4539"><a href="https://funduino.de/otto-diy-roboter-mit-arduino">OTTO DIY Roboter mit Arduino</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3515"><a href="https://funduino.de/experimentalrover">Experimentalrover</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3517"><a href="https://funduino.de/nr-36-chassis-fuer-arduino">Nr. 36a – Chassis für Arduino</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3518"><a href="https://funduino.de/nr-36b-chassis-mit-line-tracking">Nr. 36b – Chassis mit Line Tracking</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3516"><a href="https://funduino.de/3d-projekt-chassis-und-line-tracking-mit-arduino">3D-Projekt Chassis und Line-Tracking mit Arduino</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1215"><a href="https://funduino.de/arduino-und-3d-druck">Arduino und 3D-Druck</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2490"><a href="https://funduino.de/funduino-pro-3d-drucker">Funduino Pro 3D-Drucker</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4176"><a href="https://funduino.de/anet-et5-pro-3d-drucker-anleitung-by-funduino">ANET ET5 Pro 3D-Drucker Anleitung</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5093"><a href="https://funduino.de/installation-marlin-auf-anet-et5-pro-et4-et5-serie">Installation Marlin auf Anet ET5 Pro (ET4/ET5 Serie)</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2802"><a href="https://funduino.de/funduino-basic-3d-drucker">Funduino Basic – 3D-Drucker</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2556"><a href="https://funduino.de/3d-design-mit-tinkercad">3D-Design mit Tinkercad</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2452"><a href="https://funduino.de/3d-druck-anleitung-schule-cura">3D-Druck-Anleitung</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1246"><a href="https://funduino.de/arduino-3d-druck-projekte">Arduino 3D-Druck Projekte</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2661"><a href="https://funduino.de/3d-projekt-schmuck-herstellung">3D-Projekt Schmuck-Herstellung</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2559"><a href="https://funduino.de/3d-projekt-windkraftanlage">3D-Projekt Windkraftanlage</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2565"><a href="https://funduino.de/3d-projekt-plaetzchenstempel">3D-Projekt Plätzchenstempel</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3086"><a href="https://funduino.de/3d-projekt-chassis-und-line-tracking-mit-arduino">3D-Projekt Chassis und Line-Tracking mit Arduino</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4297"><a href="https://funduino.de/3d-druck-fuer-betonformen">3D-Projekt Formen aus Beton erzeugen</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4538"><a href="https://funduino.de/otto-diy-roboter-mit-arduino">OTTO DIY Roboter mit Arduino</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3208"><a href="https://funduino.de/aufzugprojekt">Arduino Aufzugprojekt</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5510"><a href="https://funduino.de/3d-druck-im-puppenhaus">3D-Druck Schulprojekt „Puppenhaus“</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1198"><a href="http://www.funduinoshop.com/">Shop</a><span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.011 512.011"><path d="M505.755 123.592c-8.341-8.341-21.824-8.341-30.165 0L256.005 343.176 36.421 123.592c-8.341-8.341-21.824-8.341-30.165 0s-8.341 21.824 0 30.165l234.667 234.667a21.275 21.275 0 0015.083 6.251 21.275 21.275 0 0015.083-6.251l234.667-234.667c8.34-8.341 8.34-21.824-.001-30.165z" /></svg></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2009"><a href="https://www.funduinoshop.com">Externer Shop</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-617"><a href="https://funduino.de/downloads">Downloads</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-797"><a href="https://funduino.de/links">Links</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-554"><a href="https://funduino.de/kontakt">Kontakt</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1556"><a href="https://funduino.de/uebersicht">Übersicht</a></li>
+</ul></div>			</nav>
+							</div>
+				<div class="mobile-header-item">
+									</div>				
+			</div>
+			
+							<header id="masthead-mobile" class="main-header mobile-header">
+					<div class="container-fluid">
+						<div class="row valign">
+							<div class="col-sm-4 col-grow-mobile">
+											<div class="site-branding">
+
+															<p class="site-title"><a href="https://funduino.de/" rel="home">Funduino &#8211; Kits und Anleitungen für Arduino</a></p>
+												<p class="site-description">Arduino lernen leicht gemacht</p>
+										
+			</div><!-- .site-branding -->
+										</div>
+							<div class="col-sm-8 col-grow-mobile header-elements valign align-right">
+												<a href="#" class="header-search header-item">
+					<i class="sydney-svg-icon icon-search active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z" /></svg></i>
+					<i class="sydney-svg-icon icon-cancel"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41L12.59 0Z" /></svg></i>
+				</a>
+																	<a href="#" class="menu-toggle">
+				<i class="sydney-svg-icon"><svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="16" height="1" /><rect y="5" width="16" height="1" /><rect y="10" width="16" height="1" /></svg></i>
+			</a>
+										</div>						
+						</div>
+					</div>
+								<div class="header-search-form">
+			<form role="search" method="get" class="search-form" action="https://funduino.de/">
+				<label>
+					<span class="screen-reader-text">Suche nach:</span>
+					<input type="search" class="search-field" placeholder="Suche&#160;&hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Suche" />
+			</form>			</div>
+							</header>
+						
+	
+	<div class="sydney-hero-area">
+				<div class="header-image">
+			<div class="overlay"></div>					</div>
+		
+			</div>
+
+	
+	<div id="content" class="page-wrap">
+		<div class="container content-wrapper">
+			<div class="row">	
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="post-wrap" role="main">
+
+			
+				
+<article id="post-2124" class="post-2124 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="title-post entry-title" >Nr. 34 &#8211; Motoren mit H-Brücke L298N ansteuern</h1>	</header><!-- .entry-header -->
+
+	
+	<div class="entry-content" >
+		<p>In dieser Anleitung möchten wir zwei Gleichstrommotoren über die L298N H-Brücke ansteuern.</p>
+<p><strong>Material :</strong> Mikrocontroller, 2 Krokodilklemmen, 2 Gleichstrommotoren, Breadboardkabel W/M, Breadboardkabel M/M, 9V Netzteil (Materialbeschaffung: <a href="http://www.funduinoshop.com">www.funduinoshop.com</a>)</p>
+<p>Eine H-Brücke besteht aus vier Schaltern (oft Transistoren), die in einer H-förmigen Anordnung verbunden sind. Diese vier Schalter können so gestellt werden, dass die sogenannte Last (z.B. Motor) in beiden möglichen Polaritäten betrieben werden kann. Zudem kann die Stromversorgung ganz getrennt werden.<br />
+Wir könnten einen Gleichstrommotor also in beide Richtungen rotieren lassen.</p>
+<p>Da die L298N H-Brücke relativ viele Aus- und Eingänge bestitzt, haben wir diese nummeriert.</p>
+<p><img loading="lazy" class="wp-image-2125 aligncenter" src="https://i0.wp.com/funduino.de/wp-content/uploads/2018/08/l298_Nummern.jpg?resize=451%2C415&#038;ssl=1" alt="" width="451" height="415" srcset="https://i0.wp.com/funduino.de/wp-content/uploads/2018/08/l298_Nummern.jpg?w=516&amp;ssl=1 516w, https://i0.wp.com/funduino.de/wp-content/uploads/2018/08/l298_Nummern.jpg?resize=300%2C276&amp;ssl=1 300w, https://i0.wp.com/funduino.de/wp-content/uploads/2018/08/l298_Nummern.jpg?resize=230%2C212&amp;ssl=1 230w, https://i0.wp.com/funduino.de/wp-content/uploads/2018/08/l298_Nummern.jpg?resize=350%2C322&amp;ssl=1 350w, https://i0.wp.com/funduino.de/wp-content/uploads/2018/08/l298_Nummern.jpg?resize=480%2C442&amp;ssl=1 480w" sizes="(max-width: 451px) 100vw, 451px" data-recalc-dims="1" /></p>
+<p><strong>1.</strong> Anschluss für den Gleichstrommotor <strong>1 &#8211; &#8222;+&#8220;</strong><br />
+<strong>2.</strong> Anschluss für den Gleichstrommotor <strong>1 &#8211; &#8222;-&#8222;</strong><br />
+<strong>3.</strong> 12V Jumper. Dieser kann entfernt werden, wenn Sie eine Versorgungsspannung von mehr als 12V Gleichstrom verwenden. Das Entfernen des Jumpers aktiviert die 5V Regulator der H-Brücke.<br />
+<strong>4.</strong> Eingang für die Spannungsversorgung der H-Brücke (max. 35V Gleichstrom)<br />
+<strong>5.</strong> Eingang für den GND<br />
+<strong>6.</strong> 5V Ausgang, z.B. für die Stromversorgung des Mikrocontrollers<br />
+<strong>7.</strong> Pin, über den der Gleichstrommotor 1 angesteuert wird. Falls dieser Pin an einen PWM-Pin des Mikrocontrollers angeschlossen wurde, kann die Motorengeschwindigkeit ebenfalls genau bestimmt werden.<br />
+<strong>8.</strong> Pin IN1 &#8211; Steuert Gleichstrommotor 1<br />
+<strong>9.</strong> Pin IN2 &#8211; Steuert Gleichstrommotor 1<br />
+<strong>10.</strong> Pin IN3 &#8211; Steuert Gleichstrommotor 2<br />
+<strong>11.</strong> Pin IN4 &#8211; Steuert Gleichstrommotor 2<br />
+<strong>12.</strong> Pin, über den der Gleichstrommotor 2 angesteuert wird. Falls dieser Pin an einen PWM-Pin des Mikrocontrollers angeschlossen wurde, kann die Motorengeschwindigkeit ebenfalls genau bestimmt werden.<br />
+<strong>13.</strong> Anschluss für den Gleichstrommotor <strong>2 &#8211; &#8222;+&#8220;</strong><br />
+<strong>14.</strong> Anschluss für den Gleichstrommotor <strong>2 &#8211; &#8222;-&#8222;</strong></p>
+<p><strong><a href="https://www.funduinoshop.com/" target="_blank" rel="noopener noreferrer"><img loading="lazy" class="alignnone wp-image-2821 size-full" src="https://i2.wp.com/funduino.de/wp-content/uploads/2019/04/test4.png?resize=770%2C115&#038;ssl=1" alt="" width="770" height="115" srcset="https://i2.wp.com/funduino.de/wp-content/uploads/2019/04/test4.png?w=770&amp;ssl=1 770w, https://i2.wp.com/funduino.de/wp-content/uploads/2019/04/test4.png?resize=300%2C45&amp;ssl=1 300w, https://i2.wp.com/funduino.de/wp-content/uploads/2019/04/test4.png?resize=768%2C115&amp;ssl=1 768w, https://i2.wp.com/funduino.de/wp-content/uploads/2019/04/test4.png?resize=230%2C34&amp;ssl=1 230w, https://i2.wp.com/funduino.de/wp-content/uploads/2019/04/test4.png?resize=350%2C52&amp;ssl=1 350w, https://i2.wp.com/funduino.de/wp-content/uploads/2019/04/test4.png?resize=480%2C72&amp;ssl=1 480w" sizes="(max-width: 770px) 100vw, 770px" data-recalc-dims="1" /></a><br />
+</strong></p>
+<hr />
+<p><img loading="lazy" class="size-full wp-image-2338 aligncenter" src="https://i0.wp.com/funduino.de/wp-content/uploads/2018/10/34.jpg?resize=969%2C805&#038;ssl=1" alt="" width="969" height="805" srcset="https://i0.wp.com/funduino.de/wp-content/uploads/2018/10/34.jpg?w=969&amp;ssl=1 969w, https://i0.wp.com/funduino.de/wp-content/uploads/2018/10/34.jpg?resize=300%2C249&amp;ssl=1 300w, https://i0.wp.com/funduino.de/wp-content/uploads/2018/10/34.jpg?resize=768%2C638&amp;ssl=1 768w, https://i0.wp.com/funduino.de/wp-content/uploads/2018/10/34.jpg?resize=830%2C690&amp;ssl=1 830w, https://i0.wp.com/funduino.de/wp-content/uploads/2018/10/34.jpg?resize=230%2C191&amp;ssl=1 230w, https://i0.wp.com/funduino.de/wp-content/uploads/2018/10/34.jpg?resize=350%2C291&amp;ssl=1 350w, https://i0.wp.com/funduino.de/wp-content/uploads/2018/10/34.jpg?resize=480%2C399&amp;ssl=1 480w" sizes="(max-width: 969px) 100vw, 969px" data-recalc-dims="1" /></p>
+<p style="text-align: center;"><em>Fritzing Skizze</em></p>
+<hr />
+<pre><span style="color: #434f54;">// Gleichstrommotor 1
+</span>
+<span style="color: #00979c;">int</span> <span style="color: #000000;">GSM1</span> <span style="color: #434f54;">=</span> <span style="color: #000000;">10</span><span style="color: #000000;">;</span>
+<span style="color: #00979c;">int</span> <span style="color: #000000;">in1</span> <span style="color: #434f54;">=</span> <span style="color: #000000;">9</span><span style="color: #000000;">;</span>
+<span style="color: #00979c;">int</span> <span style="color: #000000;">in2</span> <span style="color: #434f54;">=</span> <span style="color: #000000;">8</span><span style="color: #000000;">;</span>
+
+<span style="color: #434f54;">// Gleichstrommotor 1</span>
+
+<span style="color: #00979c;">int</span> <span style="color: #000000;">GSM2</span> <span style="color: #434f54;">=</span> <span style="color: #000000;">5</span><span style="color: #000000;">;</span>
+<span style="color: #00979c;">int</span> <span style="color: #000000;">in3</span> <span style="color: #434f54;">=</span> <span style="color: #000000;">7</span><span style="color: #000000;">;</span>
+<span style="color: #00979c;">int</span> <span style="color: #000000;">in4</span> <span style="color: #434f54;">=</span> <span style="color: #000000;">6</span><span style="color: #000000;">;</span>
+
+<span style="color: #00979c;">void</span> <span style="color: #5e6d03;">setup</span><span style="color: #000000;">(</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+  <span style="color: #d35400;">pinMode</span><span style="color: #000000;">(</span><span style="color: #000000;">GSM1</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">OUTPUT</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>    
+  <span style="color: #d35400;">pinMode</span><span style="color: #000000;">(</span><span style="color: #000000;">GSM2</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">OUTPUT</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+  <span style="color: #d35400;">pinMode</span><span style="color: #000000;">(</span><span style="color: #000000;">in1</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">OUTPUT</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+  <span style="color: #d35400;">pinMode</span><span style="color: #000000;">(</span><span style="color: #000000;">in2</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">OUTPUT</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+  <span style="color: #d35400;">pinMode</span><span style="color: #000000;">(</span><span style="color: #000000;">in3</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">OUTPUT</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+  <span style="color: #d35400;">pinMode</span><span style="color: #000000;">(</span><span style="color: #000000;">in4</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">OUTPUT</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+<span style="color: #000000;">}</span>
+<span style="color: #00979c;">void</span> <span style="color: #5e6d03;">loop</span><span style="color: #000000;">(</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in1</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">HIGH</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>  <span style="color: #434f54;">// Motor 1 beginnt zu rotieren</span>
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in2</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">LOW</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+
+  <span style="color: #d35400;">analogWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">GSM1</span><span style="color: #434f54;">,</span> <span style="color: #000000;">200</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>   <span style="color: #434f54;">// Motor 1 soll mit der Geschwindigkeit "200" (max. 255) rotieren </span>
+
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in3</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">HIGH</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>  <span style="color: #434f54;">// Motor 2 beginnt zu rotieren</span>
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in4</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">LOW</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+
+  <span style="color: #d35400;">analogWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">GSM2</span><span style="color: #434f54;">,</span> <span style="color: #000000;">200</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>   <span style="color: #434f54;">// Motor 2 soll ebenfalls mit der Geschwindigkeit "200" (max. 255) rotieren</span>
+  <span style="color: #d35400;">delay</span><span style="color: #000000;">(</span><span style="color: #000000;">2000</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in1</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">LOW</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>   <span style="color: #434f54;">// Durch die Veränderung von HIGH auf LOW (bzw. LOW auf HIGH) wird die Richtung der Rotation verändert.</span>
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in2</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">HIGH</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>  
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in3</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">LOW</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in4</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">HIGH</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span> 
+  <span style="color: #d35400;">delay</span><span style="color: #000000;">(</span><span style="color: #000000;">2000</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in1</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">LOW</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>   <span style="color: #434f54;">// Anschließend sollen die Motoren 2 Sekunden ruhen.</span>
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in2</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">LOW</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>  
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in3</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">LOW</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+  <span style="color: #d35400;">digitalWrite</span><span style="color: #000000;">(</span><span style="color: #000000;">in4</span><span style="color: #434f54;">,</span> <span style="color: #00979c;">LOW</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+
+  <span style="color: #d35400;">delay</span><span style="color: #000000;">(</span><span style="color: #000000;">2000</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span>
+<span style="color: #000000;">}</span></pre>
+			</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+			</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+				
+			
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3" role="complementary" >
+	<aside id="search-2" class="widget widget_search"><h3 class="widget-title">Suche</h3><form role="search" method="get" class="search-form" action="https://funduino.de/">
+				<label>
+					<span class="screen-reader-text">Suche nach:</span>
+					<input type="search" class="search-field" placeholder="Suche&#160;&hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Suche" />
+			</form></aside><aside id="media_image-3" class="widget widget_media_image"><h3 class="widget-title">Anleitungen als Unterrichtsheft</h3><a href="https://www.funduinoshop.com/epages/78096195.sf/de_DE/?ObjectID=133626272"><img width="300" height="275" src="https://i2.wp.com/funduino.de/wp-content/uploads/2019/10/heft-werbung.png?fit=300%2C275&amp;ssl=1" class="image wp-image-3163  attachment-medium size-medium" alt="" loading="lazy" style="max-width: 100%; height: auto;" srcset="https://i2.wp.com/funduino.de/wp-content/uploads/2019/10/heft-werbung.png?w=413&amp;ssl=1 413w, https://i2.wp.com/funduino.de/wp-content/uploads/2019/10/heft-werbung.png?resize=300%2C275&amp;ssl=1 300w, https://i2.wp.com/funduino.de/wp-content/uploads/2019/10/heft-werbung.png?resize=230%2C211&amp;ssl=1 230w, https://i2.wp.com/funduino.de/wp-content/uploads/2019/10/heft-werbung.png?resize=350%2C320&amp;ssl=1 350w" sizes="(max-width: 300px) 100vw, 300px" /></a></aside><aside id="media_image-2" class="widget widget_media_image"><a href="https://lab.open-roberta.org/"><img width="297" height="140" src="https://i0.wp.com/funduino.de/wp-content/uploads/2019/10/openrobertakompatibel.png?fit=297%2C140&amp;ssl=1" class="image wp-image-3162  attachment-full size-full" alt="" loading="lazy" style="max-width: 100%; height: auto;" srcset="https://i0.wp.com/funduino.de/wp-content/uploads/2019/10/openrobertakompatibel.png?w=297&amp;ssl=1 297w, https://i0.wp.com/funduino.de/wp-content/uploads/2019/10/openrobertakompatibel.png?resize=230%2C108&amp;ssl=1 230w" sizes="(max-width: 297px) 100vw, 297px" /></a></aside><aside id="nav_menu-2" class="widget widget_nav_menu"><h3 class="widget-title">Anleitungen</h3><div class="menu-anleitungen-container"><ul id="menu-anleitungen" class="menu"><li id="menu-item-1883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1883"><a href="https://funduino.de/vorwort">1. Vorwort</a></li>
+<li id="menu-item-1884" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1884"><a href="https://funduino.de/hardware-software">2. Hardware und Software</a></li>
+<li id="menu-item-1885" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1885"><a href="https://funduino.de/programmieren">3. Programmieren</a></li>
+<li id="menu-item-1886" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1886"><a href="https://funduino.de/nr-1-blinkende-led">Nr.01 Blinkende LED</a></li>
+<li id="menu-item-1887" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1887"><a href="https://funduino.de/nr-2-wechselblinker">Nr.02 Wechselblinker</a></li>
+<li id="menu-item-1888" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1888"><a href="https://funduino.de/nr-3-licht-und-ton">Nr.03 Licht und Ton</a></li>
+<li id="menu-item-1889" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1889"><a href="https://funduino.de/nr-4-pulsierende-led">Nr.04 Pulsierende LED</a></li>
+<li id="menu-item-2245" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2245"><a href="https://funduino.de/nr-20-rgb-led">Nr.05 RGB LED</a></li>
+<li id="menu-item-1890" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1890"><a href="https://funduino.de/nr-5-taster-am-arduino">Nr.06 Taster am Arduino</a></li>
+<li id="menu-item-1891" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1891"><a href="https://funduino.de/nr-8-bewegungsmelder">Nr.07 Bewegungsmelder HC-SR501</a></li>
+<li id="menu-item-1892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1892"><a href="https://funduino.de/nr-6-fotowiderstand">Nr.08 Fotowiderstand</a></li>
+<li id="menu-item-1893" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1893"><a href="https://funduino.de/nr-7-potentiometer">Nr.09 Potentiometer</a></li>
+<li id="menu-item-1894" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1894"><a href="https://funduino.de/nr-9-temperatur-messen">Nr.10 Temperatur messen</a></li>
+<li id="menu-item-1895" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1895"><a href="https://funduino.de/nr-10-entfernung-messen">Nr.11 Entfernung messen</a></li>
+<li id="menu-item-1896" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1896"><a href="https://funduino.de/nr-11-fernbedienung">Nr.12 Fernbedienung</a></li>
+<li id="menu-item-1897" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1897"><a href="https://funduino.de/nr-12-servo-ansteuern">Nr.13 Servo ansteuern</a></li>
+<li id="menu-item-1898" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1898"><a href="https://funduino.de/nr-13-lcd-display">Nr.14 LCD Display</a></li>
+<li id="menu-item-1900" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1900"><a href="https://funduino.de/nr-15-relaisshield">Nr.15 Relais</a></li>
+<li id="menu-item-1901" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1901"><a href="https://funduino.de/nr-15-schrittmotor">Nr.16 Schrittmotor</a></li>
+<li id="menu-item-1902" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1902"><a href="https://funduino.de/nr-16-feuchtigkeitssensor">Nr.17 Feuchtigkeitssensor</a></li>
+<li id="menu-item-1903" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1903"><a href="https://funduino.de/nr-17-tropfensensor">Nr.18 Tropfensensor</a></li>
+<li id="menu-item-1904" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1904"><a href="https://funduino.de/nr-18-rfid-kit">Nr.19 RFID Kit</a></li>
+</ul></div></aside><aside id="nav_menu-3" class="widget widget_nav_menu"><h3 class="widget-title">Anleitungen für Zubehör</h3><div class="menu-anleitungen-fuer-zubehoer-container"><ul id="menu-anleitungen-fuer-zubehoer" class="menu"><li id="menu-item-498" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-498"><a href="https://funduino.de/zb-01-keypad-shield">Nr.01 – Keypad Shield</a></li>
+<li id="menu-item-497" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-497"><a href="https://funduino.de/nr-19-i%c2%b2c-display">Nr.02 – I²C Display</a></li>
+<li id="menu-item-496" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-496"><a href="https://funduino.de/nr-03-433mhz-funkverbindung">Nr.03 – 433mhz Funkverbindung</a></li>
+<li id="menu-item-495" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-495"><a href="https://funduino.de/nr-04-tastenfeld">Nr.04 – Tastenfeld</a></li>
+<li id="menu-item-628" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-628"><a href="https://funduino.de/tastenfeld-schloss">Nr.04b &#8211; Tastenfeld – Schloss</a></li>
+<li id="menu-item-586" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-586"><a href="https://funduino.de/arduino-rtc">Nr.05 – Arduino-RTC</a></li>
+<li id="menu-item-649" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-649"><a href="https://funduino.de/nr-06-zwei-i%c2%b2c-displays-gleichzeitig">Nr.06 – Zwei I²C Displays</a></li>
+<li id="menu-item-680" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-680"><a href="https://funduino.de/nr-07-farbsensor-am-arduino">Nr.07 – Farbsensor</a></li>
+<li id="menu-item-700" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-700"><a href="https://funduino.de/nr-08-toene-erzeugen">Nr.08 – Töne erzeugen</a></li>
+<li id="menu-item-716" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-716"><a href="https://funduino.de/nr-09-arduino-neigungssensor">Nr.09 – Arduino Neigungssensor SW-520D</a></li>
+<li id="menu-item-722" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-722"><a href="https://funduino.de/anleitung-temperatur-messen-lm35">Nr.10 – Temperatur messen mit dem LM35</a></li>
+<li id="menu-item-754" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-754"><a href="https://funduino.de/nr-11-spannung-messen">Nr.11 – Spannung messen</a></li>
+<li id="menu-item-765" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-765"><a href="https://funduino.de/nr-12-7-segment-anzeige">Nr.12 – 7 Segment Anzeige</a></li>
+<li id="menu-item-807" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-807"><a href="https://funduino.de/anleitung-4x20-i%c2%b2c-lcd-modul">Nr.13 – Vierzeiliges I²C LCD Modul</a></li>
+<li id="menu-item-853" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-853"><a href="https://funduino.de/nr-14-lagesensor">Nr.14 – Lagesensor</a></li>
+<li id="menu-item-859" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-859"><a href="https://funduino.de/nr-15-schieberegler">Nr.15 – Schieberegler</a></li>
+<li id="menu-item-876" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-876"><a href="https://funduino.de/anleitung-dht11-dht22">Nr.16 – DHT11 und DHT22</a></li>
+<li id="menu-item-916" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-916"><a href="https://funduino.de/nr-17-ws2812-neopixel">Nr.17 – WS2812 – NeoPixel</a></li>
+<li id="menu-item-1022" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1022"><a href="https://funduino.de/tutorial-hc-05-und-hc-06-bluetooth">Nr.18 – HC-05 und HC-06 Bluetooth Modul</a></li>
+<li id="menu-item-1179" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1179"><a href="https://funduino.de/nr-19-daten-mit-einem-ethernet-shield-auf-einer-sd-karte-speichern">Nr.19 – Daten mit einem Ethernet Shield auf einer SD Karte speichern</a></li>
+<li id="menu-item-2427" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2427"><a href="https://funduino.de/nr-19b-das-ethernet-shield-als-webserver">Nr. 19b – Das Ethernet Shield als Webserver</a></li>
+<li id="menu-item-1189" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1189"><a href="https://funduino.de/mp3-shield-tutorial">Nr.20 – MP3 Shield</a></li>
+<li id="menu-item-1324" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1324"><a href="https://funduino.de/nr-21-herzfrequenzmessung">Nr.21 – Herzfrequenzmessung</a></li>
+<li id="menu-item-1393" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1393"><a href="https://funduino.de/nr-22-joystick-modul">Nr.22 – Joystick Modul am Arduino</a></li>
+<li id="menu-item-1452" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1452"><a href="https://funduino.de/nr-23-bme280-luftdruck-luftfeuchtigkeits-und-temperatursensor">Nr. 23 – BME280  Luftdruck-, Luftfeuchtigkeits- und Temperatursensor</a></li>
+<li id="menu-item-1485" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1485"><a href="https://funduino.de/nr-24-joystick-modul-v1-a">Nr. 24 – Joystick Modul V1.A</a></li>
+<li id="menu-item-1502" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1502"><a href="https://funduino.de/25-der-interrupt-befehl-attachinterrupt">Nr. 25 – Der Interrupt-Befehl attachInterrupt()</a></li>
+<li id="menu-item-1729" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1729"><a href="https://funduino.de/nr-27-mq-135-sensor-fuer-luftqualitaet">Nr. 27 – MQ-135 Sensor für Luftqualität</a></li>
+<li id="menu-item-1937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1937"><a href="https://funduino.de/nr-28-das-sd-karten-modul">Nr. 28 – Das SD-Karten Modul</a></li>
+<li id="menu-item-2027" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2027"><a href="https://funduino.de/nr-29-analog-tastenfeld">Nr. 29 – Analog Tastenfeld</a></li>
+<li id="menu-item-2036" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2036"><a href="https://funduino.de/arduino-infrarot-abstandssensor">Nr. 30 – Abstandssensor (IR)</a></li>
+<li id="menu-item-2060" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2060"><a href="https://funduino.de/arduino-lichtschranke">Nr. 31 – Lichtschranke</a></li>
+<li id="menu-item-2075" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2075"><a href="https://funduino.de/nr-23-der-mq-3-alkoholsensor">Nr. 32 – Der MQ-3 Alkoholsensor</a></li>
+<li id="menu-item-2087" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2087"><a href="https://funduino.de/nr-32-der-rotary-encoder-ky-040">Nr. 33 – Der Rotary Encoder KY-040</a></li>
+<li id="menu-item-2141" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-2124 current_page_item menu-item-2141"><a href="https://funduino.de/nr-34-motoren-mit-h-bruecke-l298n-ansteuern" aria-current="page">Nr. 34 – Motoren mit H-Brücke L298N ansteuern</a></li>
+<li id="menu-item-2157" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2157"><a href="https://funduino.de/nr-35-uv-sensor-uvm30">Nr. 35 – UV-Sensor UVM30</a></li>
+<li id="menu-item-2213" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2213"><a href="https://funduino.de/nr-36-chassis-fuer-arduino">Nr. 36a – Chassis für Arduino</a></li>
+<li id="menu-item-2232" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2232"><a href="https://funduino.de/nr-36b-chassis-mit-line-tracking">Nr. 36b – Chassis mit Line Tracking</a></li>
+<li id="menu-item-2241" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2241"><a href="https://funduino.de/nr-37-endstop-mikroschalter-fuer-arduino">Nr. 37 – EndStop Mikroschalter für Arduino</a></li>
+<li id="menu-item-2272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2272"><a href="https://funduino.de/nr-38-der-vibrationssensor">Nr. 38 – Der Vibrationssensor</a></li>
+<li id="menu-item-2291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2291"><a href="https://funduino.de/nr-39-doppler-radar-modul-rcwl-0516">Nr. 39 – Doppler-Radar Modul RCWL-0516</a></li>
+<li id="menu-item-2345" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2345"><a href="https://funduino.de/nr-40-cap1188-kapazitiver-beruehrungssensor">Nr. 40 – CAP1188 Kapazitiver Berührungssensor</a></li>
+<li id="menu-item-2509" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2509"><a href="https://funduino.de/nr-41-stromstaerkesensor-arduino">Nr. 41 – Stromstärkesensor (ACS712)</a></li>
+<li id="menu-item-3138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3138"><a href="https://funduino.de/nr-42-oled-display-ssd1306-128x64-128x32">Nr. 42 – OLED Display SSD1306 128×64 / 128×32</a></li>
+<li id="menu-item-3155" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3155"><a href="https://funduino.de/nr-43-dfplayer-mini-mp3-player">Nr.43 – DFPlayer Mini MP3 Player</a></li>
+<li id="menu-item-3191" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3191"><a href="https://funduino.de/nr-43-entfernungsmessung-mit-vl6180x">Nr.44 – Entfernungsmessung mit VL6180X</a></li>
+<li id="menu-item-3217" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3217"><a href="https://funduino.de/nr-45-arduino-ampel">Nr. 45 – Arduino Ampel</a></li>
+<li id="menu-item-3243" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3243"><a href="https://funduino.de/nr-46-brushlessmotor-mit-esc-ansteuern">Nr. 46 – Brushlessmotor mit ESC ansteuern</a></li>
+<li id="menu-item-4112" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4112"><a href="https://funduino.de/nr-47-dc-motor-ansteuern">Nr. 47 – DC-Motor mit Propeller ansteuern</a></li>
+<li id="menu-item-4151" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4151"><a href="https://funduino.de/nr-48-isd1820-sprachrekorder-und-sprachwiedergabe-mit-arduino">Nr. 48 – ISD1820 Sprachrekorder und Sprachwiedergabe mit Arduino</a></li>
+<li id="menu-item-4512" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4512"><a href="https://funduino.de/nr-48-schrittmotor-nema17-mit-easydriver-und-arduino">Nr. 49 Schrittmotor NEMA17 mit EasyDriver und Arduino</a></li>
+<li id="menu-item-4334" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4334"><a href="https://funduino.de/nr-50-windstaerke-messen">Nr. 50 Windstärke messen</a></li>
+<li id="menu-item-4387" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4387"><a href="https://funduino.de/nr-51-co2-messung-mit-arduino-co2-ampel">Nr. 51 CO2 Messung mit Arduino „CO2 Ampel“</a></li>
+<li id="menu-item-4502" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4502"><a href="https://funduino.de/nr-51-4002a-lcd-mit-arduino-programmieren">Nr. 52 – 4002A LCD mit Arduino programmieren</a></li>
+<li id="menu-item-5458" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5458"><a href="https://funduino.de/nr-53-drucksensor-rfp602-fuer-den-arduino">Nr. 53 – Drucksensor RFP602 den Arduino</a></li>
+<li id="menu-item-5493" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5493"><a href="https://funduino.de/nr-54-rundumleuchte-am-arduino">Nr. 54 – Rundumleuchte am Arduino</a></li>
+<li id="menu-item-2398" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2398"><a href="https://funduino.de/arduino-und-app-inventor">Arduino und App Inventor</a></li>
+</ul></div></aside><aside id="nav_menu-8" class="widget widget_nav_menu"><h3 class="widget-title">Raspberry Pi</h3><div class="menu-raspberry-pi-container"><ul id="menu-raspberry-pi" class="menu"><li id="menu-item-3061" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3061"><a href="https://funduino.de/nr-02-der-wechselblinker-2">Nr. 02 &#8211; Der Wechselblinker</a></li>
+<li id="menu-item-3079" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3079"><a href="https://funduino.de/nr-03-licht-und-ton-2">Nr. 03 &#8211; Licht und Ton</a></li>
+<li id="menu-item-3080" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3080"><a href="https://funduino.de/nr-04-pulsierende-led-2">Nr. 04 &#8211; Pulsierende LED</a></li>
+</ul></div></aside><aside id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">NodeMCU</h3><div class="menu-nodemcu-container"><ul id="menu-nodemcu" class="menu"><li id="menu-item-2052" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2052"><a href="https://funduino.de/nr-25-das-nodemcu-mit-integriertem-esp8266-modul">A &#8211; Das NodeMCU</a></li>
+<li id="menu-item-2004" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2004"><a href="https://funduino.de/nr-00-messwerte-ins-heimnetz-uebertragen">B &#8211; Das NodeMCU als Webserver</a></li>
+<li id="menu-item-2050" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2050"><a href="https://funduino.de/c-temperaturwerte-ins-heimnetz-uebertragen">C &#8211; Temperaturwerte ins Heimnetz übertragen</a></li>
+<li id="menu-item-1906" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1906"><a href="https://funduino.de/nr-01-blinkende-led">Nr. 01 &#8211; Blinkende LED</a></li>
+<li id="menu-item-1907" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1907"><a href="https://funduino.de/nr-02-der-wechselblinker">Nr. 02 &#8211; Der Wechselblinker</a></li>
+<li id="menu-item-1908" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1908"><a href="https://funduino.de/nr-03-licht-und-ton">Nr. 03 &#8211; Licht und Ton</a></li>
+<li id="menu-item-1909" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1909"><a href="https://funduino.de/nr-04-pulsierende-led">Nr. 04 &#8211; Pulsierende LED</a></li>
+<li id="menu-item-1910" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1910"><a href="https://funduino.de/nr-05-eine-rgb-led-ansteuern">Nr. 05 &#8211; Eine RGB-LED ansteuern</a></li>
+<li id="menu-item-1911" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1911"><a href="https://funduino.de/nr-06-taster-am-arduino">Nr. 06 &#8211; Taster am NodeMCU</a></li>
+<li id="menu-item-1912" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1912"><a href="https://funduino.de/nr-07-bewegungsmelder-hc-sr501">Nr. 07 &#8211; Bewegungsmelder HC-SR501</a></li>
+<li id="menu-item-1913" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1913"><a href="https://funduino.de/nr-08-fotowiderstand">Nr. 08 &#8211; Fotowiderstand</a></li>
+<li id="menu-item-1914" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1914"><a href="https://funduino.de/nr-09-potentiometer">Nr. 09 &#8211; Potentiometer</a></li>
+<li id="menu-item-1915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1915"><a href="https://funduino.de/nr-10-temperatur-messen">Nr. 10 &#8211; Temperatur messen</a></li>
+<li id="menu-item-1916" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1916"><a href="https://funduino.de/nr-11-entfernungen-messen">Nr. 11 &#8211; Entfernungen messen</a></li>
+<li id="menu-item-1917" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1917"><a href="https://funduino.de/nr-12-fernbedienung">Nr. 12 &#8211; Fernbedienung</a></li>
+<li id="menu-item-1918" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1918"><a href="https://funduino.de/nr-13-servo-ansteuern">Nr. 13 &#8211; Servo ansteuern</a></li>
+<li id="menu-item-1919" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1919"><a href="https://funduino.de/nr-14-lcd-display">Nr. 14 &#8211; LCD Display</a></li>
+<li id="menu-item-1920" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1920"><a href="https://funduino.de/nr-15-relais">Nr. 15 &#8211; Relais</a></li>
+<li id="menu-item-1921" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1921"><a href="https://funduino.de/nr-16-schrittmotor">Nr. 16 &#8211; Schrittmotor</a></li>
+<li id="menu-item-1922" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1922"><a href="https://funduino.de/nr-17-feuchtigkeitssensor">Nr. 17 &#8211; Feuchtigkeitssensor</a></li>
+<li id="menu-item-1923" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1923"><a href="https://funduino.de/nr-18-tropfensensor">Nr. 18 &#8211; Tropfensensor</a></li>
+</ul></div></aside><aside id="text-4" class="widget widget_text"><h3 class="widget-title">Lernsets</h3>			<div class="textwidget">Lernsets zu unseren Anleitungen finden Sie hier: <a href="http://www.funduinoshop.com">www.funduinoshop.com</a></div>
+		</aside><aside id="custom_html-3" class="widget_text widget widget_custom_html"><h3 class="widget-title">Lizenz</h3><div class="textwidget custom-html-widget"><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i1.wp.com/i.creativecommons.org/l/by-nc-nd/4.0/88x31.png?w=1170&#038;ssl=1" data-recalc-dims="1" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Anleitung für Arduino</span> von <a xmlns:cc="http://creativecommons.org/ns#" href="www.funduino.de" property="cc:attributionName" rel="cc:attributionURL">Funduino GmbH - Ralf Snieders</a> ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Namensnennung - Nicht kommerziell - Keine Bearbeitungen 4.0 International Lizenz</a>.</div></aside><aside id="custom_html-5" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><div class="widget_container_text_only"></div></div></aside><aside id="custom_html-4" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><script id="trustamiwidget" type="text/javascript" src="https://cdn.trustami.com/widgetapi/widget2/trustami-widget.js" data-profile="569e3debcc96c532248b479e" data-user="90aaaa456e7f51d945528eb518f130cd3db889d3" data-platform="0" ></script>
+
+<div class="widget_container_text_only"></div></div></aside><aside id="custom_html-6" class="widget_text widget widget_custom_html"><h3 class="widget-title">Bewertung</h3><div class="textwidget custom-html-widget"><!--Trustami Vertrauenssiegel mitlaufend-->
+<div class="widget_container_overlay"></div>
+<!--Trustami Vertrauenssiegel Box-->
+<div class="widget_container_box"></div>
+<!--Trustami Vertrauenssiegel als Text-->
+<div class="widget_container_text_only"></div></div></aside></div><!-- #secondary -->
+			</div>
+		</div>
+	</div><!-- #content -->
+
+	
+			
+<div id="sidebar-footer" class="footer-widgets widget-area visibility-all">
+	<div class="container">
+		<div class="footer-widgets-grid footer-layout-3 align-top">
+								<div class="sidebar-column">
+				<aside id="nav_menu-4" class="widget widget_nav_menu"><h3 class="widget-title">Impressum und Datenschutz</h3><div class="menu-informationen-container"><ul id="menu-informationen" class="menu"><li id="menu-item-499" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-499"><a href="https://funduino.de/impressum-und-datenschutz">Impressum und Datenschutz</a></li>
+</ul></div></aside>			</div>
+				
+								<div class="sidebar-column">
+				<aside id="text-5" class="widget widget_text">			<div class="textwidget"><p>Alle Marken oder Warenzeichen, insbesondere die Marke „Arduino“, sind eingetragene Marken oder eingetragene Warenzeichen ihrer jeweiligen Eigentümer und ggf. nicht gesondert gekennzeichnet. Aus dem Fehlen der Kennzeichnung kann nicht geschlossen werden, dass es sich bei einem Begriff, einem Sound oder einem Bild nicht um eine eingetragene Marke oder ein eingetragenes Warenzeichen handelt.</p>
+</div>
+		</aside>			</div>
+				
+						
+				</div>
+	</div>
+</div>		
+		
+	<footer id="colophon" class="site-footer">
+		<div class="container">
+			<div class="site-info">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="sydney-credits">&copy; 2021 Funduino - Kits und Anleitungen für Arduino. Proudly powered by <a rel="nofollow" href="https://athemes.com/theme/sydney/">Sydney</a></div>					</div>
+					<div class="col-md-6">
+											</div>					
+				</div>
+			</div>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+
+	
+</div><!-- #page -->
+
+<a on="tap:toptarget.scrollTo(duration=200)" class="go-top visibility-all position-right"><i class="sydney-svg-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 15l7-7 7 7" stroke-width="3" stroke-linejoin="round" /></svg></i></a><script type='text/javascript' src='https://funduino.de/wp-content/plugins/epages-online-shop/assets/js/icon.js?ver=5.8.2' id='icon-js'></script>
+<script type='text/javascript' src='https://funduino.de/wp-content/plugins/sydney-toolbox/js/main.js?ver=20200504' id='st-carousel-js'></script>
+<script type='text/javascript' src='https://funduino.de/wp-content/themes/sydney/js/elementor.js?ver=20200504' id='sydney-elementor-editor-js'></script>
+<script type='text/javascript' src='https://funduino.de/wp-content/plugins/jetpack/_inc/build/photon/photon.min.js?ver=20191001' id='jetpack-photon-js'></script>
+<script type='text/javascript' id='toc-front-js-extra'>
+/* <![CDATA[ */
+var tocplus = {"visibility_show":"show","visibility_hide":"hide","width":"Auto"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://funduino.de/wp-content/plugins/table-of-contents-plus/front.min.js?ver=2106' id='toc-front-js'></script>
+<script type='text/javascript' id='912528473-js-extra'>
+/* <![CDATA[ */
+var localize = {"ajaxurl":"https:\/\/funduino.de\/wp-admin\/admin-ajax.php","nonce":"9b7cb773ea","i18n":{"added":"Added ","compare":"Compare","loading":"Loading..."}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://funduino.de/wp-content/uploads/essential-addons-elementor/734e5f942.min.js?ver=1639143604' id='912528473-js'></script>
+<script type='text/javascript' src='https://funduino.de/wp-content/themes/sydney/js/functions.js?ver=20211026' id='sydney-functions-js'></script>
+<script type='text/javascript' src='https://funduino.de/wp-content/themes/sydney/js/scripts.js?ver=5.8.2' id='sydney-scripts-js'></script>
+<script type='text/javascript' src='https://funduino.de/wp-content/themes/sydney/js/so-legacy.js?ver=5.8.2' id='sydney-so-legacy-scripts-js'></script>
+<script type='text/javascript' src='https://funduino.de/wp-content/themes/sydney/js/so-legacy-main.min.js?ver=5.8.2' id='sydney-so-legacy-main-js'></script>
+<script type='text/javascript' src='https://funduino.de/wp-content/plugins/enlighter/cache/enlighterjs.min.js?ver=y+WoSXfZvI6Kwpi' id='enlighterjs-js'></script>
+<script type='text/javascript' id='enlighterjs-js-after'>
+!function(e,n){if("undefined"!=typeof EnlighterJS){var o={"selectors":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"options":{"indent":4,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":false,"textOverflow":"break","linenumbers":true,"theme":"enlighter","language":"enlighter","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN_RAW}{BTN_COPY}{BTN_WINDOW}{BTN_WEBSITE}","toolbarBottom":""}};(e.EnlighterJSINIT=function(){EnlighterJS.init(o.selectors.block,o.selectors.inline,o.options)})()}else{(n&&(n.error||n.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}}(window,console);
+</script>
+<script type='text/javascript' src='https://funduino.de/wp-includes/js/wp-embed.min.js?ver=5.8.2' id='wp-embed-js'></script>
+	<script>
+	/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);
+	</script>
+	<script src='https://stats.wp.com/e-202149.js' defer></script>
+<script>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:10.4',blog:'125611268',post:'2124',tz:'0',srv:'funduino.de'} ]);
+	_stq.push([ 'clickTrackerInit', '125611268', '2124' ]);
+</script>
+
+</body>
+</html>
