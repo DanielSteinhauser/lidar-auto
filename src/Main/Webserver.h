@@ -7,11 +7,12 @@ WiFiServer server(80);
 
 String header;
 
-boolean  server_en = true;
+boolean  server_en = false;
 
 void webserverInit(){
   if (server_en){   //Webserver eingeschaltet
       WiFi.begin(ssid, password);
+      Serial.print("Versuche WLAN-Verbindung");
      while (WiFi.status() != WL_CONNECTED) 
       {  delay(500);
          Serial.print(".");
