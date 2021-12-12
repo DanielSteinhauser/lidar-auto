@@ -18,6 +18,8 @@ void displayDatenSchreiben(){
   Heltec.display->drawString(30, 0, String(kurz));
   Heltec.display->drawString(0, 25, "dist:");
   Heltec.display->drawString(30, 25, String(dist));
+  Heltec.display->drawString(0, 45, "Wifi:");
+  Heltec.display->drawString(30, 45, String(wifiStatus());
   
   Heltec.display->display();
 

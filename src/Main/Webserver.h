@@ -1,13 +1,13 @@
 #include <WiFi.h>
 
-const char* ssid = "REPLACE_WITH_YOUR_SSID";
-const char* password = "REPLACE_WITH_YOUR_PASSWORD";
+const char* ssid = "BMW1000";
+const char* password = "WoUtBa14";
 
 WiFiServer server(80);
 
 String header;
 
-boolean  server_en = false;
+boolean  server_en = true;
 
 void webserverInit(){
   if (server_en){   //Webserver eingeschaltet
@@ -23,4 +23,8 @@ void webserverInit(){
       Serial.println(WiFi.localIP());
       server.begin();
   }
+}
+
+boolean wifiStatus(){
+  return WiFi.status() == WL_CONNECTED);
 }

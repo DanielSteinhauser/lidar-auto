@@ -8,8 +8,8 @@ void setup() {
   Serial.begin(115200);
   Serial2.begin(115200,SERIAL_8N1,22,23);
   stepper.setSpeed(5);
-  webserverInit();
   displayInit();
+  webserverInit();
 }
 
 
