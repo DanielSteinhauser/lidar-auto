@@ -1,7 +1,8 @@
 #include "Lidar.h"
 #include "Display.h"
+#include "Webserver.h"        // Reihenfolge hier wichtig weil C-Compiler = geistig behindert
 #include "Steuerung.h"
-#include "Webserver.h"
+
 
 void setup() {
   kurz = false;
@@ -17,6 +18,7 @@ void setup() {
 void loop() {
   scanStepper(15);
   displayDatenSchreiben();
+  webserverClientUeberpruefen();
   
   if(kurz){
     int n = 0;

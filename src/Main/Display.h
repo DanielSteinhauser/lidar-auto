@@ -1,16 +1,25 @@
 //Steuert Display
 
 #include <heltec.h>
-void displayInit(){
-  Heltec.begin(true /*DisplayEnable Enable*/, true /*LoRa Disable*/, true /*Serial Enable*/, true /*PABOOST Enable*/, 470E6 /**/); 
-  delay(500);
+
+void aufDisplayAnzeigen(int x, int y, String text) {
+  Heltec.display->drawString(x, y, text);
+  Heltec.display->display();
+}
+
+void clearDisplay() {
   Heltec.display->clear();
   Heltec.display->display();
 }
+
+void displayInit(){
+  Heltec.begin(true /*DisplayEnable Enable*/, true /*LoRa Disable*/, true /*Serial Enable*/, true /*PABOOST Enable*/, 470E6 /**/); 
+  delay(500);
+  clearDisplay();
+}
+
 void displayDatenSchreiben(){
-  
-  Heltec.display->clear();
-  Heltec.display->display();
+  clearDisplay();
   
   Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
   Heltec.display->setFont(ArialMT_Plain_10);
@@ -18,9 +27,7 @@ void displayDatenSchreiben(){
   Heltec.display->drawString(30, 0, String(kurz));
   Heltec.display->drawString(0, 25, "dist:");
   Heltec.display->drawString(30, 25, String(dist));
-  Heltec.display->drawString(0, 45, "Wifi:");
-  Heltec.display->drawString(30, 45, String(wifiStatus());
-  
+
   Heltec.display->display();
 
 }

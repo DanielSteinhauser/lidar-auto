@@ -1,6 +1,5 @@
 //Steuert LIDAR-Sensor
 
-
 #define IN1 19
 #define IN2 18
 #define IN3 5
