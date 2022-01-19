@@ -1,6 +1,5 @@
 //Steuert Schrittmotor, Motoren
 
-
 #include <Stepper.h>
 
 Stepper stepper (4096,IN1, IN3, IN2, IN4);

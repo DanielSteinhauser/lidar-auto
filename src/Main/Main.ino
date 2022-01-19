@@ -1,3 +1,5 @@
+boolean  server_en = true; // Webserver Hauptschalter
+
 #include "Lidar.h"
 #include "Display.h"
 #include "Webserver.h"        // Reihenfolge hier wichtig weil C-Compiler = geistig behindert
