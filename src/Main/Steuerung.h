@@ -12,8 +12,6 @@ void stepperBewegen(boolean uhrzeigersinn){
   else if(uhrzeigersinn == false){
     stepper.step(-11);
   }
-
-  return;
 }
 
 
@@ -24,6 +22,7 @@ void scanStepper(int grad){
       
       if(dist <= 10 && dist > 0){
         kurz = true;
+        return;
       }
      
       displayDatenSchreiben();
@@ -40,6 +39,7 @@ void scanStepper(int grad){
       
       if(dist <= 10 && dist > 0){
         kurz = true;
+        return;
       }
       
       displayDatenSchreiben();
@@ -64,7 +64,7 @@ void scanStepper(int grad){
       
       if(dist <= 10 && dist > 0){
         kurz = true;
+        return;
       }
    }
-   return;
 }

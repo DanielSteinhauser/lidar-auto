@@ -8,7 +8,6 @@ WiFiServer server(80);
 String header;
 
 void webserverInit(){
-  if (server_en) {   //Webserver eingeschaltet
       WiFi.begin(ssid, password);
       Serial.print("Versuche WLAN-Verbindung");
       aufDisplayAnzeigen(0, 0, "Versuche Wlan verbindung");
@@ -23,7 +22,6 @@ void webserverInit(){
       aufDisplayAnzeigen(0, 20, "Erfolg");
       delay(1000);
       server.begin();
-  }
 }
 
 boolean wifiStatus(){

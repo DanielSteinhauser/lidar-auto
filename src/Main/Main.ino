@@ -12,7 +12,7 @@ void setup() {
   Serial2.begin(115200,SERIAL_8N1,22,23);
   stepper.setSpeed(5);
   displayInit();
-  webserverInit();
+  if (server_en) webserverInit();
 }
 
 
