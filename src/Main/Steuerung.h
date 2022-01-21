@@ -22,7 +22,6 @@ void scanStepper(int grad){
       
       if(dist <= 10 && dist > 0){
         kurz = true;
-        return;
       }
      
       displayDatenSchreiben();
@@ -39,7 +38,6 @@ void scanStepper(int grad){
       
       if(dist <= 10 && dist > 0){
         kurz = true;
-        return;
       }
       
       displayDatenSchreiben();
@@ -64,7 +62,6 @@ void scanStepper(int grad){
       
       if(dist <= 10 && dist > 0){
         kurz = true;
-        return;
       }
    }
 }

@@ -1,4 +1,4 @@
-boolean  server_en = true; // Webserver Hauptschalter
+boolean  server_en = false; // Webserver Hauptschalter
 
 #include "Lidar.h"
 #include "Display.h"
