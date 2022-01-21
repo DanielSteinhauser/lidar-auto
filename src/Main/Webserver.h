@@ -1,7 +1,7 @@
 #include <WiFi.h>
 
-const char* ssid = "SSID";
-const char* password = "PASSWORT";
+const char* ssid = "HRSIOT";
+const char* password = "123456789";
 
 WiFiServer server(80);
 
@@ -33,6 +33,7 @@ void webserverClientUeberpruefen() {
     WiFiClient client = server.available(); // Listen for incoming clients
     
     if (client){
+        Serial.println("New Client");
         client.println("HTTP/1.1 200 OK");
         client.println("Content-type:text/html");
         client.println("Connection: close");
