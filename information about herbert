@@ -6,8 +6,10 @@ PINS 12,14,26,27 for driving;
   27 left forward( yellow)
   26 left backwards(greeen)
   Kurven fahren funktion: RECHTS +; LINKS-;
-  void kurvefahren(int n){
-int time = abs(n) * 8,333;
+ 
+ 
+ void kurvefahren(int n){
+  int time = abs(n) * 8,333;
 
 {
 	if(n < 0){
