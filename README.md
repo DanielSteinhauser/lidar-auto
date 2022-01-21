@@ -1,7 +1,7 @@
 # lidar-auto
 Technisches Projekt
 
-Website ESP32:  https://heltec.org/project/wifi-kit-32/
+Website ESP32:  https://heltec.org/project/wifi-kit-32/ 
 H-Brücke:  https://funduino.de/nr-34-motoren-mit-h-bruecke-l298n-ansteuern
 
 ## IDE Setup
