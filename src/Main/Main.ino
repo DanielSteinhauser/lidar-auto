@@ -4,8 +4,9 @@ boolean  server_en = false; // Webserver Hauptschalter
 #include "Display.h"
 #include "Webserver.h"        // Reihenfolge hier wichtig weil C-Compiler = geistig behindert
 #include "Steuerung.h"
-#include "Webserver.h"
 #include "Scan.h"
+#include "Webserver.h"
+
 
 void setup() {
   kurz = false;
@@ -27,32 +28,34 @@ void setup() {
       Serial.println(WiFi.localIP());
       server.begin();
   }
-  
-  displayInit();
   motorInit();
   pinMode(12,OUTPUT);
   pinMode(14,OUTPUT);
   pinMode(26,OUTPUT);
   pinMode(27,OUTPUT);
-  displayInit();
-  if (server_en) webserverInit();
-  
 }
 
 void loop() {
-  scan(15);
+  dauerScan(15);
   displayDatenSchreiben();
   webserverClientUeberpruefen();
   
   if(kurz){
     scan(45);
-    if(kurz == false){
-      geradeausfahren();
-    }
-    else{
+    if(kurz == true){
       rueckwaertsfahren();
     }
-  }
-  // Scan ändert 'kurz' zu false wenn 
-  
+    if(kurz == false){
+      if (rd > ld){ 
+        kurvefahren(r);
+      }
+      else if(ld > rd){
+        kurvefahren(l);
+      }
+      else{
+        kurvefahren(r);
+      }
+      geradeausfahren();
+    }  
+  } 
 }

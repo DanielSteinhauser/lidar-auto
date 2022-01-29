@@ -1,25 +1,8 @@
-int rd = 0;
-int ld = 0;
-int r = 0;
-int l = 0;
-void scan(int grad){
- 
-  scanRechts(grad);
-  scanResetRechts(grad);
-  scanLinks(grad);
-  scanResetLinks(grad);
-
-  if(rd == 0 && ld == 0){
-    kurz true;
-    return;
-  }
-  else if (){
-  }
-}
-double scanRechts(int grad)
-{  // Scan rechts
+// Scan Funktion die Scannt und werte für eine mögliche Kurve gibt
+void scanen(int grad, boolean richtung)
+{ int n = 0;
   for(int i = 0; i <= grad; ++i){
-      stepperBewegen(true);
+      stepperBewegen(richtung);
       distanzMessen();
       ++n;
       if(dist <= 20 && dist > 0){
@@ -27,90 +10,57 @@ double scanRechts(int grad)
         kurz = true;
         n = 0;
       }
-      
       displayDatenSchreiben();
-      
       Serial.print("Stepp: ");
       Serial.print(i);
       Serial.print(" Distanz: ");
       Serial.println(dist);
-      if(n == 15)
-      { rd = dist;
-        kurvefahren(i-(7.5));
-        kurz = false
+      // setzt Rechtskurven Distanz
+      if(n == 8 && richtung == true){ 
+        rd = dist;
+      }
+      // setzt Linkskurven Distanz
+      else if(n == 8 && richtung == false){ 
+        ld = dist;
+      }
+      // 
+      if(n == 16 && richtung == true){ 
+        r = i-8;
+        kurz = false;
+      }
+      if(n == 16 && richtung == false){ 
+        l = (i-8)*(-1);
+        kurz = false;
       }
   }
 }
-double scanLinks()
-{   // Scann links
-   for(int i = 0; i <= grad; ++i){
-      stepperBewegen(false);
-      distanzMessen();
-      ++n;
-      if(dist <= 20 && dist > 0){
-        anhalten();
-        kurz = true;
-        n = 0;
-      }
-      
-      displayDatenSchreiben();
-      
-      Serial.print("Stepp: ");
-      Serial.print(i-grad);
-      Serial.print(" Distanz: ");
-      Serial.println(dist);
-      if(n == 15)
-      { ld = dist;
-        kurvefahren((i*(-1))+(7.5));
-        kurz = false;
-      }
-   }
-}
-void scanResetRechts(int grad)
-{// Scan reset 
+// Scan Funktion die nur Scannt, anhält und keine Werte liefert
+void reset(int grad, boolean richtung){ 
   for(int i = 0; i <= grad; ++i){
-      stepperBewegen(false);
-      distanzMessen();
-      //--n;
-      if(dist <= 20 && dist > 0){
-        anhalten();
-        kurz = true;
-        n = 0;
-      }
-      
-      displayDatenSchreiben();
-      
-      Serial.print("Stepp: ");
-      Serial.print(i-grad);
-      Serial.print(" Distanz: ");
-      Serial.println(dist);
-      /*if(n == -15)
-      { kurvefahren(i-(7.5));
-      }*/
-      
-   }
+    stepperBewegen(richtung);
+    distanzMessen();
+    if(dist <= 20 && dist > 0){
+    anhalten();
+    kurz = true;
+    }  
+    displayDatenSchreiben();
+    Serial.print("Stepp: ");
+    Serial.print(i);
+    Serial.print(" Distanz: ");
+    Serial.println(dist);
+  }
 }
 
-void scanResetLinks(int grad)
-{  // Scan reset
-   for(int i = 0; i <= grad-1; ++i){
-      stepperBewegen(true);
-      distanzMessen();
-      //++n;
-      
-      displayDatenSchreiben();
-      Serial.print("Stepp: ");
-      Serial.print(i-grad);
-      Serial.print(" Distanz: ");
-      Serial.println(dist);
-      
-      
-      if(dist <= 20 && dist > 0){
-        anhalten();
-        kurz = true;
-      }
-      /*if(n == 15)
-      { kurvefahren(i-(7.5));
-      }*/
-   }
+void scan(int grad){
+  scanen(grad, true);
+  reset(grad, false);
+  scanen(grad, false);
+  reset(grad, true);
+}
+
+void dauerScan(int grad)
+{ reset(grad, true);
+  reset(grad, false);
+  reset(grad, false);
+  reset(grad, true);
 }

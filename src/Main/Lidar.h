@@ -10,6 +10,10 @@ int check;
 int uart[9];
 const int HEADER=0x59;
 boolean kurz;
+int rd = 0;
+int ld = 0;
+int r = 0;
+int l = 0;
 
 
 void distanzMessen(){
