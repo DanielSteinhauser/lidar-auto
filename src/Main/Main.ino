@@ -5,8 +5,6 @@ boolean  server_en = false; // Webserver Hauptschalter
 #include "Webserver.h"        // Reihenfolge hier wichtig weil C-Compiler = geistig behindert
 #include "Steuerung.h"
 #include "Scan.h"
-#include "Webserver.h"
-
 
 void setup() {
   kurz = false;
@@ -15,19 +13,6 @@ void setup() {
   stepper.setSpeed(5);
   displayInit();
   if (server_en) webserverInit();
-  
-  if (server_en){   //Webserver eingeschaltet
-      WiFi.begin(ssid, password);
-     while (WiFi.status() != WL_CONNECTED) 
-      {  delay(500);
-         Serial.print(".");
-      }
-      Serial.println("");
-      Serial.println("WiFi connected.");
-      Serial.println("IP address: ");
-      Serial.println(WiFi.localIP());
-      server.begin();
-  }
   motorInit();
   pinMode(12,OUTPUT);
   pinMode(14,OUTPUT);
@@ -42,20 +27,30 @@ void loop() {
   
   if(kurz){
     scan(45);
+    // Wenn immer noch Kurz 
     if(kurz == true){
       rueckwaertsfahren();
     }
-    if(kurz == false){
+    //Wenn Kurvemöglichkeit gefunden
+    else if(kurz == false){
+      // Wenn Rechtsdistanz größer wie Linksdistanz
       if (rd > ld){ 
         kurvefahren(r);
       }
+      // Wenn Linksdistanz größer wie Rechtsdistanz
       else if(ld > rd){
         kurvefahren(l);
       }
+      // Wenn beide gleich groß sind
       else{
         kurvefahren(r);
       }
+      // Nach der Kurve weiter fahren
       geradeausfahren();
     }  
-  } 
+  }
+  rd = 0;
+  ld = 0;
+  r = 0;
+  l = 0; 
 }

@@ -24,11 +24,6 @@ void webserverInit(){
       server.begin();
 }
 
-boolean wifiStatus(){
-  return WiFi.status() == WL_CONNECTED;
-}
-
-
 void webserverClientUeberpruefen() {
     WiFiClient client = server.available(); // Listen for incoming clients
     

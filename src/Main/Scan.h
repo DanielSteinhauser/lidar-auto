@@ -4,10 +4,12 @@ void scanen(int grad, boolean richtung)
   for(int i = 0; i <= grad; ++i){
       stepperBewegen(richtung);
       distanzMessen();
+      // Zählt index n eins hoch
       ++n;
       if(dist <= 20 && dist > 0){
         anhalten();
         kurz = true;
+        // Resettet n auf null , da distanz zu kurz
         n = 0;
       }
       displayDatenSchreiben();
@@ -23,18 +25,19 @@ void scanen(int grad, boolean richtung)
       else if(n == 8 && richtung == false){ 
         ld = dist;
       }
-      // 
+      // Rechnet Grad für Rechtskurve aus und speichert es
       if(n == 16 && richtung == true){ 
         r = i-8;
         kurz = false;
       }
+      // Rechnet Grad für Linkskurve aus und speichert es 
       if(n == 16 && richtung == false){ 
         l = (i-8)*(-1);
         kurz = false;
       }
   }
 }
-// Scan Funktion die nur Scannt, anhält und keine Werte liefert
+// Scan Funktion die nur Scannt, anhält und keine Werte ändert(außer kurz)
 void reset(int grad, boolean richtung){ 
   for(int i = 0; i <= grad; ++i){
     stepperBewegen(richtung);
@@ -50,14 +53,14 @@ void reset(int grad, boolean richtung){
     Serial.println(dist);
   }
 }
-
+// Scan das nach werte eine für Kurve sucht
 void scan(int grad){
   scanen(grad, true);
   reset(grad, false);
   scanen(grad, false);
   reset(grad, true);
 }
-
+// Dauerscan das nur das Auto anhalten soll
 void dauerScan(int grad)
 { reset(grad, true);
   reset(grad, false);
