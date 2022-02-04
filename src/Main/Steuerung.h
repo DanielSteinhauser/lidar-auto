@@ -33,6 +33,8 @@ void rueckwaertsfahren(){
  digitalWrite(14, HIGH);
  digitalWrite(26, HIGH);
  digitalWrite(27, LOW);
+ delay(3000);
+ anhalten();
 }
 
 void kurvefahren(double n){
