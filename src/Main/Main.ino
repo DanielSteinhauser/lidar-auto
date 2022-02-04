@@ -37,8 +37,13 @@ void setup() {
   pinMode(14,OUTPUT);
   pinMode(26,OUTPUT);
   pinMode(27,OUTPUT);
+<<<<<<< Updated upstream
   displayInit();
   if (server_en) webserverInit();
+  geradeausfahren();
+>>>>>>> Stashed changes
+=======
+  Serial.println("Geradeaus");
   geradeausfahren();
 >>>>>>> Stashed changes
 }
@@ -50,8 +55,38 @@ void loop() {
   displayDatenSchreiben();
   
   if(kurz){
+<<<<<<< Updated upstream
     scanStepper(45);
     kurz = false;
+=======
+    scan(45);
+    // Wenn immer noch Kurz 
+    /*if(kurz == true){
+      Serial.println("Rückwärts");
+      rueckwaertsfahren();
+    }*/
+    //Wenn Kurvemöglichkeit gefunden
+    if(kurz == false){
+      // Wenn Rechtsdistanz größer wie Linksdistanz
+      if (rd > ld){ 
+        Serial.println("Rechtskurve");
+        kurvefahren(r);
+      }
+      // Wenn Linksdistanz größer wie Rechtsdistanz
+      else if(ld > rd){
+        Serial.println("Linkskurve");
+        kurvefahren(l);
+      }
+      // Wenn beide gleich groß sind
+      else{
+        Serial.println("Rechtskurve beide Kurven gleich");
+        kurvefahren(r);
+      }
+      // Nach der Kurve weiter fahren
+      Serial.println("Kurve fertig. Geradeaus");
+      geradeausfahren();
+    }  
+>>>>>>> Stashed changes
   }
  
 }

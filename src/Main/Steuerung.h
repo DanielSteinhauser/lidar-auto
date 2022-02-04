@@ -38,6 +38,11 @@ void rueckwaertsfahren(){
  digitalWrite(14, HIGH);
  digitalWrite(26, HIGH);
  digitalWrite(27, LOW);
+<<<<<<< Updated upstream
+=======
+ delay(3000);
+ kurz = false;
+>>>>>>> Stashed changes
 }
 
 void kurvefahren(double n){
@@ -45,16 +50,16 @@ void kurvefahren(double n){
 
 {
   if(n < 0){
-  digitalWrite(12, LOW);
+  digitalWrite(12, HIGH);
   digitalWrite(14, LOW);
     digitalWrite(26, LOW);
-    digitalWrite(27, HIGH);
+    digitalWrite(27, LOW);
   delay(time);
   }else{
-    digitalWrite(12, HIGH);
+    digitalWrite(12, LOW);
     digitalWrite(14, LOW);
     digitalWrite(26, LOW);
-    digitalWrite(27, LOW);
+    digitalWrite(27, HIGH);
   delay(time);
 }
 }
