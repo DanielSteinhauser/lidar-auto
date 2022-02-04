@@ -40,14 +40,14 @@ void loop() {
       // Wenn beide gleich groß sind
       else{
         kurvefahren(r);
-      }
-      // Nach der Kurve weiter fahren
-      geradeausfahren();
-      rd = 0;
-      ld = 0;
-      r = 0;
-      l = 0; 
+      } 
     }  
+    // Nach der Kurve weiter fahren
+    geradeausfahren();
+    rd = 0;
+    ld = 0;
+    r = 0;
+    l = 0;  
   }
   
 }
