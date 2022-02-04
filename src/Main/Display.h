@@ -13,7 +13,7 @@ void clearDisplay() {
 }
 
 void displayInit(){
-  Heltec.begin(true /*DisplayEnable Enable*/, true /*LoRa Disable*/, true /*Serial Enable*/, true /*PABOOST Enable*/, 470E6 /**/); 
+  Heltec.begin(true /*DisplayEnable Enable*/, false /*LoRa Disable*/, true /*Serial Enable*/, true /*PABOOST Enable*/, 470E6 /**/); 
   delay(500);
   clearDisplay();
 }

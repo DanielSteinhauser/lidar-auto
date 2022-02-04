@@ -18,21 +18,21 @@ void scanen(int grad, boolean richtung)
       Serial.print(" Distanz: ");
       Serial.println(dist);
       // setzt Rechtskurven Distanz
-      if(n == 8 && richtung == true){ 
+      if(n == 5 && richtung == true){ 
         rd = dist;
       }
       // setzt Linkskurven Distanz
-      else if(n == 8 && richtung == false){ 
+      else if(n == 5 && richtung == false){ 
         ld = dist;
       }
       // Rechnet Grad für Rechtskurve aus und speichert es
-      if(n == 16 && richtung == true){ 
-        r = i-8;
+      if(n == 10 && richtung == true){ 
+        r = i-5;
         kurz = false;
       }
       // Rechnet Grad für Linkskurve aus und speichert es 
-      if(n == 16 && richtung == false){ 
-        l = (i-8)*(-1);
+      if(n == 10 && richtung == false){ 
+        l = (i-5)*(-1);
         kurz = false;
       }
   }
@@ -45,7 +45,7 @@ void reset(int grad, boolean richtung){
     if(dist <= 20 && dist > 0){
     anhalten();
     kurz = true;
-    }  
+    }
     displayDatenSchreiben();
     Serial.print("Stepp: ");
     Serial.print(i);

@@ -14,10 +14,7 @@ void setup() {
   displayInit();
   if (server_en) webserverInit();
   motorInit();
-  pinMode(12,OUTPUT);
-  pinMode(14,OUTPUT);
-  pinMode(26,OUTPUT);
-  pinMode(27,OUTPUT);
+  geradeausfahren();
 }
 
 void loop() {
@@ -46,10 +43,11 @@ void loop() {
       }
       // Nach der Kurve weiter fahren
       geradeausfahren();
+      rd = 0;
+      ld = 0;
+      r = 0;
+      l = 0; 
     }  
   }
-  rd = 0;
-  ld = 0;
-  r = 0;
-  l = 0; 
+  
 }
