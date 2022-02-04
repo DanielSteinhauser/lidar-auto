@@ -14,13 +14,16 @@ void setup() {
   displayInit();
   if (server_en) webserverInit();
   motorInit();
-  geradeausfahren();
 }
 
 void loop() {
   dauerScan(15);
   displayDatenSchreiben();
-  
+
+  if(kurz == false){
+    geradeausfahren();
+  } 
+
   if(kurz){
     scan(45);
     // Wenn immer noch Kurz 
