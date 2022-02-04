@@ -23,7 +23,6 @@ void setup() {
 void loop() {
   dauerScan(15);
   displayDatenSchreiben();
-  webserverClientUeberpruefen();
   
   if(kurz){
     scan(45);
