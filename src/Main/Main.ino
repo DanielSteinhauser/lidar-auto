@@ -7,6 +7,14 @@ boolean  server_en = false; // Webserver Hauptschalter
 #include "Scan.h"
 
 void setup() {
+  ledcSetup(0, 5000, 8);
+ledcSetup(1, 5000, 8);
+ledcSetup(2, 5000, 8);
+ledcSetup(3, 5000, 8);
+ledcAttachPin(12, 0);
+ledcAttachPin(14, 1);
+ledcAttachPin(26, 2);
+ledcAttachPin(27, 3);
   kurz = false;
   Serial.begin(115200);
   Serial2.begin(115200,SERIAL_8N1,22,23);
