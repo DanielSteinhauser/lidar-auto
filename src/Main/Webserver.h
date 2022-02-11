@@ -10,7 +10,6 @@ const char* PARAM_INPUT_2 = "state";
 
 AsyncWebServer server(80);
 
-
 const char index_html[] PROGMEM = R"rawliteral(
   <!DOCTYPE HTML><html>
   <head>
@@ -48,8 +47,7 @@ const char index_html[] PROGMEM = R"rawliteral(
 )rawliteral";
 
 
-//unnötig??
-String outputState(int output){
+String outputState(int output){     //liefert aktuellen Wert für processor()
   if(digitalRead(output)){
     return "checked";
   }
@@ -58,7 +56,7 @@ String outputState(int output){
  }
 }
   
-String processor(const String& var){
+String processor(const String& var){      //erstellt aktuellen HTML Code für Toggles
   //Serial.println(var);
   if(var == "BUTTONPLACEHOLDER"){
     String buttons = "";
@@ -108,7 +106,9 @@ void webserverInit(){
         if (request->hasParam(PARAM_INPUT_1) && request->hasParam(PARAM_INPUT_2)) {
           inputMessage1 = request->getParam(PARAM_INPUT_1)->value();
           inputMessage2 = request->getParam(PARAM_INPUT_2)->value();
-          digitalWrite(inputMessage1.toInt(), inputMessage2.toInt());
+
+          digitalWrite(inputMessage1.toInt(), inputMessage2.toInt());   //empfangene Daten nutzen
+        
         }
         else {
           inputMessage1 = "No message sent";
