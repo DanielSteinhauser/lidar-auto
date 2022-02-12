@@ -1,0 +1,40 @@
+Herbert is 14 weeks old;
+
+Turning speed is 3s per 360 degrees;
+
+PINS 12,14,26,27 for driving; 
+  12 right forward(blue)
+  14 right backward(brown)
+  27 left forward( yellow)
+  26 left backwards(greeen)
+ 
+Herbert is online on MQTT:
+	Host: test.mosquitto.org
+	Port:1883
+and can be contacted via Topic 
+	gswt/herbert
+to talk to him just send message:
+	0 = Herbert will be still and quiet
+	1 = Herbert will drive like tesla
+	2 = you drive Herbert
+
+Kurven fahren funktion: RECHTS +; LINKS-;
+
+ void kurvefahren(int n){
+  int time = abs(n) * 8,333;
+
+{
+	if(n < 0){
+	digitalWrite(12, LOW);
+	digitalWrite(14, LOW);
+  	digitalWrite(26, LOW);
+  	digitalWrite(27, HIGH);
+	delay(time);
+}else{
+  	digitalWrite(12, HIGH);
+  	digitalWrite(14, LOW);
+  	digitalWrite(26, LOW);
+  	digitalWrite(27, LOW);
+	delay(time);
+}
+}
