@@ -15,10 +15,9 @@ Werkzeuge -> Board -> Boardverwalter -> Suchfeld: Heltec esp32 Devboards  -> Neu
 
 ### Librarys:
 **Heltec esp32 Library:**
-Werkzeuge -> Bibliotheken verwalten... -> Suchfeld: `Heltec esp32 Dev-boards` , neueste Version 
-
-**ESPAsyncWebServer,  AsyncTCP Library:**
-Sketch -> Bibliothek einbinden -> .Zip Bibliothek -> beide auswählen
+Werkzeuge -> Bibliotheken verwalten: 
+`Heltec esp32 Dev-boards`
+`EspMQTTClient` - Dependencys mit installieren
 
 ### Richtiges Board auswählen:
 Werkzeuge -> Board -> Heltec ESP32 Arduino -> Wifi Kit 32
