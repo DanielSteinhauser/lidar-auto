@@ -1,8 +1,8 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 
-const char* ssid = "BMW1000";
-const char* password = "WoUtBa14";
+const char* ssid = "hrsiot";
+const char* password = "12345678";
 
 const char* server = "test.mosquitto.org";  // Adresse des MQTT-Brokers im Netz
 
