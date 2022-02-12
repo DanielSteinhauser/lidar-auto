@@ -14,7 +14,6 @@ Datei -> Voreinstellungen -> Zusätzliche Boardverwalter-URLs:
 Werkzeuge -> Board -> Boardverwalter -> Suchfeld: Heltec esp32 Devboards  -> Neueste Version Installieren
 
 ### Librarys:
-**Heltec esp32 Library:**
 Werkzeuge -> Bibliotheken verwalten: 
 `Heltec esp32 Dev-boards`,
 `EspMQTTClient` 
