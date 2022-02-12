@@ -16,8 +16,9 @@ Werkzeuge -> Board -> Boardverwalter -> Suchfeld: Heltec esp32 Devboards  -> Neu
 ### Librarys:
 **Heltec esp32 Library:**
 Werkzeuge -> Bibliotheken verwalten: 
-`Heltec esp32 Dev-boards`
-`EspMQTTClient` - Dependencys mit installieren
+`Heltec esp32 Dev-boards`,
+`EspMQTTClient` 
+(Dependencys immer mit installieren)
 
 ### Richtiges Board auswählen:
 Werkzeuge -> Board -> Heltec ESP32 Arduino -> Wifi Kit 32
