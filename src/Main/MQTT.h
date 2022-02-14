@@ -49,7 +49,7 @@ void callback(char* topic, byte* message, unsigned int length) {
 
 
 
-void webserverInit(){
+void mqttInit(){
       WiFi.begin(ssid, password);
       
       Serial.print("Versuche WLAN-Verbindung");

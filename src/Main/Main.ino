@@ -1,4 +1,4 @@
-boolean  server_en = true; // Webserver Hauptschalter
+boolean  mqtt_en = true; // MQTT Hauptschalter
 
 int zustand = 0; //Startzustand
 // zustand 0: warten auf befehle, ruhe
@@ -8,7 +8,7 @@ int zustand = 0; //Startzustand
 
 #include "Lidar.h"
 #include "Display.h"
-#include "Webserver.h"        // Reihenfolge hier wichtig weil C-Compiler = geistig behindert
+#include "MQTT.h"        // Reihenfolge hier wichtig weil C-Compiler = geistig behindert
 #include "Steuerung.h"
 #include "Scan.h"
 
@@ -27,10 +27,8 @@ void setup() {
   Serial2.begin(115200,SERIAL_8N1,22,23);
   stepper.setSpeed(5);
   displayInit();
-  if (server_en) webserverInit();
+  if (server_en) mqttInit();
   motorInit();
-
-  
   clearDisplay();
   aufDisplayAnzeigen(0, 0, "Startzustand:");
   aufDisplayAnzeigen(0, 10, String(zustand));
@@ -39,19 +37,16 @@ void setup() {
 
 void loop() {
   
-  MQTTabrufen();
+  mqttAbrufen();
 
   switch (zustand){
      case 0: // ruhezustand
-              anhalten();
-              
+              anhalten();  
               break;
 
               
      case 1:  // autonomes fahren
               dauerScan(15);
-              displayDatenSchreiben();
-            
               if(kurz == false){
                 geradeausfahren();
               } 

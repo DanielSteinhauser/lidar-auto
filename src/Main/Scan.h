@@ -1,3 +1,7 @@
+int rd = 0;
+int ld = 0;
+int r = 0;
+int l = 0;
 // Scan Funktion die Scannt und werte für eine mögliche Kurve gibt
 void scanen(int grad, boolean richtung)
 { int n = 0;
