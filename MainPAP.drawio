@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-02-14T20:34:21.794Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 OPR/83.0.4254.46" etag="nM3cfepABEYgCVUQ8U1U" version="16.5.6" type="github">
+<mxfile host="app.diagrams.net" modified="2022-02-14T20:35:28.909Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 OPR/83.0.4254.46" etag="RK8m9eSlDrEF1vFiU_I8" version="16.5.6" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1381" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="552" dy="306" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -183,7 +183,7 @@
             <mxPoint x="2" y="14" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PZxyCN3TeEhjCaqw32ue-366" value="richtung = true" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;rounded=1;strokeColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="PZxyCN3TeEhjCaqw32ue-366" value="&lt;font style=&quot;font-size: 11px&quot;&gt;richtung = true&lt;/font&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;rounded=1;strokeColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="380" y="615" width="70" height="70" as="geometry" />
         </mxCell>
         <mxCell id="PZxyCN3TeEhjCaqw32ue-375" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PZxyCN3TeEhjCaqw32ue-369" target="PZxyCN3TeEhjCaqw32ue-373" edge="1">
@@ -208,7 +208,7 @@
             <mxPoint x="-10" y="15" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PZxyCN3TeEhjCaqw32ue-369" value="richtung = false" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;rounded=1;strokeColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="PZxyCN3TeEhjCaqw32ue-369" value="&lt;font style=&quot;font-size: 11px&quot;&gt;richtung = false&lt;/font&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;rounded=1;strokeColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="570" y="665" width="70" height="70" as="geometry" />
         </mxCell>
         <mxCell id="PZxyCN3TeEhjCaqw32ue-378" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PZxyCN3TeEhjCaqw32ue-372" target="PZxyCN3TeEhjCaqw32ue-376" edge="1">
@@ -283,7 +283,7 @@
             <mxPoint x="6" y="14" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PZxyCN3TeEhjCaqw32ue-387" value="richtung = true" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;rounded=1;strokeColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="PZxyCN3TeEhjCaqw32ue-387" value="&lt;div&gt;&lt;span&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;richtung = true&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;rounded=1;strokeColor=default;align=center;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="310" y="865" width="70" height="70" as="geometry" />
         </mxCell>
         <mxCell id="PZxyCN3TeEhjCaqw32ue-397" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PZxyCN3TeEhjCaqw32ue-389" target="PZxyCN3TeEhjCaqw32ue-396" edge="1">
@@ -308,7 +308,7 @@
             <mxPoint x="-16" y="19" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PZxyCN3TeEhjCaqw32ue-389" value="richtung = false" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;rounded=1;strokeColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="PZxyCN3TeEhjCaqw32ue-389" value="&lt;font style=&quot;font-size: 11px&quot;&gt;richtung = false&lt;/font&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;rounded=1;strokeColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="400" y="915" width="70" height="70" as="geometry" />
         </mxCell>
         <mxCell id="PZxyCN3TeEhjCaqw32ue-425" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PZxyCN3TeEhjCaqw32ue-394" target="PZxyCN3TeEhjCaqw32ue-424" edge="1">
