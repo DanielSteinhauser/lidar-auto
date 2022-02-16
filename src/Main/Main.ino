@@ -14,10 +14,10 @@ int zustand = 0; //Startzustand
 
 
 void setup() {
-  ledcSetup(0, 5000, 8);
-  ledcSetup(1, 5000, 8);
-  ledcSetup(2, 5000, 8);
-  ledcSetup(3, 5000, 8);
+  ledcSetup(0, 128, 8);
+  ledcSetup(1, 128, 8);
+  ledcSetup(2, 128, 8);
+  ledcSetup(3, 128, 8);
   ledcAttachPin(12, 0);
   ledcAttachPin(14, 1);
   ledcAttachPin(26, 2);
@@ -28,7 +28,7 @@ void setup() {
   stepper.setSpeed(5);
   displayInit();
   if (mqtt_en) mqttInit();
-  motorInit();
+//  motorInit();
   clearDisplay();
   aufDisplayAnzeigen(0, 0, "Startzustand:");
   aufDisplayAnzeigen(0, 10, String(zustand));
@@ -41,11 +41,15 @@ void loop() {
 
   switch (zustand){
      case 0: // ruhezustand
-              anhalten();  
+              clearDisplay();
+              aufDisplayAnzeigen(0,20,"aktueller Zustand: 0");
+              anhalten();
               break;
 
               
      case 1:  // autonomes fahren
+              clearDisplay();
+              aufDisplayAnzeigen(0,60,"aktueller Zustand: 2");
               dauerScan(15);
               if(kurz == false){
                 geradeausfahren();
@@ -79,10 +83,43 @@ void loop() {
                 r = 0;
                 l = 0;  
               }
+              clearDisplay();
               break;
               
      case 2:  
-            anhalten(); // PLACEHOLDER
+            clearDisplay();
+            aufDisplayAnzeigen(0,20,"aktueller Zustand: 2");
+
+            
+            geradeausfahren();
+            aufDisplayAnzeigen(0,50,"geradeaus");
+              delay(2000);
+            anhalten();
+              delay(1000);
+
+            clearDisplay();
+            aufDisplayAnzeigen(0,50,"rückwärts");
+            
+            rueckwaertsfahren();
+              delay(1000);
+            
+            clearDisplay();
+            aufDisplayAnzeigen(0,50,"linkskurve");
+            
+            kurvefahren(-40);
+              delay(2000);
+            anhalten();
+              delay(1000);
+              
+            clearDisplay();
+            aufDisplayAnzeigen(0,50,"rechtskurve");
+            
+            kurvefahren(40);
+              delay(2000);
+            anhalten();
+              delay(1000);
+
+
             break; //manuelles fahren
   }
 }
