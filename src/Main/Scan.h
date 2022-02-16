@@ -26,17 +26,18 @@ void scanen(int grad, boolean richtung)
         rd = dist;
       }
       // setzt Linkskurven Distanz
-      else if(n == 5 && richtung == false){ 
+      if(n == 5 && richtung == false){ 
         ld = dist;
       }
       // Rechnet Grad für Rechtskurve aus und speichert es
       if(n == 10 && richtung == true){ 
-        r = i-5;
-        kurz = false;
+        r = i-(i/2);
       }
       // Rechnet Grad für Linkskurve aus und speichert es 
       if(n == 10 && richtung == false){ 
-        l = (i-5)*(-1);
+        l = (i-(i/2))*(-1);
+      }
+      if(rd > 0 || ld > 0){
         kurz = false;
       }
   }

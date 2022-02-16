@@ -111,7 +111,7 @@ void reconnect() {
 
 
 
-void MQTTabrufen(){
+void mqttAbrufen(){
   if (!client.connected()) { // sichern dass MQTT verbunden ist
     Serial.println("MQTT Verbindung verloren");
     reconnect();

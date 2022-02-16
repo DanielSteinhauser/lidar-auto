@@ -27,7 +27,7 @@ void setup() {
   Serial2.begin(115200,SERIAL_8N1,22,23);
   stepper.setSpeed(5);
   displayInit();
-  if (server_en) mqttInit();
+  if (mqtt_en) mqttInit();
   motorInit();
   clearDisplay();
   aufDisplayAnzeigen(0, 0, "Startzustand:");
