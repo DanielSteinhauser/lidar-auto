@@ -1,6 +1,6 @@
 //Steuert Schrittmotor, Motoren
 #include <Stepper.h>
-int sped = 100;
+int sped = 130;
 int aus = 0;
 
 
@@ -34,9 +34,9 @@ void anhalten(){
 void rueckwaertsfahren(){
   ledcWrite(0, aus);
   ledcWrite(1, sped);
-  ledcWrite(2, sped);
+  ledcWrite(2, aus);
   ledcWrite(3, aus);
- delay(3000);
+ delay(1300);
  anhalten();
 }
 

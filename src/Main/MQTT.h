@@ -55,33 +55,41 @@ void mqttInit(){
       Serial.print("Versuche WLAN-Verbindung");
       aufDisplayAnzeigen(0, 0, "Versuche Wlan verbindung");
       
-      while (WiFi.status() != WL_CONNECTED) 
-      {  delay(500);
-         Serial.print(".");
+      for(int i = 0; i < 10; ++i){
+        if (WiFi.status() == WL_CONNECTED){         //sobald WLan verbunden
+            Serial.println("");
+            Serial.println("WiFi connected.");
+            Serial.println("IP address: ");
+            Serial.println(WiFi.localIP());
+            aufDisplayAnzeigen(0, 10, "verbunden.");
+            aufDisplayAnzeigen(0, 20, String(WiFi.localIP()) );
+            client.setServer(server, 1883);
+            client.setCallback(callback);
+            
+            if (client.connect("Herbert")) {
+                Serial.println("Connected to MQTT-Broker.");
+                aufDisplayAnzeigen(0, 30, "MQTT Server verbunden.");
+                client.subscribe(topicSubscribe);
+                aufDisplayAnzeigen(0, 40, "herbert topic subscribed.");
+                client.publish(topicPublish, "Herbert ist online");
+            }
+            wlan_verbunden = true;
+            break;
+        } 
+        else {
+          Serial.print(".");  //
+          delay(500);
+        }
       }
       
-      Serial.println("");
-      Serial.println("WiFi connected.");
-      Serial.println("IP address: ");
-      Serial.println(WiFi.localIP());
-      
-      aufDisplayAnzeigen(0, 10, "verbunden.");
-      aufDisplayAnzeigen(0, 20, String(WiFi.localIP()) );
-      
-
-      client.setServer(server, 1883);
-      client.setCallback(callback);
-  
-      if (client.connect("Herbert")) {
-      Serial.println("Connected to MQTT-Broker.");
-      aufDisplayAnzeigen(0, 30, "MQTT Server verbunden.");
-      client.subscribe(topicSubscribe);
-      aufDisplayAnzeigen(0, 40, "herbert topic subscribed.");
+      if (WiFi.status() != WL_CONNECTED){
+        Serial.println("WLAN-Verbindung fehlgeschlagen.");
+        aufDisplayAnzeigen(0, 10, "WLAN FEHLER.");
+        aufDisplayAnzeigen(0, 20, "wechsle Startzustand zu 1.");
+        zustand = 1;
       }
       
-      client.publish(topicPublish, "Herbert ist online");
-      
-      delay(5000);
+      delay(3000);
 }
 
 
@@ -112,10 +120,12 @@ void reconnect() {
 
 
 void mqttAbrufen(){
-  if (!client.connected()) { // sichern dass MQTT verbunden ist
-    Serial.println("MQTT Verbindung verloren");
-    reconnect();
+  if(wlan_verbunden){
+      if (!client.connected()) { // sichern dass MQTT verbunden ist
+       Serial.println("MQTT Verbindung verloren");
+       reconnect();
+      }
+      client.loop(); // neue Daten abholen, führt bei neuer Nachricht callback() aus
   }
-  client.loop(); // neue Daten abholen, führt bei neuer Nachricht callback() aus
 }
  

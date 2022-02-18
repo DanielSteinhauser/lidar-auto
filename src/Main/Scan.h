@@ -2,20 +2,23 @@ int rd = 0;
 int ld = 0;
 int r = 0;
 int l = 0;
+
 // Scan Funktion die Scannt und werte für eine mögliche Kurve gibt
 void scanen(int grad, boolean richtung)
 { int n = 0;
   for(int i = 0; i <= grad; ++i){
-      stepperBewegen(richtung);
       distanzMessen();
-      // Zählt index n eins hoch
-      ++n;
-      if(dist <= 20 && dist > 0){
+      if(dist <= 30 && dist > 0){
         anhalten();
         kurz = true;
         // Resettet n auf null , da distanz zu kurz
         n = 0;
       }
+      stepperBewegen(richtung);
+      
+      // Zählt index n eins hoch
+      ++n;
+      
       displayDatenSchreiben();
       Serial.print("Stepp: ");
       Serial.print(i);
@@ -37,7 +40,7 @@ void scanen(int grad, boolean richtung)
       if(n == 10 && richtung == false){ 
         l = (i-(i/2))*(-1);
       }
-      if(rd > 0 || ld > 0){
+      if(r > 0 ||  l < 0){
         kurz = false;
       }
   }
@@ -45,12 +48,12 @@ void scanen(int grad, boolean richtung)
 // Scan Funktion die nur Scannt, anhält und keine Werte ändert(außer kurz)
 void reset(int grad, boolean richtung){ 
   for(int i = 0; i <= grad; ++i){
-    stepperBewegen(richtung);
     distanzMessen();
-    if(dist <= 20 && dist > 0){
-    anhalten();
-    kurz = true;
+    if(dist <= 30 && dist > 0){
+      anhalten();
+      kurz = true;
     }
+    stepperBewegen(richtung);
     displayDatenSchreiben();
     Serial.print("Stepp: ");
     Serial.print(i);

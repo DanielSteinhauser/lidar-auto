@@ -1,4 +1,5 @@
-boolean  mqtt_en = true; // MQTT Hauptschalter
+boolean mqtt_en = true; // MQTT Hauptschalter
+boolean wlan_verbunden = false; // WLAN Zustand (nicht manuell ändern)
 
 int zustand = 0; //Startzustand
 // zustand 0: warten auf befehle, ruhe
