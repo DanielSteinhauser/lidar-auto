@@ -18,8 +18,6 @@ void scanen(int grad, boolean richtung)
       
       // Zählt index n eins hoch
       ++n;
-      
-      displayDatenSchreiben();
       Serial.print("Stepp: ");
       Serial.print(i);
       Serial.print(" Distanz: ");
@@ -43,7 +41,9 @@ void scanen(int grad, boolean richtung)
       if(r > 0 ||  l < 0){
         kurz = false;
       }
+      displayDatenSchreiben();
   }
+  return;
 }
 // Scan Funktion die nur Scannt, anhält und keine Werte ändert(außer kurz)
 void reset(int grad, boolean richtung){ 
@@ -59,6 +59,7 @@ void reset(int grad, boolean richtung){
     Serial.print(i);
     Serial.print(" Distanz: ");
     Serial.println(dist);
+    return;
   }
 }
 // Scan das nach werte eine für Kurve sucht
@@ -67,11 +68,16 @@ void scan(int grad){
   reset(grad, false);
   scanen(grad, false);
   reset(grad, true);
+  return;
 }
 // Dauerscan das nur das Auto anhalten soll
 void dauerScan(int grad)
 { reset(grad, true);
   reset(grad, false);
+  if(kurz){
+    return;
+  }
   reset(grad, false);
   reset(grad, true);
+  return;
 }
