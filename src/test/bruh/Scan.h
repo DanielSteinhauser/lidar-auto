@@ -41,7 +41,6 @@ void scanen(int grad, boolean richtung)
       /*if(r > 0 ||  l < 0){
         kurz = false;
       }*/
-      //displayDatenSchreiben();
   }
   return;
 }
@@ -54,7 +53,6 @@ void reset(int grad, boolean richtung){
       kurz = true;
     }
     stepperBewegen(richtung);
-    //displayDatenSchreiben();
     Serial.print("Stepp: ");
     Serial.print(i);
     Serial.print(" Distanz: ");
@@ -75,9 +73,9 @@ void scan(int grad){
 void dauerScan(int grad)
 { reset(grad, true);
   reset(grad, false);
-  if(kurz){
+  /*if(kurz){
     return;
-  }
+  }*/
   reset(grad, false);
   reset(grad, true);
   return;

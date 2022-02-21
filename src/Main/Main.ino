@@ -15,6 +15,9 @@ int zustand = 0; //Startzustand
 
 
 void setup() {
+  pinMode(34,OUTPUT);
+  digitalWrite(34, LOW);
+  delay(100);
   ledcSetup(0, 128, 8);
   ledcSetup(1, 128, 8);
   ledcSetup(2, 128, 8);
@@ -49,6 +52,18 @@ void loop() {
 
               
      case 1:  // autonomes fahren
+              while(true){
+                 geradeausfahren();
+                 distanzMessen();
+                if(dist <= 20){
+                  Serial.println("Kurz");
+                  anhalten();
+                  //digitalWrite(35,LOW);
+                  delay(500);
+                  //digitalWrite(35,HIGH);
+                  //delay(100);
+                }
+              }
               clearDisplay();
               aufDisplayAnzeigen(0,60,"aktueller Zustand: 1");
               dauerScan(8);
@@ -58,6 +73,9 @@ void loop() {
             
               if(kurz){
                 scan(45);
+                if(r > 0 ||  l < 0){
+                  kurz = false;
+                }
                 // Wenn immer noch Kurz 
                 if(kurz == true){
                   rueckwaertsfahren();
