@@ -1,12 +1,11 @@
 boolean mqtt_en = true; // MQTT Hauptschalter
 boolean wlan_verbunden = false; // WLAN Zustand (nicht manuell ändern)
-
 int zustand = 0; //Startzustand
 // zustand 0: warten auf befehle, ruhe
 // zustand 1: autonomes fahren
 // zustand 2: manuelle Steuerung
-
-
+#include <Wire.h>
+#include <TFLI2C.h>
 #include "Lidar.h"
 #include "Display.h"
 #include "MQTT.h"        // Reihenfolge hier wichtig weil C-Compiler = geistig behindert
@@ -15,9 +14,9 @@ int zustand = 0; //Startzustand
 
 
 void setup() {
-  pinMode(34,OUTPUT);
-  digitalWrite(34, LOW);
-  delay(100);
+  Wire.begin(23, 22);
+  Wire.beginTransmission();
+  pinMode(34, INPUT);
   ledcSetup(0, 128, 8);
   ledcSetup(1, 128, 8);
   ledcSetup(2, 128, 8);
@@ -28,7 +27,7 @@ void setup() {
   ledcAttachPin(27, 3);
   kurz = false;
   Serial.begin(115200);
-  Serial2.begin(115200,SERIAL_8N1,22,23);
+  //Serial2.begin(115200,SERIAL_8N1,22,23);
   stepper.setSpeed(5);
   displayInit();
   if (mqtt_en) mqttInit();
@@ -52,7 +51,7 @@ void loop() {
 
               
      case 1:  // autonomes fahren
-              while(true){
+              /*while(true){
                  geradeausfahren();
                  distanzMessen();
                 if(dist <= 20){
@@ -63,19 +62,16 @@ void loop() {
                   //digitalWrite(35,HIGH);
                   //delay(100);
                 }
-              }
+              }*/
               clearDisplay();
               aufDisplayAnzeigen(0,60,"aktueller Zustand: 1");
-              dauerScan(8);
+              dauerScan();
               if(kurz == false){
                 geradeausfahren();
               } 
             
               if(kurz){
                 scan(45);
-                if(r > 0 ||  l < 0){
-                  kurz = false;
-                }
                 // Wenn immer noch Kurz 
                 if(kurz == true){
                   rueckwaertsfahren();
@@ -85,14 +81,17 @@ void loop() {
                     // Wenn Rechtsdistanz größer wie Linksdistanz
                     if (rd > ld){ 
                       kurvefahren(r);
+                      Serial.print("R");
                     }
                     // Wenn Linksdistanz größer wie Rechtsdistanz
                     else if(ld > rd){
                       kurvefahren(l);
+                      Serial.print("L");
                     }
                     // Wenn beide gleich groß sind
                     else{
                       kurvefahren(r);
+                      Serial.print("R,R");
                     } 
                 }
                 // Nach der Kurve weiter fahren

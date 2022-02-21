@@ -29,6 +29,13 @@ void anhalten(){
  ledcWrite(1, aus);
  ledcWrite(2, aus);
  ledcWrite(3, aus);
+   Serial.println("Anhalten");
+      Serial.println("Anhalten");
+      Serial.println("Anhalten");
+      Serial.println("Anhalten");
+      Serial.println("Anhalten");
+      Serial.println("Anhalten");
+      Serial.println("Anhalten");
 }
 
 void rueckwaertsfahren(){

@@ -9,7 +9,6 @@ void scanen(int grad, boolean richtung)
   for(int i = 0; i <= grad; ++i){
       distanzMessen();
       if(dist <= 30 && dist > 0){
-        anhalten();
         kurz = true;
         // Resettet n auf null , da distanz zu kurz
         n = 0;
@@ -71,12 +70,17 @@ void scan(int grad){
 }
 // Dauerscan das nur das Auto anhalten soll
 void dauerScan(int grad)
-{ reset(grad, true);
-  reset(grad, false);
+{ //reset(grad, true);
+  //reset(grad, false);
   /*if(kurz){
     return;
   }*/
-  reset(grad, false);
-  reset(grad, true);
+  //reset(grad, false);
+  //reset(grad, true);
+  distanzMessen();
+  if(dist <= 20){
+    anhalten();
+    }
+    Serial.println("Kurz");
   return;
 }
