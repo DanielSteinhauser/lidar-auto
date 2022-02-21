@@ -39,3 +39,30 @@ Kurven fahren funktion: RECHTS +; LINKS-;
 	delay(time);
 }
 }
+
+HOW MILLIS WORK:
+unsigned long previousMillisLED = 0;
+unsigned long previousMillisPrint = 0;
+const long intervalLed = 1000;
+const long intervalPrint = 800;
+ 
+void setup(){
+  pinMode(LED_BUILTIN, OUTPUT);
+  Serial.begin(115200);
+}
+ 
+void loop(){
+  unsigned long currentMillisPrint = millis();
+  if (currentMillisPrint - previousMillisPrint >= intervalPrint){
+    previousMillisPrint = currentMillisPrint; 
+    Serial.println("Hallo Welt");
+  }
+
+  unsigned long currentMillisLED = millis();
+  if (currentMillisLED - previousMillisLED >= intervalLED){
+    previousMillisLED = currentMillisLED;
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+  }
+}
+
+
