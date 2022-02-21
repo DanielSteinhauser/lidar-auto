@@ -50,8 +50,8 @@ void loop() {
               
      case 1:  // autonomes fahren
               clearDisplay();
-              aufDisplayAnzeigen(0,60,"aktueller Zustand: 2");
-              dauerScan(15);
+              aufDisplayAnzeigen(0,60,"aktueller Zustand: 1");
+              dauerScan(8);
               if(kurz == false){
                 geradeausfahren();
               } 
