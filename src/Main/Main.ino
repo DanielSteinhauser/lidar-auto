@@ -14,9 +14,9 @@ int zustand = 0; //Startzustand
 
 
 void setup() {
-  Wire.begin(23, 22);
-  Wire.beginTransmission();
   pinMode(34, INPUT);
+  Wire.begin(23, 22);
+  tflI2C.Set_Trig_Mode(tfAddr);
   ledcSetup(0, 128, 8);
   ledcSetup(1, 128, 8);
   ledcSetup(2, 128, 8);
@@ -79,17 +79,17 @@ void loop() {
                 //Wenn Kurvemöglichkeit gefunden
                 else if(kurz == false){
                     // Wenn Rechtsdistanz größer wie Linksdistanz
-                    if (rd > ld){ 
+                    if (rd > ld && r >= 0){ 
                       kurvefahren(r);
                       Serial.print("R");
                     }
                     // Wenn Linksdistanz größer wie Rechtsdistanz
-                    else if(ld > rd){
+                    else if(ld > rd && l <= 0){
                       kurvefahren(l);
                       Serial.print("L");
                     }
                     // Wenn beide gleich groß sind
-                    else{
+                    else if(r >= 0){
                       kurvefahren(r);
                       Serial.print("R,R");
                     } 

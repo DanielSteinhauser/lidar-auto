@@ -19,8 +19,6 @@ void scanen(int grad, boolean richtung)
       ++n;
       Serial.print("Stepp: ");
       Serial.print(i);
-      Serial.print(" Distanz: ");
-      Serial.println(dist);
       // setzt Rechtskurven Distanz
       if(n == 5 && richtung == true){ 
         rd = dist;
@@ -61,15 +59,11 @@ void scan(int grad){
 // Dauerscan das nur das Auto anhalten soll
 void dauerScan()
 { distanzMessen();
-  Serial.print("Input: ")
+  Serial.print("Input: ");
   Serial.println(digitalRead(34));
   if(dist <= 30 && dist > 0){
     anhalten();
     kurz = true;
-  }
-  else{
-  Serial.print(" Distanz: ");
-  Serial.println(dist);
   }
   Serial.print(" Kurz: ");
   Serial.println(kurz);
