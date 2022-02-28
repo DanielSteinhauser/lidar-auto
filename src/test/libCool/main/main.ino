@@ -6,32 +6,50 @@
  *            TF-Luna LiDAR sensor configured for the I2C interface
  */
  
-#include <Arduino.h>     // every sketch needs this
-#include <Wire.h>        // instantiate the Wire library
-#include <TFLI2C.h>      // TFLuna-I2C Library v.0.2.0
+#include <Stepper.h>
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include <heltec.h>
+#include <Arduino.h>  
+#include <Wire.h>
+#include <TFLI2C.h>
 
 TFLI2C tflI2C;
 
 int16_t  tfDist;    // distance in centimeters
 int16_t  tfAddr = TFL_DEF_ADR;  // use this default I2C address or
-                                // set variable to your own value
+bool reset;  
+bool triggermode;// set variable to your own value
 
 void setup()
-{
-    Serial.begin( 115200);  // initialize serial port
+{   
+    ledcSetup(0, 128, 8);
+    ledcSetup(1, 128, 8);
+    ledcSetup(2, 128, 8);
+    ledcSetup(3, 128, 8);
+    ledcAttachPin(12, 0);
+    ledcAttachPin(14, 1);
+    ledcAttachPin(26, 2);
+    ledcAttachPin(27, 3);
+    Serial.begin(115200);  // initialize serial port
     Wire.begin(23, 22);           // initialize Wire library
     Serial.println( "TFLI2C example code simplified"); // say "Hello!"
-    Serial.println( "4 NOV 2021");                     // and add date
+    Serial.println( "4 NOV 2021");
+    reset = tflI2C.Hard_Reset(tfAddr); 
+    triggermode = tflI2C.Set_Trig_Mode(tfAddr);// and add date
 }
 
 void loop()
-{
-    if( tflI2C.getData( tfDist, tfAddr)) // If read okay...
-    {
-        Serial.print("Dist: ");
-        Serial.println(tfDist);          // print the data...
+{   Serial.println(reset);   
+    Serial.println(triggermode);
+    if(tflI2C.Set_Trigger(tfAddr)){
+      if( tflI2C.getData(tfDist, tfAddr)) // If read okay...
+      {
+          Serial.print("Dist: ");
+          Serial.println(tfDist);          // print the data...
+      }
+      else tflI2C.printStatus();  
     }
-    else tflI2C.printStatus();           // else, print error.
-
-    delay( 50);
+    else Serial.println("Error");
+    delay(3000);
 }
