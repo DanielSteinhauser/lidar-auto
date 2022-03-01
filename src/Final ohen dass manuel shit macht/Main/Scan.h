@@ -28,12 +28,12 @@ void scanen(int grad, boolean richtung)
         ld = tfDist;
       }
       // Rechnet Grad für Rechtskurve aus und speichert es
-      if(n == 10 && richtung == true){ 
-        r = i-(n/2);
+      if(n >= 10 && richtung == true){ 
+        r = i-5;
       }
       // Rechnet Grad für Linkskurve aus und speichert es 
-      if(n == 10 && richtung == false){ 
-        l = -(i-(n/2));
+      if(n >= 10 && richtung == false){ 
+        l = -(i-5);
       }
       //displayDatenSchreiben();
       if(r > 0 ||  l < 0){

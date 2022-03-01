@@ -98,15 +98,18 @@ void loop() {
                     if (rd > ld && r >= 0){ 
                       kurvefahren(r);
                       Serial.print("R");
+                      delay(100);
                     }
                     // Wenn Linksdistanz größer wie Rechtsdistanz
                     else if(ld > rd && l <= 0){
                       kurvefahren(l);
                       Serial.print("L");
+                      delay(100);
                     }
                     // Wenn beide gleich groß sind
                     else if(r >= 0){
                       kurvefahren(r);
+                      delay(100);
                       Serial.print("R,R");
                     } 
                 }
