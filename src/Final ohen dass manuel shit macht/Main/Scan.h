@@ -8,24 +8,29 @@ void scanen(int grad, boolean richtung)
 { int n = 0;
   for(int i = 0; i <= grad; ++i){
       distanzMessen();
+      // Zählt index n eins hoch
+      ++n;
       if(tfDist <= 30 && tfDist > 0){
         kurz = true;
         // Resettet n auf null , da distanz zu kurz
         n = 0;
+        if(richtung == true){ 
+          rd = 0;
+        }
+        else{ 
+          ld = 0;
+        }
       }
       stepperBewegen(richtung);
-      
-      // Zählt index n eins hoch
-      ++n;
       Serial.print("Stepp: ");
       Serial.print(i);
       // setzt Rechtskurven Distanz
-      if(n == 5 && richtung == true){ 
-        rd = tfDist;
+      if(richtung == true){ 
+        rd += tfDist;
       }
       // setzt Linkskurven Distanz
-      if(n == 5 && richtung == false){ 
-        ld = tfDist;
+      if(richtung == false){ 
+        ld += tfDist;
       }
       // Rechnet Grad für Rechtskurve aus und speichert es
       if(n >= 10 && richtung == true){ 
