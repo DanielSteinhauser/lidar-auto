@@ -17,8 +17,9 @@ bool kurz;
 TFLI2C luna;
 int16_t tfDist;
 int16_t tfAddr = TFL_DEF_ADR;
-#include "Lidar.h"
+
 #include "Display.h"
+#include "Lidar.h"
 #include "MQTT.h"        // Reihenfolge hier wichtig weil C-Compiler = geistig behindert
 #include "Steuerung.h"
 #include "Scan.h"
@@ -28,7 +29,7 @@ int16_t tfAddr = TFL_DEF_ADR;
 
 void setup() {
   Serial.begin(115200);
-  Wire.begin(23, 22);
+  displayInit(); //begin heltec
   LidarReset = luna.Hard_Reset(tfAddr);
   triggermode = luna.Set_Trig_Mode(tfAddr);
   pinMode(34, INPUT);
@@ -41,12 +42,8 @@ void setup() {
   ledcAttachPin(26, 2);
   ledcAttachPin(27, 3);
   kurz = false;
- 
-  //Serial2.begin(115200,SERIAL_8N1,22,23);
   stepper.setSpeed(5);
-  //displayInit();
   if (mqtt_en) mqttInit();
-//  motorInit();
   clearDisplay();
   aufDisplayAnzeigen(0, 0, "Startzustand:");
   aufDisplayAnzeigen(0, 10, String(zustand));

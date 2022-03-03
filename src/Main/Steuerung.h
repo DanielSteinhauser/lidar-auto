@@ -62,11 +62,3 @@ void rueckwaertsfahren(){
   kurvefahren(180);
   Serial.println("Rückwerts");
 }
-/*
-void motorInit(){
-  pinMode(12,OUTPUT);
-  pinMode(14,OUTPUT);
-  pinMode(27,OUTPUT);
-  pinMode(26,OUTPUT);
-}
-*/
