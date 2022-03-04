@@ -3,8 +3,6 @@ TFLI2C luna;
 int16_t tfDist;
 int16_t tfAddr = TFL_DEF_ADR;
 bool distanzZuKurz = false;
-bool LidarReset = luna.Hard_Reset(tfAddr);
-bool triggermode = luna.Set_Trig_Mode(tfAddr);
 
 void distanzMessen(){
   if(luna.Set_Trigger(tfAddr)){

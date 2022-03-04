@@ -12,7 +12,7 @@ void scanFuerKurve(int grad, boolean richtung){
       ++anzahlGuterGrad;
       if(tfDist <= 30 && tfDist > 0){
         distanzZuKurz = true;
-        // Resettet n auf null , da distanz zu kurz
+        // Resettet anzahlGuterGrad auf null , da distanz zu kurz
         anzahlGuterGrad = 0;
       }
       displayDatenSchreiben();
@@ -35,7 +35,7 @@ void scanFuerKurve(int grad, boolean richtung){
       if(anzahlGuterGrad >= 10 && richtung == false){ 
         linkskurveGrad = -(i-5);
       }
-      //displayDatenSchreiben();
+      //Setzt distanzZuKurz auf false wenn eine Kurvenoption gefunden wurde
       if(rechtskurveGrad > 0 ||  linkskurveGrad < 0){
         distanzZuKurz = false;
       }
@@ -61,13 +61,11 @@ void scanWennKurz(int grad){
 // Dauerscan das nur das Auto anhalten soll
 void dauerScan(){ 
   distanzMessen();
-  Serial.print("Input: ");
-  Serial.println(digitalRead(34));
   if(tfDist <= 30 && tfDist > 0){
     anhalten();
     distanzZuKurz = true;
   }
-  Serial.print("Kurz: ");
+  Serial.print("Distanz zu kurz: ");
   Serial.println(distanzZuKurz);
   return;
 }
