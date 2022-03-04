@@ -12,8 +12,8 @@ void callback(char* topic, byte* message, unsigned int length) {
     
     Serial.println();
     
-    if (String(topic) == "gswt/herbert")    // Daten auswerten
-    {   if(messageTemp == "0"){
+    if (String(topic) == "gswt/herbert")        // Daten auswerten
+    {   if(messageTemp == "0"){             //Steuerung Zustände
             Serial.print("MQTT-Befehl: ");
             Serial.println(messageTemp);
             zustand = 0;
@@ -33,17 +33,26 @@ void callback(char* topic, byte* message, unsigned int length) {
             Serial.print("MQTT-Befehl: ");
             Serial.println(messageTemp);
             zustand = 4;
-        }else if(messageTemp == "5"){
+        }else if(messageTemp == "5"){        //Steuerung manuelles Fahren
             Serial.print("MQTT-Befehl: ");
             Serial.println(messageTemp);
-            zustand = 5;
+            manuellBefehl = 5;
         }else if(messageTemp == "6"){
             Serial.print("MQTT-Befehl: ");
             Serial.println(messageTemp);
-            zustand = 6;
-        } else {
+            manuellBefehl = 6;
+        }else if(messageTemp == "7"){
+            Serial.print("MQTT-Befehl: ");
+            Serial.println(messageTemp);
+            manuellBefehl = 7;
+        }else if(messageTemp == "8"){
+            Serial.print("MQTT-Befehl: ");
+            Serial.println(messageTemp);
+            manuellBefehl = 8;
+        }else{
             Serial.println("MQTT Error: ändere vorsichtshalber Modus zu Ruhe");
             zustand = 0;
+            manuellBefehl = 0;
         }
     }
 }
