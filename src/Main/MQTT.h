@@ -1,15 +1,3 @@
-const char* ssid = "BMW1000";
-const char* password = "WoUtBa14";
-
-const char* server = "test.mosquitto.org";
-
-const char* topicPublish = "gswt/herbert/";   
-const char* topicSubscribe = "gswt/#";    
-
-WiFiClient wifiClient;
-PubSubClient client(wifiClient);
-
-
 //Verarbeitung empfangene Daten
 void callback(char* topic, byte* message, unsigned int length) {
     
@@ -60,7 +48,6 @@ void callback(char* topic, byte* message, unsigned int length) {
     }
 }
 
-
 void mqttInit(){
       WiFi.begin(ssid, password);
       
@@ -102,7 +89,6 @@ void mqttInit(){
       
       delay(3000);
 }
-
 
 void reconnect() {
   // Loop until we're reconnected

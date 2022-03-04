@@ -1,33 +1,16 @@
-//globale Variablen
-bool mqtt_en = true; // MQTT Hauptschalter
-bool wlan_verbunden = false; // WLAN Zustand (nicht manuell ändern)
-int zustand = 0; //Startzustand
-int serialBefehl;
-
-// Header
-#include <Stepper.h>
-#include <WiFi.h>
-#include <PubSubClient.h>
-#include <heltec.h>
-#include <Arduino.h>  
-#include <Wire.h>
-#include <TFLI2C.h>
-#include "Lidar.h"
-#include "Display.h"
-#include "MQTT.h"// Reihenfolge hier wichtig weil C-Compiler = geistig behindert
-#include "Steuerung.h"
-#include "Scan.h"
-
-
+#include "Includes.h"
 
 void setup() {
   Serial.begin(115200);
-  displayInit(); //begin heltec klasse
-  
-  LidarReset = luna.Hard_Reset(tfAddr);
-  triggermode = luna.Set_Trig_Mode(tfAddr);
-  
-  pinMode(34, INPUT);
+  displayInit(); //begin heltec   
+  Serial.println("LIDAR reset: " + String(luna.Hard_Reset(tfAddr)));
+  if (mqtt_en) mqttInit();
+  clearDisplay();
+  aufDisplayAnzeigen(0, 0, "Startzustand:");
+  aufDisplayAnzeigen(0, 10, String(zustand));  
+  Serial.print("Triggermode: ");
+  Serial.println(luna.Set_Trig_Mode(tfAddr));
+  stepper.setSpeed(5);
   
   ledcSetup(0, 128, 8);
   ledcSetup(1, 128, 8);
@@ -37,23 +20,11 @@ void setup() {
   ledcAttachPin(14, 1);
   ledcAttachPin(26, 2);
   ledcAttachPin(27, 3);
-  
-  distanzZuKurz = false;
 
-  stepper.setSpeed(5);
-  displayInit();
-  if (mqtt_en) mqttInit();
-  clearDisplay();
-  aufDisplayAnzeigen(0, 0, "Startzustand:");
-  aufDisplayAnzeigen(0, 10, String(zustand));
   delay(1000);
 }
 
-
-
 void loop() {
-  // Serial.print("Triggermode: ");
-  // Serial.println(triggermode);
   mqttAbrufen();
 
   switch (zustand){
@@ -70,19 +41,17 @@ void loop() {
               }
               
               break;
-                       
-     case 1:  // autonommodus
+              
+     case 1:  // autonomes fahren
               clearDisplay();
               aufDisplayAnzeigen(0, 0, "Autonomes Fahren");
               horizontaleLinie(11);
+              
               dauerScan();
-              aufDisplayAnzeigen(0, 12, "Distanz:");
-              aufDisplayAnzeigen(38, 12, String(tfDist));
               if(distanzZuKurz == false){
                 geradeausfahren();
-              }
+              }           
               if(distanzZuKurz){
-                aufDisplayAnzeigen(0, 23, "Hindernis entdeckt!");  // test
                 scanWennKurz(45);
                 // Wenn immer noch Kurz 
                 if(distanzZuKurz){
@@ -115,9 +84,8 @@ void loop() {
                 rechtskurveGrad = 0;
                 linkskurveGrad = 0;  
               }
-              clearDisplay();
-              break;     
-
+              break;       
+                     
      case 2:  //manuell WIP
             clearDisplay();
             aufDisplayAnzeigen(0,0,"Manuelle Steuerung");
@@ -125,9 +93,9 @@ void loop() {
             aufDisplayAnzeigen(0,12,"warte auf MQTT-Befehle.");
 
             //hier manuelle variablen überprüfen
-            break;     
-
-     case 3:  //Motortest (wird nur einmal ausgeführt, danach rückkehr zu zustand 0 (Ruhemodus))
+            break;  
+            
+      case 3:  //Motortest (wird nur einmal ausgeführt, danach rückkehr zu zustand 0 (Ruhemodus))
             clearDisplay();
             aufDisplayAnzeigen(0,0,"Motortest");
             horizontaleLinie(11);
@@ -188,7 +156,7 @@ void loop() {
             clearDisplay();
             aufDisplayAnzeigen(0,0,"Motortest");
             horizontaleLinie(11);
-            aufDisplayAnzeigen(0,20,"Test beendet");
+            aufDisplayAnzeigen(0,20,"Test beendet, stop");
             
             anhalten();
               delay(1000);
@@ -212,5 +180,5 @@ void loop() {
             //hier manuelle variablen überprüfen
             break;     
 
-  }
+  }   
 }
