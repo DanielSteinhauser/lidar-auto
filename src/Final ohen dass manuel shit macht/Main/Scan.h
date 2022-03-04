@@ -9,19 +9,13 @@ void scanFuerKurve(int grad, boolean richtung){
   int anzahlGuterGrad = 0;
   for(int i = 0; i <= grad; ++i){
       distanzMessen();
-      // Zählt index n eins hoch
       ++anzahlGuterGrad;
       if(tfDist <= 30 && tfDist > 0){
         distanzZuKurz = true;
         // Resettet n auf null , da distanz zu kurz
         anzahlGuterGrad = 0;
-        if(richtung == true){ 
-          rechtskurvenDistanz = 0;
-        }
-        else{ 
-          linkskurvenDistanz = 0;
-        }
       }
+      displayDatenSchreiben();
       stepperBewegen(richtung);
       Serial.print("Stepp: ");
       Serial.print(i);

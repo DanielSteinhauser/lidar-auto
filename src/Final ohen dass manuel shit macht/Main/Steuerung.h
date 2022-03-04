@@ -1,13 +1,13 @@
 //Steuert Schrittmotor, Motoren
-int geschwindigkeit = 130;
-int aus = 0;
-
 #define IN1 19
 #define IN2 18
 #define IN3 5
 #define IN4 17
 
-Stepper stepper (4096,IN1, IN3, IN2, IN4);
+int geschwindigkeit = 130;
+int aus = 0;
+
+Stepper stepper(4096,IN1, IN3, IN2, IN4);
 
 void stepperBewegen(boolean uhrzeigersinn){
   if(uhrzeigersinn == true){

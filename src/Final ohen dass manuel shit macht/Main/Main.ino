@@ -13,18 +13,21 @@ int zustand = 0; //Startzustand
 #include <TFLI2C.h>
 #include "Lidar.h"
 #include "Display.h"
-#include "MQTT.h"// Reihenfolge hier wichtig weil C-Compiler = geistig behindert
+#include "MQTT.h"
 #include "Steuerung.h"
 #include "Scan.h"
 
 void setup() {
   Serial.begin(115200);
-  displayInit(); //begin heltec
-  
-  LidarReset = luna.Hard_Reset(tfAddr);
-  triggermode = luna.Set_Trig_Mode(tfAddr);
-  
+  displayInit(); //begin heltec 
   pinMode(34, INPUT);
+  if (mqtt_en) mqttInit();
+  clearDisplay();
+  aufDisplayAnzeigen(0, 0, "Startzustand:");
+  aufDisplayAnzeigen(0, 10, String(zustand));  
+  Serial.print("Triggermode: ");
+  Serial.println(triggermode);
+  stepper.setSpeed(5);
   
   ledcSetup(0, 128, 8);
   ledcSetup(1, 128, 8);
@@ -34,21 +37,11 @@ void setup() {
   ledcAttachPin(14, 1);
   ledcAttachPin(26, 2);
   ledcAttachPin(27, 3);
-  
-  distanzZuKurz = false;
 
-  stepper.setSpeed(5);
-  displayInit();
-  if (mqtt_en) mqttInit();
-  clearDisplay();
-  aufDisplayAnzeigen(0, 0, "Startzustand:");
-  aufDisplayAnzeigen(0, 10, String(zustand));
   delay(1000);
 }
 
 void loop() {
-  Serial.print("Triggermode: ");
-  Serial.println(triggermode);
   mqttAbrufen();
 
   switch (zustand){
