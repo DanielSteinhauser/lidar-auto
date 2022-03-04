@@ -86,7 +86,7 @@ void loop() {
               }
               break;       
                      
-     case 2:  //manuell WIP
+     case 2:  //manuelle steuerung
             clearDisplay();
             aufDisplayAnzeigen(0,0,"Manuelle Steuerung");
             horizontaleLinie(11);
