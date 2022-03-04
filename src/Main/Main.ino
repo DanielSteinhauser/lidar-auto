@@ -34,7 +34,7 @@ void loop() {
               horizontaleLinie(11);
               anhalten();
               
-              if (WiFi.status() != WL_CONNECTED){
+              if (!wlan_verbunden){
                   aufDisplayAnzeigen(0,12,"kein Internet !");
               }else{
                   aufDisplayAnzeigen(0,12,"warte auf MQTT-Befehle.");
@@ -90,9 +90,48 @@ void loop() {
             clearDisplay();
             aufDisplayAnzeigen(0,0,"Manuelle Steuerung");
             horizontaleLinie(11);
-            aufDisplayAnzeigen(0,12,"warte auf MQTT-Befehle.");
+            
+            switch(manuellBefehl){
+                case 5: // vorwärts
+                      aufDisplayAnzeigen(0,12,"geradeaus für 1s");
+                      
+                      geradeausfahren();
+                      delay(1000);
+                      anhalten();
+                      manuellBefehl = 0;
+                      break;
+                      
+                case 6: // umdrehen
+                      aufDisplayAnzeigen(0,12,"umdrehen");
+                      
+                      umdrehen();
+                      delay(500);
+                      manuellBefehl = 0;
+                      break;
+                      
+                case 7: // 90° Linkskurve
+                      aufDisplayAnzeigen(0,12,"90° Linkskurve");
+                      
+                      kurvefahren(-90);
+                      delay(500);
+                      manuellBefehl = 0;
+                      break;
+                      
+                case 8: // 90° Rechtskurve
+                      aufDisplayAnzeigen(0,12,"90° Rechtskurve");
+                      
+                      kurvefahren(90);
+                      delay(500);
+                      manuellBefehl = 0;
+                      break;
+                      
+                default:
+                      aufDisplayAnzeigen(0,12,"warte auf MQTT-Befehle.");
+                      
+                      anhalten();
+                      delay(500);
+            }
 
-            //hier manuelle variablen überprüfen
             break;  
             
       case 3:  //Motortest (wird nur einmal ausgeführt, danach rückkehr zu zustand 0 (Ruhemodus))

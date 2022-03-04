@@ -82,6 +82,7 @@ void mqttInit(){
                 client.publish(topicPublish, "Herbert ist online");
             }
             wlan_verbunden = true;
+            zustand = 0;
             break;
         } 
         else {
