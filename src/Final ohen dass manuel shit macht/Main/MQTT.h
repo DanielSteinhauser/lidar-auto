@@ -1,29 +1,48 @@
 //Verarbeitung empfangene Daten
 void callback(char* topic, byte* message, unsigned int length) {
-    Serial.print("Message arrived on topic: ");
+    
+    Serial.print("Message arrived on topic: ");   //roher Serial Print
     Serial.print(topic);
     Serial.print(". Message: ");
     String messageTemp = "";
-    
-    for (int i = 0; i < length; i++) {
+    for (int i = 0; i < length; i++) {    // Daten aus buffer in messageTemp schreiben
         Serial.print((char)message[i]);
         messageTemp += (char)message[i];
     }
+    
     Serial.println();
     
-    if (String(topic) == "gswt/herbert") 
-    {
-        if (messageTemp == "0"){
-            Serial.println("Ändere Modus zu Ruhe.");
+    if (String(topic) == "gswt/herbert")    // Daten auswerten
+    {   if(messageTemp == "0"){
+            Serial.print("MQTT-Befehl: ");
+            Serial.println(messageTemp);
             zustand = 0;
-        } else if (messageTemp == "1"){
-            Serial.println("Ändere Modus zu autonomem fahren.");
+        }else if(messageTemp == "1"){
+            Serial.print("MQTT-Befehl: ");
+            Serial.println(messageTemp);
             zustand = 1;
-        } else if (messageTemp == "2") {
-            Serial.println("Ändere Modus zu manuell.");
+        }else if(messageTemp == "2"){
+            Serial.print("MQTT-Befehl: ");
+            Serial.println(messageTemp);
             zustand = 2;
+        }else if(messageTemp == "3"){
+            Serial.print("MQTT-Befehl: ");
+            Serial.println(messageTemp);
+            zustand = 3;
+        }else if(messageTemp == "4"){
+            Serial.print("MQTT-Befehl: ");
+            Serial.println(messageTemp);
+            zustand = 4;
+        }else if(messageTemp == "5"){
+            Serial.print("MQTT-Befehl: ");
+            Serial.println(messageTemp);
+            zustand = 5;
+        }else if(messageTemp == "6"){
+            Serial.print("MQTT-Befehl: ");
+            Serial.println(messageTemp);
+            zustand = 6;
         } else {
-            Serial.println("Error: ändere vorsichtshalber Modus zu Ruhe");
+            Serial.println("MQTT Error: ändere vorsichtshalber Modus zu Ruhe");
             zustand = 0;
         }
     }
@@ -65,8 +84,7 @@ void mqttInit(){
       if (WiFi.status() != WL_CONNECTED){
         Serial.println("WLAN-Verbindung fehlgeschlagen.");
         aufDisplayAnzeigen(0, 10, "WLAN FEHLER.");
-        aufDisplayAnzeigen(0, 20, "wechsle Startzustand zu 1.");
-        zustand = 1;
+        aufDisplayAnzeigen(0, 20, "wechsle zu Startzustand");
       }
       
       delay(3000);

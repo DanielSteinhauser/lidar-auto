@@ -15,7 +15,7 @@ void geradeausfahren(){
  ledcWrite(1, aus);
  ledcWrite(2, aus);
  ledcWrite(3, geschwindigkeit);
- 
+ Serial.println("geradeaus");
 }
 
 void anhalten(){
@@ -49,6 +49,6 @@ void kurvefahren(int grad){
 }
 }
 void umdrehen(){
-  kurvefahren(180);
   Serial.println("Umdrehen");
+  kurvefahren(180);
 }

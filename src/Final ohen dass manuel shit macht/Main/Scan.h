@@ -9,7 +9,14 @@ void scanFuerKurve(int grad, boolean richtung){
         // Resettet anzahlGuterGrad auf null , da distanz zu kurz
         anzahlGuterGrad = 0;
       }
-      displayDatenSchreiben();
+      
+      clearDisplay();
+      aufDisplayAnzeigen(0, 0, "Autonomes Fahren");
+      horizontaleLinie(11);
+      aufDisplayAnzeigen(0, 12, "Distanz:");
+      aufDisplayAnzeigen(38, 12, String(tfDist));
+      aufDisplayAnzeigen(0, 23, "Hindernis entdeckt!");
+      
       stepperBewegen(richtung);
       Serial.print("Stepp: ");
       Serial.print(i);
@@ -61,5 +68,7 @@ void dauerScan(){
   }
   Serial.print("Distanz zu kurz: ");
   Serial.println(distanzZuKurz);
+  aufDisplayAnzeigen(0, 12, "Distanz:");
+  aufDisplayAnzeigen(38, 12, String(tfDist));
   return;
 }

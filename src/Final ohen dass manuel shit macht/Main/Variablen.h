@@ -1,9 +1,7 @@
 bool mqtt_en = true; // MQTT Hauptschalter
 bool wlan_verbunden = false; // WLAN Zustand (nicht manuell ändern)
 int zustand = 0; //Startzustand
-// zustand 0: warten auf befehle, ruhe
-// zustand 1: autonomes fahren
-// zustand 2: manuelle Steuerung
+int serialBefehl;
 
 //Lidar
 int16_t tfDist;

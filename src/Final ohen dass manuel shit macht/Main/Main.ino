@@ -28,14 +28,25 @@ void loop() {
   mqttAbrufen();
 
   switch (zustand){
-     case 0: // ruhezustand
+     case 0: // ruhemodus
               clearDisplay();
-              aufDisplayAnzeigen(0,30,"aktueller Zustand: 0");
+              aufDisplayAnzeigen(0,0,"Ruhemodus");
+              horizontaleLinie(11);
               anhalten();
-              break;         
+              
+              if (WiFi.status() != WL_CONNECTED){
+                  aufDisplayAnzeigen(0,12,"kein Internet !");
+              }else{
+                  aufDisplayAnzeigen(0,12,"warte auf MQTT-Befehle.");
+              }
+              
+              break;
+              
      case 1:  // autonomes fahren
               clearDisplay();
-              aufDisplayAnzeigen(0,30,"aktueller Zustand: 1");
+              aufDisplayAnzeigen(0, 0, "Autonomes Fahren");
+              horizontaleLinie(11);
+              
               dauerScan();
               if(distanzZuKurz == false){
                 geradeausfahren();
@@ -73,44 +84,101 @@ void loop() {
                 rechtskurveGrad = 0;
                 linkskurveGrad = 0;  
               }
-              clearDisplay();
-              break;              
-     case 2:  
-//            clearDisplay();
-//            aufDisplayAnzeigen(0,30,"aktueller Zustand: 2");
-//
-//            
-//            geradeausfahren();
-//            aufDisplayAnzeigen(0,50,"geradeaus");
-//              delay(2000);
-//            anhalten();
-//              delay(1000);
-//
-//            clearDisplay();
-//            aufDisplayAnzeigen(0,50,"rückwärts");
-//            
-//            rueckwaertsfahren();
-//              delay(1000);
-//            
-//            clearDisplay();
-//            aufDisplayAnzeigen(0,50,"linkskurve");
-//            
-//            kurvefahren(-40);
-//              delay(2000);
-//            anhalten();
-//              delay(1000);
-//              
-//            clearDisplay();
-//            aufDisplayAnzeigen(0,50,"rechtskurve");
-//            
-//            kurvefahren(40);
-//              delay(2000);
-//            anhalten();
-//              delay(1000);
-//            break; //manuelles fahren
-              ledcWrite(0, geschwindigkeit);
-              ledcWrite(1, aus);
-              ledcWrite(2, aus);
-              ledcWrite(3, aus);
-  }
+              break;       
+                     
+     case 2:  //manuell WIP
+            clearDisplay();
+            aufDisplayAnzeigen(0,0,"Manuelle Steuerung");
+            horizontaleLinie(11);
+            aufDisplayAnzeigen(0,12,"warte auf MQTT-Befehle.");
+
+            //hier manuelle variablen überprüfen
+            break;  
+            
+      case 3:  //Motortest (wird nur einmal ausgeführt, danach rückkehr zu zustand 0 (Ruhemodus))
+            clearDisplay();
+            aufDisplayAnzeigen(0,0,"Motortest");
+            horizontaleLinie(11);
+            aufDisplayAnzeigen(0,20,"geradeaus");
+            
+            geradeausfahren();
+              delay(2000);
+              
+            clearDisplay();
+            aufDisplayAnzeigen(0,0,"Motortest");
+            horizontaleLinie(11);
+            aufDisplayAnzeigen(0,20,"stop");
+            
+            anhalten();
+              delay(1000);
+              
+            clearDisplay();
+            aufDisplayAnzeigen(0,0,"Motortest");
+            horizontaleLinie(11);
+            aufDisplayAnzeigen(0,20,"umdrehen");
+            
+            umdrehen();
+              delay(1000);
+            
+            clearDisplay();
+            aufDisplayAnzeigen(0,0,"Motortest");
+            horizontaleLinie(11);
+            aufDisplayAnzeigen(0,20,"stop");
+            
+            anhalten();
+              delay(1000);
+              
+            
+            clearDisplay();
+            aufDisplayAnzeigen(0,0,"Motortest");
+            horizontaleLinie(11);
+            aufDisplayAnzeigen(0,20,"Kurve -40");
+            
+            kurvefahren(-40);
+              delay(2000);
+              
+            clearDisplay();
+            aufDisplayAnzeigen(0,0,"Motortest");
+            horizontaleLinie(11);
+            aufDisplayAnzeigen(0,20,"stop");
+            
+            anhalten();
+              delay(1000);
+
+            clearDisplay();
+            aufDisplayAnzeigen(0,0,"Motortest");
+            horizontaleLinie(11);
+            aufDisplayAnzeigen(0,20,"Kurve 40");
+            
+            kurvefahren(40);
+              delay(2000);
+
+            clearDisplay();
+            aufDisplayAnzeigen(0,0,"Motortest");
+            horizontaleLinie(11);
+            aufDisplayAnzeigen(0,20,"Test beendet, stop");
+            
+            anhalten();
+              delay(1000);
+              
+            zustand = 0;
+            break; 
+            
+      case 4:  //Stepper Kalibrierung
+            clearDisplay();
+            aufDisplayAnzeigen(0,0,"Stepper Kalibrierung");
+            horizontaleLinie(11);
+            aufDisplayAnzeigen(0,12,"warte auf Serial - Befehle.");
+            
+           if (Serial.available() > 1) {        //mind. 2 Byte im Empfangspuffer
+              serialBefehl = Serial.parseInt();//Zahl lesen und zurueckgeben und Empfangspuffer so weit loeschen   
+              stepper.step(serialBefehl);
+              
+              Serial.print("Ausgeführte Steps: ");
+              Serial.println(serialBefehl);    //Ausgabe der Integerzahl
+           }
+            //hier manuelle variablen überprüfen
+            break;     
+
+  }   
 }
