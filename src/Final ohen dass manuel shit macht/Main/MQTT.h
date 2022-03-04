@@ -9,9 +9,6 @@ const char* topicSubscribe = "gswt/#";
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
 
-
-
-
 //Verarbeitung empfangene Daten
 void callback(char* topic, byte* message, unsigned int length) {
     Serial.print("Message arrived on topic: ");
@@ -42,9 +39,6 @@ void callback(char* topic, byte* message, unsigned int length) {
         }
     }
 }
-
-
-
 
 void mqttInit(){
       WiFi.begin(ssid, password);
@@ -88,9 +82,6 @@ void mqttInit(){
       
       delay(3000);
 }
-
-
-
 
 void reconnect() {
   // Loop until we're reconnected

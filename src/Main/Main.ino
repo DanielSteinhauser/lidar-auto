@@ -17,7 +17,6 @@ bool kurz;
 TFLI2C luna;
 int16_t tfDist;
 int16_t tfAddr = TFL_DEF_ADR;
-
 #include "Display.h"
 #include "Lidar.h"
 #include "MQTT.h"        // Reihenfolge hier wichtig weil C-Compiler = geistig behindert

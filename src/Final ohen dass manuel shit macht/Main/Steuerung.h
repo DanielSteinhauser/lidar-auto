@@ -1,5 +1,5 @@
 //Steuert Schrittmotor, Motoren
-int sped = 130;
+int geschwindigkeit = 130;
 int aus = 0;
 
 #define IN1 19
@@ -21,10 +21,10 @@ void stepperBewegen(boolean uhrzeigersinn){
 }
 
 void geradeausfahren(){
- ledcWrite(0, sped);
+ ledcWrite(0, geschwindigkeit);
  ledcWrite(1, aus);
  ledcWrite(2, aus);
- ledcWrite(3, sped);
+ ledcWrite(3, geschwindigkeit);
  
 }
 
@@ -38,19 +38,19 @@ void anhalten(){
 
 
 
-void kurvefahren(int n){
-  Serial.print("kurve mit n:");
-  Serial.println(n);
-  double time = abs(n) * 8.33;
-  if(n > 0){
+void kurvefahren(int grad){
+  Serial.print("kurve mit Grad = ");
+  Serial.println(grad);
+  double time = abs(grad) * 8.33;
+  if(grad > 0){
    ledcWrite(0, aus);
    ledcWrite(1, aus);
    ledcWrite(2, aus);
-   ledcWrite(3, sped);
+   ledcWrite(3, geschwindigkeit);
   delay(time);
   anhalten();
   }else{
-   ledcWrite(0, sped);
+   ledcWrite(0, geschwindigkeit);
    ledcWrite(1, aus);
    ledcWrite(2, aus);
    ledcWrite(3, aus);
@@ -58,15 +58,7 @@ void kurvefahren(int n){
   anhalten();
 }
 }
-void rueckwaertsfahren(){
+void umdrehen(){
   kurvefahren(180);
-  Serial.println("Rückwerts");
+  Serial.println("Umdrehen");
 }
-/*
-void motorInit(){
-  pinMode(12,OUTPUT);
-  pinMode(14,OUTPUT);
-  pinMode(27,OUTPUT);
-  pinMode(26,OUTPUT);
-}
-*/
