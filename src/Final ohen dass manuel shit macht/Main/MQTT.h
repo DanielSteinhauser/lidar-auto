@@ -1,14 +1,3 @@
-const char* ssid = "BMW1000";
-const char* password = "WoUtBa14";
-
-const char* server = "test.mosquitto.org";
-
-const char* topicPublish = "gswt/herbert/";   
-const char* topicSubscribe = "gswt/#";    
-
-WiFiClient wifiClient;
-PubSubClient client(wifiClient);
-
 //Verarbeitung empfangene Daten
 void callback(char* topic, byte* message, unsigned int length) {
     Serial.print("Message arrived on topic: ");

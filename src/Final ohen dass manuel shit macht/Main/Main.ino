@@ -1,21 +1,4 @@
-bool mqtt_en = true; // MQTT Hauptschalter
-bool wlan_verbunden = false; // WLAN Zustand (nicht manuell ändern)
-int zustand = 0; //Startzustand
-// zustand 0: warten auf befehle, ruhe
-// zustand 1: autonomes fahren
-// zustand 2: manuelle Steuerung
-#include <Stepper.h>
-#include <WiFi.h>
-#include <PubSubClient.h>
-#include <heltec.h>
-#include <Arduino.h>  
-#include <Wire.h>
-#include <TFLI2C.h>
-#include "Lidar.h"
-#include "Display.h"
-#include "MQTT.h"
-#include "Steuerung.h"
-#include "Scan.h"
+#include "Includes.h"
 
 void setup() {
   Serial.begin(115200);

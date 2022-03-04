@@ -1,9 +1,3 @@
-int rechtskurvenDistanz = 0;
-int linkskurvenDistanz = 0;
-
-int rechtskurveGrad = 0;
-int linkskurveGrad = 0;
-
 // Scan Funktion die Scannt und werte für eine mögliche Kurve gibt
 void scanFuerKurve(int grad, boolean richtung){ 
   int anzahlGuterGrad = 0;

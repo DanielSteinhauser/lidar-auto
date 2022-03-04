@@ -1,0 +1,14 @@
+#include <Stepper.h>
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include <heltec.h>
+#include <Arduino.h>  
+#include <Wire.h>
+#include <TFLI2C.h>
+#include "Variablen.h"
+#include "Objekte.h"
+#include "Lidar.h"
+#include "Display.h"
+#include "MQTT.h"
+#include "Steuerung.h"
+#include "Scan.h"
