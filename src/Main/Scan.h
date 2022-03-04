@@ -22,11 +22,11 @@ void scanFuerKurve(int grad, boolean richtung){
       Serial.print(i);
       // setzt Rechtskurven Distanz
       if(anzahlGuterGrad > 0 && richtung == true){ 
-        rechtskurvenDistanz += tfDist;
+        rechtskurveDistanz += tfDist;
       }
       // setzt Linkskurven Distanz
       if(anzahlGuterGrad > 0 && richtung == false){ 
-        linkskurvenDistanz += tfDist;
+        linkskurveDistanz += tfDist;
       }
       // Rechnet Grad für Rechtskurve aus und speichert es
       if(anzahlGuterGrad >= 10 && richtung == true){ 

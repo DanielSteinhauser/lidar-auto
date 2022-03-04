@@ -1,8 +1,7 @@
 bool mqtt_en = true; // MQTT Hauptschalter
 bool wlan_verbunden = false; // WLAN Zustand (nicht manuell ändern)
 int zustand = 0; //Startzustand
-int serialBefehl; //Befehlpuffer für Stepperkalibrierung
-int manuellBefehl = 0; //Befehlpuffer für 
+int serialBefehl;
 
 //Lidar
 int16_t tfDist;
@@ -23,8 +22,8 @@ int geschwindigkeit = 130;
 int aus = 0;
 
 //Scan
-int rechtskurvenDistanz = 0;
-int linkskurvenDistanz = 0;
+int rechtskurveDistanz = 0;
+int linkskurveDistanz = 0;
 
 int rechtskurveGrad = 0;
 int linkskurveGrad = 0;

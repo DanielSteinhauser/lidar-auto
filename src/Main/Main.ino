@@ -60,13 +60,13 @@ void loop() {
                 //Wenn Kurvemöglichkeit gefunden
                 else if(distanzZuKurz == false){
                     // Wenn Rechtsdistanz größer wie Linksdistanz
-                    if (rechtskurvenDistanz > linkskurvenDistanz && rechtskurveGrad >= 0){ 
+                    if (rechtskurveDistanz > linkskurveDistanz && rechtskurveGrad >= 0){ 
                       kurvefahren(rechtskurveGrad);
                       Serial.print("R");
                       delay(100);
                     }
                     // Wenn Linksdistanz größer wie Rechtsdistanz
-                    else if(linkskurvenDistanz > rechtskurvenDistanz && linkskurveGrad <= 0){
+                    else if(linkskurveDistanz > rechtskurveDistanz && linkskurveGrad <= 0){
                       kurvefahren(linkskurveGrad);
                       Serial.print("L");
                       delay(100);
@@ -79,8 +79,8 @@ void loop() {
                     } 
                 }
                 // Nach der Kurve weiter fahren
-                rechtskurvenDistanz = 0;
-                linkskurvenDistanz = 0;
+                rechtskurveDistanz = 0;
+                linkskurveDistanz = 0;
                 rechtskurveGrad = 0;
                 linkskurveGrad = 0;  
               }
@@ -90,48 +90,9 @@ void loop() {
             clearDisplay();
             aufDisplayAnzeigen(0,0,"Manuelle Steuerung");
             horizontaleLinie(11);
-            
-            switch(manuellBefehl){
-                case 5: // vorwärts
-                      aufDisplayAnzeigen(0,12,"geradeaus für 1s");
-                      
-                      geradeausfahren();
-                      delay(1000);
-                      anhalten();
-                      manuellBefehl = 0;
-                      break;
-                      
-                case 6: // umdrehen
-                      aufDisplayAnzeigen(0,12,"umdrehen");
-                      
-                      umdrehen();
-                      delay(500);
-                      manuellBefehl = 0;
-                      break;
-                      
-                case 7: // 90° Linkskurve
-                      aufDisplayAnzeigen(0,12,"90° Linkskurve");
-                      
-                      kurvefahren(-90);
-                      delay(500);
-                      manuellBefehl = 0;
-                      break;
-                      
-                case 8: // 90° Rechtskurve
-                      aufDisplayAnzeigen(0,12,"90° Rechtskurve");
-                      
-                      kurvefahren(90);
-                      delay(500);
-                      manuellBefehl = 0;
-                      break;
-                      
-                default:
-                      aufDisplayAnzeigen(0,12,"warte auf MQTT-Befehle.");
-                      
-                      anhalten();
-                      delay(500);
-            }
+            aufDisplayAnzeigen(0,12,"warte auf MQTT-Befehle.");
 
+            //hier manuelle variablen überprüfen
             break;  
             
       case 3:  //Motortest (wird nur einmal ausgeführt, danach rückkehr zu zustand 0 (Ruhemodus))
