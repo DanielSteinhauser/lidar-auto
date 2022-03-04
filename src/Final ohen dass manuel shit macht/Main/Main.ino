@@ -21,7 +21,6 @@ void setup() {
   Serial.begin(115200);
   displayInit(); //begin heltec   
   Serial.println("LIDAR reset: " + String(luna.Hard_Reset(tfAddr)));
-  pinMode(34, INPUT);
   if (mqtt_en) mqttInit();
   clearDisplay();
   aufDisplayAnzeigen(0, 0, "Startzustand:");
